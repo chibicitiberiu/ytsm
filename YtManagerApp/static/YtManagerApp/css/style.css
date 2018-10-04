@@ -1,0 +1,9 @@
+/* Some material font helpers */
+
+.material-folder::before {
+    content: "\e2c7";
+}
+
+.material-person::before {
+    content: "\e7fd";
+}

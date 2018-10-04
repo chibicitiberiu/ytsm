@@ -1,0 +1,16 @@
+{% extends "YtManagerApp/main_default.html" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-sm-3">
+            {% block master %} 
+            {% endblock %}
+        </div>
+        <div class="col-sm-9">
+            {% block detail %} 
+            {% endblock %}
+        </div>
+    </div>
+
+{% endblock %}

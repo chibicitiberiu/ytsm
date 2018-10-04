@@ -1,0 +1,30 @@
+{% extends "YtManagerApp/main_master_detail.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'YtManagerApp/import/jstree/themes/default/style.min.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'YtManagerApp/import/jstree/jstree.js' %}"></script>
+<script src="{% static 'YtManagerApp/js/subtree.js' %}"></script>
+{% endblock %}
+
+{% block master %}
+
+    <div class="btn-toolbar" role="toolbar" aria-label="Subscriptions toolbar">
+        <div class="btn-group btn-group-sm mr-2" role="group">
+            <button type="button" class="btn btn-secondary">
+                <i class="material-icons" aria-hidden="true">add</i>
+            </button>
+            <button type="button" class="btn btn-secondary">
+                <i class="material-icons" aria-hidden="true">create_new_folder</i>
+            </button>
+        </div>
+    </div>
+
+    <div id="tree-wrapper">
+        <p>Loading...</p>
+    </div>
+
+{% endblock %}
