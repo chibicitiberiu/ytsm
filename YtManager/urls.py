@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('ajax/get_children', views.ajax_get_children, name='ajax_get_children'),
     path('ajax/get_folders', views.ajax_get_folders, name='ajax_get_folders'),
+    path('ajax/edit_folder', views.ajax_edit_folder, name='ajax_edit_folder'),
+    path('ajax/delete_folder/<int:fid>/', views.ajax_delete_folder, name='ajax_delete_folder'),
     path(r'', views.index, name='home')
 ]

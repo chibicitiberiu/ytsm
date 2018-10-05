@@ -2,30 +2,38 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit folder</h5>
+                <h5 id="folder_edit_dialog_title" class="modal-title">Edit folder</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <div id="folder_edit_dialog_loading" class="modal-body">
+                <div class="loading-dual-ring"></div>
+                <div id="folder_edit_dialog_error"></div>
+            </div>
+            <form id="folder_edit_dialog_form" action="{% url 'ajax_edit_folder' %}" method="post">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <input type="hidden" id="folder_edit_dialog_id" name="id" value="#">
                     <div class="form-group row">
-                        <label class="col-sm-4" for="folder_edit_dialog_name">Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="folder_edit_dialog_name" placeholder="Folder name">
+                        <label class="col-sm-3" for="folder_edit_dialog_name">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="folder_edit_dialog_name" name="name" placeholder="Folder name">
                         </div>
                     </div>
-                    <div class="form-check row">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    <div class="form-group row">
+                        <label class="col-sm-3" for="folder_edit_dialog_parent">Parent folder</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="folder_edit_dialog_parent" name="parent">
+                            </select>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="folder_edit_dialog_submit" type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
     </div>
-    </div>
+</div>

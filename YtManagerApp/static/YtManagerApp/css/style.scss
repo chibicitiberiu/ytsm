@@ -1,0 +1,38 @@
+$accent-color: #007bff;
+
+/* Some material font helpers */
+.material-folder::before {
+    content: "\e2c7";
+}
+
+.material-person::before {
+    content: "\e7fd";
+}
+
+/* Loading animation */
+.loading-dual-ring {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+}
+
+.loading-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid $accent-color;
+    border-color: $accent-color transparent $accent-color transparent;
+    animation: loading-dual-ring 1.2s linear infinite;
+}
+
+@keyframes loading-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

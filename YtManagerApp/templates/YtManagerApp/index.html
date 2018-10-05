@@ -2,23 +2,36 @@
 {% load static %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{% static 'YtManagerApp/import/jstree/themes/default/style.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'YtManagerApp/import/jstree/themes/default/style.min.css' %}" />
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'YtManagerApp/import/jstree/jstree.js' %}"></script>
-<script src="{% static 'YtManagerApp/js/subtree.js' %}"></script>
+    <script src="{% static 'YtManagerApp/import/jstree/jstree.js' %}"></script>
+    <script>
+        {% include 'YtManagerApp/js/subscription_tree.js' %}
+    </script>
+
+    {% include 'YtManagerApp/controls/folder_edit_dialog.html' %}
+
 {% endblock %}
 
 {% block master %}
 
     <div class="btn-toolbar" role="toolbar" aria-label="Subscriptions toolbar">
         <div class="btn-group btn-group-sm mr-2" role="group">
-            <button type="button" class="btn btn-secondary">
+            <button type="button" class="btn btn-secondary" >
                 <i class="material-icons" aria-hidden="true">add</i>
             </button>
-            <button type="button" class="btn btn-secondary">
+            <button id="btn_create_folder" type="button" class="btn btn-secondary">
                 <i class="material-icons" aria-hidden="true">create_new_folder</i>
+            </button>
+        </div>
+        <div class="btn-group btn-group-sm mr-2" role="group">
+            <button id="btn_edit_node" type="button" class="btn btn-secondary" >
+                <i class="material-icons" aria-hidden="true">edit</i>
+            </button>
+            <button id="btn_delete_node" type="button" class="btn btn-secondary" >
+                <i class="material-icons" aria-hidden="true">delete</i>
             </button>
         </div>
     </div>
