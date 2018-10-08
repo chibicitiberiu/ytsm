@@ -1,79 +1,226 @@
-function folderEditDialog_Show(isNew, editNode)
-{
-    let dialog = $("#folder_edit_dialog");
-    dialog.find('#folder_edit_dialog_title').text(isNew ? "New folder" : "Edit folder");
-    dialog.find("#folder_edit_dialog_loading").show();
-    dialog.find("#folder_edit_dialog_error").hide();
-    dialog.find("#folder_edit_dialog_form").hide();
-    dialog.modal();
+class Dialog {
+    constructor(modalId) {
+        this.modal = $(modalId);
+        this.title = $(modalId + "_Title");
+        this.form = $(modalId + "_Form");
+        this.error = $(modalId + "_Error");
+        this.loading = $(modalId + "_Loading");
+        this.btnSubmit = $(modalId + "_Submit");
+        this.setState('normal');
+    }
 
-    $.get("{% url 'ajax_get_folders' %}")
-        .done(function(folders)
-        {
-            // Populate list of folders
-            let selParent = dialog.find("#folder_edit_dialog_parent");
-            selParent.empty();
-            selParent.append(new Option('(None)', '#'));
+    setTitle(value) {
+        this.title.text(value);
+    }
 
-            let parentId = null;
-            if (!isNew) {
-                parentId = editNode.parent.replace('folder', '');
-            }
+    setState(state) {
+        if (state === 'loading') {
+            this.loading.show();
+            this.error.hide();
+            this.form.hide();
+        }
+        if (state === 'error') {
+            this.loading.hide();
+            this.error.show();
+            this.form.hide();
+        }
+        if (state === 'normal') {
+            this.loading.hide();
+            this.error.hide();
+            this.form.show();
+        }
+    }
 
-            for (let folder of folders)
-            {
-                let o = new Option(folder.text, folder.id);
-                if (!isNew && folder.id.toString() === parentId.toString())
-                    o.selected = true;
+    setError(text) {
+        this.error.text(text);
+    }
 
-                selParent.append(o);
-            }
+    showModal() {
+        this.modal.modal();
+    }
 
-            // Show form
-            dialog.find("#folder_edit_dialog_loading").hide();
-            dialog.find("#folder_edit_dialog_form").show();
-            dialog.find("#folder_edit_dialog_submit").text(isNew ? "Create" : "Save");
+    hideModal() {
+        this.modal.modal('hide');
+    }
+}
 
-            if (isNew)
-            {
-                dialog.find("#folder_edit_dialog_id").val('#');
-                dialog.find("#folder_edit_dialog_name").val('');
-            }
-            if (!isNew)
-            {
-                idTrimmed = editNode.id.replace('folder', '');
-                dialog.find("#folder_edit_dialog_id").val(idTrimmed);
-                dialog.find("#folder_edit_dialog_name").val(editNode.text);
-            }
+class FolderEditDialog extends Dialog {
+
+    constructor (modalId) {
+        super(modalId);
+        this.field_Id = $(modalId + "_Id");
+        this.field_Name = $(modalId + "_Name");
+        this.field_Parent = $(modalId + "_Parent");
+
+        let pThis = this;
+        this.form.submit(function(e) {
+            pThis.submit(e);
         })
-        .fail(function() {
-            let msgError = dialog.find("#folder_edit_dialog_error");
-            msgError.show();
-            msgError.text("An error occurred!");
-        });
+    }
+
+    setParentFolderOptions(folders, selectedId)
+    {
+        // Populate list of folders
+        this.field_Parent.empty();
+        this.field_Parent.append(new Option('(None)', '#'));
+
+        for (let folder of folders)
+        {
+            let o = new Option(folder.text, folder.id);
+            if (selectedId != null && folder.id.toString() === selectedId.toString())
+                o.selected = true;
+
+            this.field_Parent.append(o);
+        }
+    }
+
+    show (isNew, editNode) {
+        let pThis = this;
+        this.setTitle(isNew ? "New folder" : "Edit folder");
+        this.setState('loading');
+        this.showModal();
+
+        $.get("{% url 'ajax_get_folders' %}")
+            .done(function(folders)
+            {
+                let parentId = null;
+                if (!isNew) {
+                    parentId = editNode.parent.replace('folder', '');
+                }
+
+                pThis.setParentFolderOptions(folders, parentId);
+                pThis.setState('normal');
+                pThis.btnSubmit.text(isNew ? "Create" : "Save");
+
+                if (isNew)
+                {
+                    pThis.field_Id.val('#');
+                    pThis.field_Name.val('');
+                }
+                if (!isNew)
+                {
+                    let idTrimmed = editNode.id.replace('folder', '');
+                    pThis.field_Id.val(idTrimmed);
+                    pThis.field_Name.val(editNode.text);
+                }
+            })
+            .fail(function() {
+                pThis.setState('error');
+                pThis.setError('An error occurred!');
+            });
+    }
+
+    showNew() {
+        this.show(true, null);
+    }
+
+    showEdit(editNode) {
+        this.show(false, editNode);
+    }
+
+    submit(e) {
+        let url = this.form.attr('action');
+
+        $.post(url, this.form.serialize())
+            .done(tree_Refresh);
+
+        this.hideModal();
+        e.preventDefault();
+    }
 }
 
-function folderEditDialog_ShowNew()
-{
-    folderEditDialog_Show(true, null);
+class SubscriptionEditDialog extends Dialog {
+
+    constructor (modalId) {
+        super(modalId);
+        this.field_Id = $(modalId + "_Id");
+        this.field_Url = $(modalId + "_Url");
+        this.field_Name = $(modalId + "_Name");
+        this.field_Parent = $(modalId + "_Parent");
+
+        let pThis = this;
+        this.form.submit(function(e) {
+            pThis.submit(e);
+        })
+    }
+
+    setParentFolderOptions(folders, selectedId)
+    {
+        // Populate list of folders
+        this.field_Parent.empty();
+        this.field_Parent.append(new Option('(None)', '#'));
+
+        for (let folder of folders)
+        {
+            let o = new Option(folder.text, folder.id);
+            if (selectedId != null && folder.id.toString() === selectedId.toString())
+                o.selected = true;
+
+            this.field_Parent.append(o);
+        }
+    }
+
+    show (isNew, editNode) {
+        let pThis = this;
+        this.setTitle(isNew ? "New subscription" : "Edit subscription");
+        this.setState('loading');
+        this.showModal();
+
+        $.get("{% url 'ajax_get_folders' %}")
+            .done(function(folders)
+            {
+                let parentId = null;
+                if (!isNew) {
+                    parentId = editNode.parent.replace('folder', '');
+                }
+
+                pThis.setParentFolderOptions(folders, parentId);
+                pThis.setState('normal');
+                pThis.btnSubmit.text(isNew ? "Create" : "Save");
+
+                if (isNew)
+                {
+                    pThis.field_Id.val('#');
+                    pThis.field_Url.show();
+                    pThis.field_Url.val('');
+                    pThis.field_Name.hide();
+                    pThis.field_Name.val('');
+                }
+                if (!isNew)
+                {
+                    let idTrimmed = editNode.id.replace('sub', '');
+                    pThis.field_Id.val(idTrimmed);
+                    pThis.field_Url.hide();
+                    pThis.field_Url.val('');
+                    pThis.field_Name.show();
+                    pThis.field_Name.val(editNode.text);
+                }
+            })
+            .fail(function() {
+                pThis.setState('error');
+                pThis.setError('An error occurred!');
+            });
+    }
+
+    showNew() {
+        this.show(true, null);
+    }
+
+    showEdit(editNode) {
+        this.show(false, editNode);
+    }
+
+    submit(e) {
+        let url = this.form.attr('action');
+
+        $.post(url, this.form.serialize())
+            .done(tree_Refresh);
+
+        this.hideModal();
+        e.preventDefault();
+    }
 }
 
-function folderEditDialog_Close()
-{
-    $("#folder_edit_dialog").modal('hide');
-}
-
-function folderEditDialog_Submit(e)
-{
-    let form = $(this);
-    let url = form.attr('action');
-
-    $.post(url, form.serialize())
-        .done(tree_Refresh);
-
-    folderEditDialog_Close();
-    e.preventDefault();
-}
 
 function treeNode_Edit()
 {
@@ -82,10 +229,10 @@ function treeNode_Edit()
     {
         let node = selectedNodes[0];
         if (node.type === 'folder') {
-            folderEditDialog_Show(false, node);
+            folderEditDialog.showEdit(node);
         }
         else {
-            // TODO...
+            subscriptionEditDialog.showEdit(node);
         }
     }
 }
@@ -106,7 +253,13 @@ function treeNode_Delete()
             }
         }
         else {
-            // TODO...
+            let subId = node.id.toString().replace('sub', '');
+            if (confirm('Are you sure you want to delete subscription "' + node.text + '"?'))
+            {
+                $.post("{% url 'ajax_delete_subscription' 99999 %}".replace('99999', subId), {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }).done(tree_Refresh);
+            }
         }
     }
 }
@@ -163,12 +316,24 @@ function tree_OnSelectionChanged(e, data)
     node = data.instance.get_selected(true)[0];
 }
 
-$(document).ready(function () 
+///
+/// Globals
+///
+let folderEditDialog = null;
+let subscriptionEditDialog = null;
+
+///
+/// Initialization
+///
+$(document).ready(function ()
 {
     tree_Initialize();
-    $("#btn_create_folder").on("click", folderEditDialog_ShowNew);
+
+    folderEditDialog = new FolderEditDialog('#folderEditDialog');
+    subscriptionEditDialog = new SubscriptionEditDialog('#subscriptionEditDialog');
+
+    $("#btn_create_sub").on("click", function () { subscriptionEditDialog.showNew(); });
+    $("#btn_create_folder").on("click", function () { folderEditDialog.showNew(); });
     $("#btn_edit_node").on("click", treeNode_Edit);
     $("#btn_delete_node").on("click", treeNode_Delete);
-
-    $("#folder_edit_dialog_form").submit(folderEditDialog_Submit);
 });

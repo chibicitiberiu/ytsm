@@ -12,6 +12,7 @@
     </script>
 
     {% include 'YtManagerApp/controls/folder_edit_dialog.html' %}
+    {% include 'YtManagerApp/controls/subscription_edit_dialog.html' %}
 
 {% endblock %}
 
@@ -19,7 +20,7 @@
 
     <div class="btn-toolbar" role="toolbar" aria-label="Subscriptions toolbar">
         <div class="btn-group btn-group-sm mr-2" role="group">
-            <button type="button" class="btn btn-secondary" >
+            <button id="btn_create_sub" type="button" class="btn btn-secondary" >
                 <i class="material-icons" aria-hidden="true">add</i>
             </button>
             <button id="btn_create_folder" type="button" class="btn btn-secondary">

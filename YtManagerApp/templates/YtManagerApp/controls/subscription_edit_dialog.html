@@ -1,36 +1,42 @@
-<div id="subscription_edit_dialog" class="modal" tabindex="-1" role="dialog">
+<div id="subscriptionEditDialog" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="subscription_edit_dialog_title" class="modal-title">Edit subscription</h5>
+                <h5 id="subscriptionEditDialog_Title" class="modal-title">Edit subscription</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div id="subscription_edit_dialog_loading" class="modal-body">
+            <div id="subscriptionEditDialog_Loading" class="modal-body">
                 <div class="loading-dual-ring"></div>
-                <div id="subscription_edit_dialog_error"></div>
             </div>
-            <form id="subscription_edit_dialog_form" action="{% url 'ajax_edit_subscription' %}" method="post">
+            <div id="subscriptionEditDialog_Error"></div>
+            <form id="subscriptionEditDialog_Form" action="{% url 'ajax_edit_subscription' %}" method="post">
                 <div class="modal-body">
                     {% csrf_token %}
-                    <input type="hidden" id="subscription_edit_dialog_id" name="id" value="#">
+                    <input type="hidden" id="subscriptionEditDialog_Id" name="id" value="#">
                     <div class="form-group row">
-                        <label class="col-sm-3" for="subscription_edit_dialog_url">Link:</label>
+                        <label class="col-sm-3" for="subscriptionEditDialog_Url">Link:</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="subscription_edit_dialog_name" name="name" placeholder="subscription name">
+                            <input type="text" class="form-control" id="subscriptionEditDialog_Url" name="url" placeholder="Subscription URL (playlist, channel)">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3" for="subscription_edit_dialog_parent">Parent subscription</label>
+                        <label class="col-sm-3" for="subscriptionEditDialog_Name">Name:</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="subscription_edit_dialog_parent" name="parent">
+                            <input type="text" class="form-control" id="subscriptionEditDialog_Name" name="name" placeholder="Subscription name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3" for="subscriptionEditDialog_Parent">Parent subscription</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="subscriptionEditDialog_Parent" name="parent">
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="subscription_edit_dialog_submit" type="submit" class="btn btn-primary">Submit</button>
+                    <button id="subscriptionEditDialog_Submit" type="submit" class="btn btn-primary">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>

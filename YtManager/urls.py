@@ -24,5 +24,7 @@ urlpatterns = [
     path('ajax/get_folders', views.ajax_get_folders, name='ajax_get_folders'),
     path('ajax/edit_folder', views.ajax_edit_folder, name='ajax_edit_folder'),
     path('ajax/delete_folder/<int:fid>/', views.ajax_delete_folder, name='ajax_delete_folder'),
+    path('ajax/edit_subscription', views.ajax_edit_subscription, name='ajax_edit_subscription'),
+    path('ajax/delete_subscription/<int:sid>/', views.ajax_delete_subscription, name='ajax_delete_subscription'),
     path(r'', views.index, name='home')
 ]

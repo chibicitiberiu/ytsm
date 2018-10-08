@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from .models import SubscriptionFolder, Subscription
-from .management import FolderManager
+from .management import FolderManager, SubscriptionManager
 
 
 def get_children_recurse(parent_id):
@@ -63,6 +63,22 @@ def ajax_edit_folder(request: HttpRequest):
 
 def ajax_delete_folder(request: HttpRequest, fid):
     FolderManager.delete(fid)
+    return HttpResponse()
+
+
+def ajax_edit_subscription(request: HttpRequest):
+    if request.method == 'POST':
+        sid = request.POST['id']
+        name = request.POST['name']
+        url = request.POST['url']
+        parent_id = request.POST['parent']
+        SubscriptionManager.create_or_edit(sid, url, name, parent_id)
+
+    return HttpResponse()
+
+
+def ajax_delete_subscription(request: HttpRequest, sid):
+    SubscriptionManager.delete(sid)
     return HttpResponse()
 
 
