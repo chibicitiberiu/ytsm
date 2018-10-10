@@ -1,7 +1,18 @@
-from .models import SubscriptionFolder, Subscription, Video, Channel
-from .youtube import YoutubeAPI, YoutubeChannelInfo, YoutubePlaylistItem
+from YtManagerApp.models import SubscriptionFolder, Subscription, Video, Channel
+from YtManagerApp.utils.youtube import YoutubeAPI, YoutubeChannelInfo, YoutubePlaylistItem
+from django.conf import settings
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
+import os.path
+import requests
+from urllib.parse import urljoin
+import mimetypes
+import youtube_dl
+
+from YtManagerApp.scheduler import instance as scheduler
+from YtManagerApp.appconfig import instance as app_config
+from apscheduler.triggers.cron import CronTrigger
+
 
 class FolderManager(object):
 
@@ -45,6 +56,18 @@ class FolderManager(object):
         folder = SubscriptionFolder.objects.get(id=fid)
         folder.delete()
 
+    @staticmethod
+    def list_videos(fid: int):
+        folder = SubscriptionFolder.objects.get(id=fid)
+        folder_list = []
+        queue = [folder]
+        while len(queue) > 0:
+            folder = queue.pop()
+            folder_list.append(folder)
+            queue.extend(SubscriptionFolder.objects.filter(parent=folder))
+
+        return Video.objects.filter(subscription__parent_folder__in=folder_list).order_by('-publish_date')
+
 
 class SubscriptionManager(object):
     __scheduler = BackgroundScheduler()
@@ -53,7 +76,6 @@ class SubscriptionManager(object):
     def create_or_edit(sid, url, name, parent_id):
         # Create or edit
         if sid == '#':
-            sub = Subscription()
             SubscriptionManager.create(url, parent_id, YoutubeAPI.build_public())
         else:
             sub = Subscription.objects.get(id=int(sid))
@@ -99,6 +121,11 @@ class SubscriptionManager(object):
             sub.icon_best = channel.icon_best
 
         sub.save()
+
+    @staticmethod
+    def list_videos(fid: int):
+        sub = Subscription.objects.get(id=fid)
+        return Video.objects.filter(subscription=sub).order_by('playlist_index')
 
     @staticmethod
     def __get_or_create_channel(url_type, url_id, yt_api: YoutubeAPI):
@@ -173,12 +200,79 @@ class SubscriptionManager(object):
     @staticmethod
     def __synchronize_all():
         print("Running scheduled synchronization... ")
+
+        # Sync subscribed playlists/channels
         yt_api = YoutubeAPI.build_public()
         for subscription in Subscription.objects.all():
             SubscriptionManager.__synchronize(subscription, yt_api)
 
+        # Fetch thumbnails
+        print("Fetching channel thumbnails... ")
+        for ch in Channel.objects.filter(icon_default__istartswith='http'):
+            ch.icon_default = SubscriptionManager.__fetch_thumbnail(ch.icon_default, 'channel', ch.channel_id, 'default')
+            ch.save()
+
+        for ch in Channel.objects.filter(icon_best__istartswith='http'):
+            ch.icon_best = SubscriptionManager.__fetch_thumbnail(ch.icon_best, 'channel', ch.channel_id, 'best')
+            ch.save()
+
+        print("Fetching subscription thumbnails... ")
+        for sub in Subscription.objects.filter(icon_default__istartswith='http'):
+            sub.icon_default = SubscriptionManager.__fetch_thumbnail(sub.icon_default, 'sub', sub.playlist_id, 'default')
+            sub.save()
+
+        for sub in Subscription.objects.filter(icon_best__istartswith='http'):
+            sub.icon_best = SubscriptionManager.__fetch_thumbnail(sub.icon_best, 'sub', sub.playlist_id, 'best')
+            sub.save()
+
+        print("Fetching video thumbnails... ")
+        for vid in Video.objects.filter(icon_default__istartswith='http'):
+            vid.icon_default = SubscriptionManager.__fetch_thumbnail(vid.icon_default, 'video', vid.video_id, 'default')
+            vid.save()
+
+        for vid in Video.objects.filter(icon_best__istartswith='http'):
+            vid.icon_best = SubscriptionManager.__fetch_thumbnail(vid.icon_best, 'video', vid.video_id, 'best')
+            vid.save()
+
+        print("Downloading videos...")
+        Downloader.download_all()
+
+        print("Synchronization finished.")
+
+    @staticmethod
+    def __fetch_thumbnail(url, object_type, identifier, quality):
+
+        # Make request to obtain mime type
+        response = requests.get(url, stream=True)
+        ext = mimetypes.guess_extension(response.headers['Content-Type'])
+
+        # Build file path
+        file_name = f"{identifier}-{quality}{ext}"
+        abs_path_dir = os.path.join(settings.MEDIA_ROOT, "thumbs", object_type)
+        abs_path = os.path.join(abs_path_dir, file_name)
+
+        # Store image
+        os.makedirs(abs_path_dir, exist_ok=True)
+        with open(abs_path, "wb") as f:
+            for chunk in response.iter_content(chunk_size=1024):
+                if chunk:
+                    f.write(chunk)
+
+        # Return
+        media_url = urljoin(settings.MEDIA_URL, f"thumbs/{object_type}/{file_name}")
+        return media_url
+
     @staticmethod
     def start_scheduler():
         SubscriptionManager.__scheduler.add_job(SubscriptionManager.__synchronize_all, 'cron',
-                                                hour='*', minute=44, max_instances=1)
+                                                hour='*', minute=38, max_instances=1)
         SubscriptionManager.__scheduler.start()
+
+
+def setup_synchronization_job():
+    trigger = CronTrigger.from_crontab(app_config.get('global', 'SynchronizationSchedule'))
+    scheduler.add_job(synchronize_all, trigger, max_instances=1)
+
+
+def synchronize_all():
+    pass

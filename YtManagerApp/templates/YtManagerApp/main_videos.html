@@ -1,0 +1,38 @@
+<div class="video-gallery container-fluid">
+    <div class="row">
+        {% for video in videos %}
+            <div class="card-wrapper col-12 col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
+                <div class="card mx-auto">
+                    <img class="card-img-top" src="{{ video.icon_best }}" alt="Thumbnail">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if not video.watched %}
+                            <sup class="badge badge-primary">New</sup>
+                            {% endif %}
+                            {{ video.name }}
+                        </h5>
+                        <p class="card-text">{{ video.description | truncatechars:120 }}</p>
+                    </div>
+                    <div class="card-footer dropdown show">
+                        <span class="typcn typcn-eye {{ video.watched | yesno:"video-icon-yes,video-icon-no" }}"
+                              title="{{ video.watched | yesno:"Watched,Not watched" }}"></span>
+                        <span class="typcn typcn-download {{ video.downloaded_path | yesno:"video-icon-yes,,video-icon-no" }}"
+                              title="{{ video.downloaded_path | yesno:"Downloaded,,Not downloaded" }}"></span>
+                        <small class="text-muted">{{ video.publish_date }}</small>
+                        <a class="card-more float-right text-muted"
+                           href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="typcn typcn-cog"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Mark {{ video.watched | yesno:"not watched,watched" }}</a>
+                            {% if video.downloaded_path %}
+                                <a class="dropdown-item" href="#">Delete downloaded</a>
+                            {% else %}
+                                <a class="dropdown-item" href="#">Download</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -20,7 +20,8 @@ def get_children_recurse(parent_id):
         children.append({
             "id": "sub" + str(sub.id),
             "type": "sub",
-            "text": sub.name
+            "text": sub.name,
+            "icon": sub.icon_default
         })
 
     return children
@@ -82,6 +83,21 @@ def ajax_delete_subscription(request: HttpRequest, sid):
     return HttpResponse()
 
 
+def ajax_list_videos(request: HttpRequest):
+    if request.method == 'POST':
+        type = request.POST['type']
+        id = request.POST['id']
+        context = {}
+
+        if type == 'sub':
+            context['videos'] = SubscriptionManager.list_videos(int(id))
+        else:
+            context['videos'] = FolderManager.list_videos(int(id))
+
+        return render(request, 'YtManagerApp/main_videos.html', context)
+
+
 def index(request: HttpRequest):
     context = {}
     return render(request, 'YtManagerApp/index.html', context)
+

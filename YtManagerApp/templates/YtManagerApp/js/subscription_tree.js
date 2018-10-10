@@ -279,10 +279,10 @@ function tree_Initialize()
         },
         types : {
             folder : {
-                icon : "material-icons material-folder"
+                icon : "typcn typcn-folder"
             },
             sub : {
-                icon : "material-icons material-person",
+                icon : "typcn typcn-user",
                 max_depth : 0
             }
         },
@@ -314,6 +314,13 @@ function tree_ValidateChange(operation, node, parent, position, more)
 function tree_OnSelectionChanged(e, data)
 {
     node = data.instance.get_selected(true)[0];
+    $.post("{% url 'ajax_list_videos' %}", {
+        type: node.type,
+        id: node.id.replace('folder', '').replace('sub', ''),
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+    }).done(function (result) {
+        $("#main_detail").html(result);
+    });
 }
 
 ///

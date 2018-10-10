@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
 from YtManagerApp import views
 
@@ -26,5 +28,6 @@ urlpatterns = [
     path('ajax/delete_folder/<int:fid>/', views.ajax_delete_folder, name='ajax_delete_folder'),
     path('ajax/edit_subscription', views.ajax_edit_subscription, name='ajax_edit_subscription'),
     path('ajax/delete_subscription/<int:sid>/', views.ajax_delete_subscription, name='ajax_delete_subscription'),
+    path('ajax/list_videos', views.ajax_list_videos, name='ajax_list_videos'),
     path(r'', views.index, name='home')
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

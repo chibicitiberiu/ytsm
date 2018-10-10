@@ -36,3 +36,45 @@ $accent-color: #007bff;
         transform: rotate(360deg);
     }
 }
+
+.video-gallery {
+    .card-wrapper {
+        padding: 0.4rem;
+        margin-bottom: .5rem;
+    }
+    .card {
+        .card-body {
+            padding: .75rem;
+        }
+        .card-text {
+            font-size: 10pt;
+            margin-bottom: .5rem;
+        }
+        .card-title {
+            font-size: 11pt;
+            margin-bottom: .5rem;
+
+            .badge {
+                font-size: 8pt;
+            }
+        }
+        .card-footer {
+            padding: .5rem .75rem;
+        }
+
+        .card-more {
+            margin-right: -0.25rem;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .video-icon-yes {
+        color: #6c757d;
+    }
+    .video-icon-no {
+        color: #cccccc;
+    }
+
+}
