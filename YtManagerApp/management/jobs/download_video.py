@@ -1,6 +1,6 @@
 from YtManagerApp.models import Video
-from YtManagerApp.scheduler import instance as scheduler
-from YtManagerApp.appconfig import instance as app_config
+from YtManagerApp import scheduler
+from YtManagerApp.appconfig import get_user_config
 import os
 import youtube_dl
 import logging
@@ -60,7 +60,7 @@ def download_video(video: Video, attempt: int = 1):
 
     log.info('Downloading video %d [%s %s]', video.id, video.video_id, video.name)
 
-    user_config = app_config.get_user_config(video.subscription.user)
+    user_config = get_user_config(video.subscription.user)
     max_attempts = user_config.getint('user', 'DownloadMaxAttempts', fallback=3)
 
     youtube_dl_params, output_path = __build_youtube_dl_params(video, user_config)
@@ -76,7 +76,7 @@ def download_video(video: Video, attempt: int = 1):
 
     elif attempt <= max_attempts:
         log.warning('Re-enqueueing video (attempt %d/%d)', attempt, max_attempts)
-        scheduler.add_job(download_video, args=[video, attempt + 1])
+        scheduler.instance.add_job(download_video, args=[video, attempt + 1])
 
     else:
         log.error('Multiple attempts to download video %d [%s %s] failed!', video.id, video.video_id, video.name)
@@ -90,4 +90,4 @@ def schedule_download_video(video: Video):
     :param video:
     :return:
     """
-    scheduler.add_job(download_video, args=[video, 1])
+    scheduler.instance.add_job(download_video, args=[video, 1])

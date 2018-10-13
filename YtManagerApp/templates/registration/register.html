@@ -1,0 +1,38 @@
+{% extends 'YtManagerApp/master_default.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'YtManagerApp/css/login.css' %}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="register-card mx-auto">
+
+        {% if next %}
+            {% if user.is_authenticated %}
+                <div class="alert alert-warning" role="alert">
+                    Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.
+                </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    Please login or register to see this page.
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {% if is_first_user %}
+            <div class="alert alert-info" role="alert">
+                Since this is the first user to register, it will be the system administrator.
+            </div>
+        {% endif %}
+
+        <h5>Register</h5>
+
+        {% crispy form %}
+    </div>
+
+{% endblock %}

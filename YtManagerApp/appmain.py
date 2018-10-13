@@ -1,11 +1,11 @@
-from .appconfig import initialize_config
+from .appconfig import initialize_app_config
 from .scheduler import initialize_scheduler
-from .management import setup_synchronization_job
+from .management.jobs.synchronize import schedule_synchronize
 import logging
 
 
 def main():
-    initialize_config()
+    initialize_app_config()
     initialize_scheduler()
-    setup_synchronization_job()
+    schedule_synchronize()
     logging.info('Initialization complete.')

@@ -1,0 +1,42 @@
+{% block modal_stylesheets %}
+{% endblock %}
+
+<div id="{{ modal_id }}" class="modal {{ modal_classes }}" tabindex="-1" role="dialog">
+    <div class="modal-dialog {{ modal_dialog_classes }}" role="document">
+        <div class="modal-content">
+            {% block modal_content %}
+
+                {% block modal_header_wrapper %}
+                    <div class="modal-header">
+                        {% block modal_header %}
+                            <h5 id="{{ modal_id }}_Title" class="modal-title">
+                                {% block modal_title %}{{ modal_title }}{% endblock modal_title %}
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        {% endblock modal_header %}
+                    </div>
+                {% endblock modal_header_wrapper %}
+
+                {% block modal_body_wrapper %}
+                    <div class="modal-body">
+                        {% block modal_body %}
+                        {% endblock %}
+                    </div>
+                {% endblock modal_body_wrapper %}
+
+                {% block modal_footer_wrapper %}
+                    <div class="modal-footer">
+                        {% block modal_footer %}
+                        {% endblock modal_footer %}
+                    </div>
+                {% endblock modal_footer_wrapper %}
+
+            {% endblock modal_content %}
+        </div>
+    </div>
+</div>
+
+{% block modal_scripts %}
+{% endblock %}

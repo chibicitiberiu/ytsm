@@ -1,4 +1,4 @@
-class Dialog {
+class Dialog_old {
     constructor(modalId) {
         this.modal = $(modalId);
         this.title = $(modalId + "_Title");
@@ -44,7 +44,7 @@ class Dialog {
     }
 }
 
-class FolderEditDialog extends Dialog {
+class FolderEditDialog extends Dialog_old {
 
     constructor (modalId) {
         super(modalId);
@@ -129,7 +129,7 @@ class FolderEditDialog extends Dialog {
     }
 }
 
-class SubscriptionEditDialog extends Dialog {
+class SubscriptionEditDialog extends Dialog_old {
 
     constructor (modalId) {
         super(modalId);
@@ -243,6 +243,7 @@ function treeNode_Delete()
     if (selectedNodes.length === 1)
     {
         let node = selectedNodes[0];
+
         if (node.type === 'folder') {
             let folderId = node.id.toString().replace('folder', '');
             if (confirm('Are you sure you want to delete folder "' + node.text + '" and all its descendants?\nNote: the subscriptions won\'t be deleted, they will only be moved outside.'))
@@ -270,7 +271,7 @@ function tree_Initialize()
     treeWrapper.jstree({
         core : {
             data : {
-                url : "{% url 'ajax_get_children' %}"
+                url : "{% url 'ajax_index_get_tree' %}"
             },
             check_callback : tree_ValidateChange,
             themes : {
@@ -313,15 +314,62 @@ function tree_ValidateChange(operation, node, parent, position, more)
 
 function tree_OnSelectionChanged(e, data)
 {
-    node = data.instance.get_selected(true)[0];
-    $.post("{% url 'ajax_list_videos' %}", {
-        type: node.type,
-        id: node.id.replace('folder', '').replace('sub', ''),
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-    }).done(function (result) {
-        $("#main_detail").html(result);
-    });
+    let filterForm = $('#form_video_filter');
+    let filterForm_folderId = filterForm.find('#form_video_filter_folder_id');
+    let filterForm_subId = filterForm.find('#form_video_filter_subscription_id');
+
+
+    let node = data.instance.get_selected(true)[0];
+
+    // Fill folder/sub fields
+    if (node.type === 'folder') {
+        let id = node.id.replace('folder', '');
+        filterForm_folderId.val(id);
+        filterForm_subId.val('');
+    }
+    else {
+        let id = node.id.replace('sub', '');
+        filterForm_folderId.val();
+        filterForm_subId.val(id);
+    }
+
+    videos_Reload();
 }
+
+
+function videos_Reload()
+{
+    let filterForm = $('#form_video_filter');
+    let loadingDiv = $('#videos_loading');
+    loadingDiv.fadeIn(300);
+
+    // Perform query
+    $.post("{% url 'ajax_index_get_videos' %}", filterForm.serialize())
+        .done(function (result) {
+            $("#videos_wrapper").html(result);
+        })
+        .fail(function () {
+            $("#videos_wrapper").html('<div class="alert alert-danger">An error occurred while retrieving the video list!</div>');
+        })
+        .always(function() {
+            loadingDiv.fadeOut(100);
+        });
+}
+
+
+let videos_timeout = null;
+
+function videos_ReloadWithTimer()
+{
+    clearTimeout(videos_timeout);
+    videos_timeout = setTimeout(function()
+    {
+        videos_Reload();
+        videos_timeout = null;
+    }, 500);
+}
+
+
 
 ///
 /// Globals
@@ -336,11 +384,11 @@ $(document).ready(function ()
 {
     tree_Initialize();
 
-    folderEditDialog = new FolderEditDialog('#folderEditDialog');
-    subscriptionEditDialog = new SubscriptionEditDialog('#subscriptionEditDialog');
-
-    $("#btn_create_sub").on("click", function () { subscriptionEditDialog.showNew(); });
-    $("#btn_create_folder").on("click", function () { folderEditDialog.showNew(); });
-    $("#btn_edit_node").on("click", treeNode_Edit);
-    $("#btn_delete_node").on("click", treeNode_Delete);
+    // folderEditDialog = new FolderEditDialog('#folderEditDialog');
+    // subscriptionEditDialog = new SubscriptionEditDialog('#subscriptionEditDialog');
+    //
+    // $("#btn_create_sub").on("click", function () { subscriptionEditDialog.showNew(); });
+    // $("#btn_create_folder").on("click", function () { folderEditDialog.showNew(); });
+    // $("#btn_edit_node").on("click", treeNode_Edit);
+    // $("#btn_delete_node").on("click", treeNode_Delete);
 });

@@ -51,4 +51,11 @@
 .video-gallery .video-icon-no {
   color: #cccccc; }
 
+.alert-card {
+  max-width: 35rem;
+  margin: 2rem 0; }
+
+.no-asterisk .asteriskField {
+  display: none; }
+
 /*# sourceMappingURL=style.css.map */

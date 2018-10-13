@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# help_text = user shown text
+# verbose_name = user shown name
+# null = nullable, blank = user is allowed to set value to empty
+
 
 class UserSettings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -21,7 +25,7 @@ class UserSettings(models.Model):
 
     @staticmethod
     def find_by_user(user: User):
-        result = UserSettings.objects.filter(user=user)
+        result = UserSettings.objects.filter2(user=user)
         if len(result) > 0:
             return result.first()
         return None
@@ -67,6 +71,7 @@ class UserSettings(models.Model):
 class SubscriptionFolder(models.Model):
     name = models.TextField(null=False)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
 
     def __str__(self):
         return self.name
@@ -138,6 +143,9 @@ class Video(models.Model):
     publish_date = models.DateTimeField(null=False)
     icon_default = models.TextField()
     icon_best = models.TextField()
+    uploader_name = models.TextField(null=False)
+    views = models.IntegerField(null=False, default=0)
+    rating = models.FloatField(null=False, default=0.5)
 
     def __str__(self):
         return self.name

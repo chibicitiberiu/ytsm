@@ -5,8 +5,8 @@
 YoutubeApiKey=AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8
 
 ; Specifies the synchronization schedule, in crontab format.
-; Format: <minute> <hour> <day-of-month> <month-of-year> <year>
-SynchronizationSchedule=0 * * * * *
+; Format: <minute> <hour> <day-of-month> <month-of-year> <day of week>
+SynchronizationSchedule=0 * * * *
 
 ; Number of threads running the scheduler
 ; Since most of the jobs scheduled are downloads, there is no advantage to having

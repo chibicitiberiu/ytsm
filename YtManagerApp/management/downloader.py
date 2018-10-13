@@ -1,4 +1,4 @@
-from YtManagerApp.appconfig import instance as app_config
+from YtManagerApp import appconfig
 from YtManagerApp.management.jobs.download_video import schedule_download_video
 from YtManagerApp.models import Video, Subscription
 from django.conf import settings
@@ -12,7 +12,7 @@ log = logging.getLogger('downloader')
 
 
 def __get_subscription_config(sub: Subscription):
-    user_config = app_config.get_user_config(sub.user)
+    user_config = appconfig.get_user_config(sub.user)
 
     enabled = sub.auto_download
     if enabled is None:

@@ -13,21 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.conf.urls import include
 from django.contrib import admin
-from django.conf.urls.static import static
-from django.conf import settings
-
-from YtManagerApp import views
+from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ajax/get_children', views.ajax_get_children, name='ajax_get_children'),
-    path('ajax/get_folders', views.ajax_get_folders, name='ajax_get_folders'),
-    path('ajax/edit_folder', views.ajax_edit_folder, name='ajax_edit_folder'),
-    path('ajax/delete_folder/<int:fid>/', views.ajax_delete_folder, name='ajax_delete_folder'),
-    path('ajax/edit_subscription', views.ajax_edit_subscription, name='ajax_edit_subscription'),
-    path('ajax/delete_subscription/<int:sid>/', views.ajax_delete_subscription, name='ajax_delete_subscription'),
-    path('ajax/list_videos', views.ajax_list_videos, name='ajax_list_videos'),
-    path(r'', views.index, name='home')
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', include('YtManagerApp.urls')),
+]

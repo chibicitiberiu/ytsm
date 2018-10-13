@@ -1,0 +1,27 @@
+{% extends 'YtManagerApp/master_default.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block scripts %}
+    <script>
+    
+    window.setTimeout(function(){
+        window.location.href = "/";
+    }, 3000);
+    
+    </script>
+    
+{% endblock %}
+
+{% block body %}
+
+    <div class="alert-card mx-auto">
+
+        <div class="alert alert-info" role="alert">
+            You have been logged out!
+        </div>
+
+    </div>
+
+{% endblock %}

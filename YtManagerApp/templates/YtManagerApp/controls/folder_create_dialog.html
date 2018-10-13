@@ -1,0 +1,13 @@
+{% extends 'YtManagerApp/controls/modal.html' %}
+{% load crispy_forms_tags %}
+
+{% block modal_title %}
+    New folder
+{% endblock modal_title %}
+
+{% block modal_body %}
+    {% crispy form %}
+{% endblock modal_body %}
+
+{% block modal_footer_wrapper %}
+{% endblock modal_footer_wrapper %}

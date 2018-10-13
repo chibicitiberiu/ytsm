@@ -1,7 +1,7 @@
 import logging
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from .appconfig import instance as app_config
+from .appconfig import settings
 
 instance: BackgroundScheduler = None
 
@@ -12,7 +12,7 @@ def initialize_scheduler():
     executors = {
         'default': {
             'type': 'threadpool',
-            'max_workers': int(app_config.get('global', 'SchedulerConcurrency'))
+            'max_workers': settings.getint('global', 'SchedulerConcurrency')
         }
     }
 
