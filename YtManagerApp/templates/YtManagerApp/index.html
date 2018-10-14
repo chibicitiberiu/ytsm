@@ -11,13 +11,18 @@
     <script>
         {% include 'YtManagerApp/js/subscription_tree.js' %}
     </script>
-
-    {% include 'YtManagerApp/controls/folder_edit_dialog.html' %}
-    {% include 'YtManagerApp/controls/subscription_edit_dialog.html' %}
-
 {% endblock %}
 
 {% block body %}
+
+    <div id="modal-wrapper">
+        <div id="modal-loading" class="black-overlay">
+            <div class="loading-dual-ring loading-dual-ring-center-screen"></div>
+        </div>
+
+        <div id="modal-wrapper">
+        </div>
+    </div>
 
     <div class="row">
 
@@ -55,10 +60,10 @@
                 {% crispy filter_form %}
             </div>
 
-            <div id="videos_wrapper">
+            <div id="videos-wrapper">
             </div>
 
-            <div id="videos_loading" style="display: none">
+            <div id="videos-loading" style="display: none">
                 <div class="d-flex">
                     <div class="loading-dual-ring mx-auto my-5"></div>
                 </div>

@@ -1,0 +1,21 @@
+{% extends 'YtManagerApp/controls/modal.html' %}
+{% load crispy_forms_tags %}
+
+{% block modal_title %}
+    Delete folder
+{% endblock modal_title %}
+
+{% block modal_content %}
+    <form action="{% url 'modal_delete_folder' form.instance.pk %}" method="post">
+        {{ block.super }}
+    </form>
+{% endblock %}
+
+{% block modal_body %}
+    {% crispy form %}
+{% endblock modal_body %}
+
+{% block modal_footer %}
+    <input class="btn btn-danger" type="submit" value="Save" aria-label="Delete">
+    <input class="btn btn-secondary" type="button" value="Cancel" data-dismiss="modal" aria-label="Cancel">
+{% endblock modal_footer %}

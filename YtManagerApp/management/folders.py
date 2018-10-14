@@ -2,6 +2,7 @@ from YtManagerApp.models import SubscriptionFolder, Subscription
 from typing import Callable, Union, Any, Optional
 from django.contrib.auth.models import User
 import logging
+from django.db.models.functions import Lower
 
 
 def traverse_tree(root_folder_id: Optional[int], user: User, visit_func: Callable[[Union[SubscriptionFolder, Subscription]], Any]):
@@ -27,11 +28,11 @@ def traverse_tree(root_folder_id: Optional[int], user: User, visit_func: Callabl
             continue
         visited.append(folder_id)
 
-        for folder in SubscriptionFolder.objects.filter(parent_id=folder_id, user=user).order_by('name'):
+        for folder in SubscriptionFolder.objects.filter(parent_id=folder_id, user=user).order_by(Lower('name')):
             collect(visit_func(folder))
             queue.append(folder.id)
 
-        for subscription in Subscription.objects.filter(parent_folder_id=folder_id, user=user).order_by('name'):
+        for subscription in Subscription.objects.filter(parent_folder_id=folder_id, user=user).order_by(Lower('name')):
             collect(visit_func(subscription))
 
     return data_collected

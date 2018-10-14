@@ -1,8 +1,10 @@
-from django.views.generic import TemplateView
+from django.views.generic.base import ContextMixin
+from django.http import JsonResponse
 
 
-class ModalView(TemplateView):
+class ModalMixin(ContextMixin):
     template_name = 'YtManagerApp/controls/modal.html'
+    success_url = '/'
 
     def __init__(self, modal_id='dialog', title='', fade=True, centered=True, small=False, large=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -32,3 +34,18 @@ class ModalView(TemplateView):
         data['modal_title'] = self.title
 
         return data
+
+    def modal_response(self, form, success=True):
+        result = {'success': success}
+        if not success:
+            result['errors'] = form.errors.get_json_data(escape_html=True)
+
+        return JsonResponse(result)
+
+    def form_valid(self, form):
+        super().form_valid(form)
+        return self.modal_response(form, success=True)
+
+    def form_invalid(self, form):
+        super().form_invalid(form)
+        return self.modal_response(form, success=False)

@@ -16,6 +16,14 @@ $accent-color: #007bff;
     height: 64px;
 }
 
+.loading-dual-ring-center-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+}
+
 .loading-dual-ring:after {
     content: " ";
     display: block;
@@ -26,6 +34,20 @@ $accent-color: #007bff;
     border: 5px solid $accent-color;
     border-color: $accent-color transparent $accent-color transparent;
     animation: loading-dual-ring 1.2s linear infinite;
+}
+
+.black-overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
 }
 
 @keyframes loading-dual-ring {
@@ -87,4 +109,14 @@ $accent-color: #007bff;
     .asteriskField {
         display: none;
     }
+}
+
+.modal-field-error {
+    margin: 0.5rem 0;
+    padding: 0.5rem 0;
+
+    ul {
+        margin: 0;
+    }
+
 }

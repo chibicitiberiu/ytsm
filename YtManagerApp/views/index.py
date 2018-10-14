@@ -1,13 +1,15 @@
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
 from django import forms
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from YtManagerApp.management.folders import traverse_tree
 from YtManagerApp.management.videos import get_videos
 from YtManagerApp.models import Subscription, SubscriptionFolder
-from YtManagerApp.views.controls.modal import ModalView
+from YtManagerApp.views.controls.modal import ModalMixin
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
+from crispy_forms.layout import Submit
+from django.db.models import Q
 
 
 class VideoFilterForm(forms.Form):
@@ -162,8 +164,62 @@ def ajax_get_videos(request: HttpRequest):
     return HttpResponseBadRequest()
 
 
-class CreateFolderForm(CreateView, ModalView):
-    model = SubscriptionFolder
-    template_name = 'YtManagerApp/controls/folder_create_dialog.html'
-    fields = ['name', 'parent']
+class SubscriptionFolderForm(forms.ModelForm):
+    class Meta:
+        model = SubscriptionFolder
+        fields = ['name', 'parent']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        return name.strip()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        name = cleaned_data.get('name')
+        parent = cleaned_data.get('parent')
+
+        # Check name is unique in parent folder
+        args_id = []
+        if self.instance is not None:
+            args_id.append(~Q(id=self.instance.id))
+
+        if SubscriptionFolder.objects.filter(parent=parent, name__iexact=name, *args_id).count() > 0:
+            raise forms.ValidationError('A folder with the same name already exists in the given parent directory!', code='already_exists')
+
+        # Check for cycles
+        if self.instance is not None:
+            self.__test_cycles(parent)
+
+    def __test_cycles(self, new_parent):
+        visited = [self.instance.id]
+        current = new_parent
+        while current is not None:
+            if current.id in visited:
+                raise forms.ValidationError('Selected parent would create a parenting cycle!', code='parenting_cycle')
+            visited.append(current.id)
+            current = current.parent
+
+
+class CreateFolderModal(ModalMixin, CreateView):
+    template_name = 'YtManagerApp/controls/folder_create_modal.html'
+    form_class = SubscriptionFolderForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class UpdateFolderModal(ModalMixin, UpdateView):
+    template_name = 'YtManagerApp/controls/folder_update_modal.html'
+    model = SubscriptionFolder
+    form_class = SubscriptionFolderForm
+
+
+class DeleteFolderModal(ModalMixin, DeleteView):
+    template_name = 'YtManagerApp/controls/folder_delete_modal.html'
+    model = SubscriptionFolder

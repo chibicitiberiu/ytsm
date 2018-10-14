@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
-from .views.index import index, ajax_get_tree, ajax_get_videos
+from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal
 from .views import old_views
 
 urlpatterns = [
@@ -29,9 +29,19 @@ urlpatterns = [
     path('register_done/', RegisterDoneView.as_view(), name='register_done'),
     path('', include('django.contrib.auth.urls')),
 
-    path('ajax/index_get_tree', ajax_get_tree, name='ajax_index_get_tree'),
-    path('ajax/index_get_videos', ajax_get_videos, name='ajax_index_get_videos'),
+    # Ajax
+    path('ajax/index_get_tree/', ajax_get_tree, name='ajax_index_get_tree'),
+    path('ajax/index_get_videos/', ajax_get_videos, name='ajax_index_get_videos'),
+
+    # Modals
+    path('modal/create_folder/', CreateFolderModal.as_view(), name='modal_create_folder'),
+    path('modal/create_folder/<int:parent_id>/', CreateFolderModal.as_view(), name='modal_create_folder'),
+    path('modal/update_folder/<int:pk>/', UpdateFolderModal.as_view(), name='modal_update_folder'),
+    path('modal/delete_folder/<int:pk>/', DeleteFolderModal.as_view(), name='modal_delete_folder'),
+
+    # Index
     path('', index, name='home'),
+
 
     # Old stuff
     path('ajax/get_children', old_views.ajax_get_children, name='ajax_get_children'),

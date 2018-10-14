@@ -228,11 +228,19 @@ function treeNode_Edit()
     if (selectedNodes.length === 1)
     {
         let node = selectedNodes[0];
+
         if (node.type === 'folder') {
-            folderEditDialog.showEdit(node);
+            let id = node.id.replace('folder', '');
+            let modal = new AjaxModal("{% url 'modal_update_folder' 98765 %}".replace('98765', id));
+            modal.setSubmitCallback(tree_Refresh);
+            modal.loadAndShow();
         }
         else {
-            subscriptionEditDialog.showEdit(node);
+            //TODO:
+            //let id = node.id.replace('sub', '');
+            //let modal = new AjaxModal("{ url 'modal_update_subscription' 98765 }".replace('98765', id));
+            //modal.setSubmitCallback(tree_Refresh);
+            //modal.loadAndShow();
         }
     }
 }
@@ -245,22 +253,17 @@ function treeNode_Delete()
         let node = selectedNodes[0];
 
         if (node.type === 'folder') {
-            let folderId = node.id.toString().replace('folder', '');
-            if (confirm('Are you sure you want to delete folder "' + node.text + '" and all its descendants?\nNote: the subscriptions won\'t be deleted, they will only be moved outside.'))
-            {
-                $.post("{% url 'ajax_delete_folder' 99999 %}".replace('99999', folderId), {
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                }).done(tree_Refresh);
-            }
+            let id = node.id.replace('folder', '');
+            let modal = new AjaxModal("{% url 'modal_delete_folder' 98765 %}".replace('98765', id));
+            modal.setSubmitCallback(tree_Refresh);
+            modal.loadAndShow();
         }
         else {
-            let subId = node.id.toString().replace('sub', '');
-            if (confirm('Are you sure you want to delete subscription "' + node.text + '"?'))
-            {
-                $.post("{% url 'ajax_delete_subscription' 99999 %}".replace('99999', subId), {
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
-                }).done(tree_Refresh);
-            }
+            //TODO:
+            //let id = node.id.replace('sub', '');
+            //let modal = new AjaxModal("{ url 'modal_delete_subscription' 98765 }".replace('98765', id));
+            //modal.setSubmitCallback(tree_Refresh);
+            //modal.loadAndShow();
         }
     }
 }
@@ -318,11 +321,14 @@ function tree_OnSelectionChanged(e, data)
     let filterForm_folderId = filterForm.find('#form_video_filter_folder_id');
     let filterForm_subId = filterForm.find('#form_video_filter_subscription_id');
 
-
     let node = data.instance.get_selected(true)[0];
 
     // Fill folder/sub fields
-    if (node.type === 'folder') {
+    if (node == null) {
+        filterForm_folderId.val('');
+        filterForm_subId.val('');
+    }
+    else if (node.type === 'folder') {
         let id = node.id.replace('folder', '');
         filterForm_folderId.val(id);
         filterForm_subId.val('');
@@ -340,16 +346,16 @@ function tree_OnSelectionChanged(e, data)
 function videos_Reload()
 {
     let filterForm = $('#form_video_filter');
-    let loadingDiv = $('#videos_loading');
+    let loadingDiv = $('#videos-loading');
     loadingDiv.fadeIn(300);
 
     // Perform query
     $.post("{% url 'ajax_index_get_videos' %}", filterForm.serialize())
         .done(function (result) {
-            $("#videos_wrapper").html(result);
+            $("#videos-wrapper").html(result);
         })
         .fail(function () {
-            $("#videos_wrapper").html('<div class="alert alert-danger">An error occurred while retrieving the video list!</div>');
+            $("#videos-wrapper").html('<div class="alert alert-danger">An error occurred while retrieving the video list!</div>');
         })
         .always(function() {
             loadingDiv.fadeOut(100);
@@ -387,8 +393,13 @@ $(document).ready(function ()
     // folderEditDialog = new FolderEditDialog('#folderEditDialog');
     // subscriptionEditDialog = new SubscriptionEditDialog('#subscriptionEditDialog');
     //
-    // $("#btn_create_sub").on("click", function () { subscriptionEditDialog.showNew(); });
+    $("#btn_create_folder").on("click", function () {
+        let modal = new AjaxModal("{% url 'modal_create_folder' %}");
+        modal.setSubmitCallback(tree_Refresh);
+        modal.loadAndShow();
+    });
+
     // $("#btn_create_folder").on("click", function () { folderEditDialog.showNew(); });
-    // $("#btn_edit_node").on("click", treeNode_Edit);
-    // $("#btn_delete_node").on("click", treeNode_Delete);
+    $("#btn_edit_node").on("click", treeNode_Edit);
+    $("#btn_delete_node").on("click", treeNode_Delete);
 });
