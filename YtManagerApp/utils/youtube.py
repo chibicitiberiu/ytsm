@@ -1,10 +1,31 @@
 from googleapiclient.discovery import build
+from googleapiclient.errors import Error as APIError
 from google_auth_oauthlib.flow import InstalledAppFlow
 from django.conf import settings
 import re
 
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
+
+
+class YoutubeException(Exception):
+    pass
+
+
+class YoutubeInvalidURLException(YoutubeException):
+    pass
+
+
+class YoutubeChannelNotFoundException(YoutubeException):
+    pass
+
+
+class YoutubeUserNotFoundException(YoutubeException):
+    pass
+
+
+class YoutubePlaylistNotFoundException(YoutubeException):
+    pass
 
 
 class YoutubeChannelInfo(object):
@@ -23,7 +44,10 @@ class YoutubeChannelInfo(object):
         return self.__snippet['description']
 
     def getCustomUrl(self):
-        return self.__snippet['customUrl']
+        try:
+            return self.__snippet['customUrl']
+        except KeyError:
+            return None
 
     def getDefaultThumbnailUrl(self):
         return self.__snippet['thumbnails']['default']['url']
@@ -142,7 +166,7 @@ class YoutubeAPI(object):
         if match:
             return 'channel_custom', match.group(1)
 
-        raise Exception('Unrecognized URL format!')
+        raise YoutubeInvalidURLException('Unrecognized URL format!')
 
     def get_playlist_info(self, list_id) -> YoutubePlaylistInfo:
         result = self.service.playlists()\
@@ -150,7 +174,7 @@ class YoutubeAPI(object):
             .execute()
 
         if len(result['items']) <= 0:
-            raise Exception("Invalid playlist ID.")
+            raise YoutubePlaylistNotFoundException("Invalid playlist ID.")
 
         return YoutubePlaylistInfo(result['items'][0])
 
@@ -160,7 +184,7 @@ class YoutubeAPI(object):
             .execute()
 
         if len(result['items']) <= 0:
-            raise Exception('Invalid user.')
+            raise YoutubeUserNotFoundException('Invalid user.')
 
         return YoutubeChannelInfo(result['items'][0])
 
@@ -170,7 +194,7 @@ class YoutubeAPI(object):
             .execute()
 
         if len(result['items']) <= 0:
-            raise Exception('Invalid channel ID.')
+            raise YoutubeChannelNotFoundException('Invalid channel ID.')
 
         return YoutubeChannelInfo(result['items'][0])
 
@@ -180,7 +204,7 @@ class YoutubeAPI(object):
             .execute()
 
         if len(result['items']) <= 0:
-            raise Exception('Could not find channel!')
+            raise YoutubeChannelNotFoundException('Could not find channel!')
 
         channel_result = result['items'][0]
         return channel_result['id']['channelId']

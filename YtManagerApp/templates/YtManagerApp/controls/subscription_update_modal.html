@@ -2,22 +2,20 @@
 {% load crispy_forms_tags %}
 
 {% block modal_title %}
-    Delete folder
+    Edit subscription
 {% endblock modal_title %}
 
 {% block modal_content %}
-    <form action="{% url 'modal_delete_folder' object.id %}" method="post">
-        {% csrf_token %}
+    <form action="{% url 'modal_update_subscription' form.instance.pk %}" method="post">
         {{ block.super }}
     </form>
 {% endblock %}
 
 {% block modal_body %}
-    <p>Are you sure you want to delete folder &quot;{{ object }}&quot; and all its subfolders?</p>
-    {{ form | crispy }}
+    {% crispy form %}
 {% endblock modal_body %}
 
 {% block modal_footer %}
-    <input class="btn btn-danger" type="submit" value="Delete" aria-label="Delete">
+    <input class="btn btn-primary" type="submit" value="Save" aria-label="Save">
     <input class="btn btn-secondary" type="button" value="Cancel" data-dismiss="modal" aria-label="Cancel">
 {% endblock modal_footer %}

@@ -19,7 +19,8 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
-from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal
+from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal,\
+    CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal
 from .views import old_views
 
 urlpatterns = [
@@ -30,14 +31,19 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
 
     # Ajax
-    path('ajax/index_get_tree/', ajax_get_tree, name='ajax_index_get_tree'),
-    path('ajax/index_get_videos/', ajax_get_videos, name='ajax_index_get_videos'),
+    path('ajax/get_tree/', ajax_get_tree, name='ajax_get_tree'),
+    path('ajax/get_videos/', ajax_get_videos, name='ajax_get_videos'),
 
     # Modals
     path('modal/create_folder/', CreateFolderModal.as_view(), name='modal_create_folder'),
     path('modal/create_folder/<int:parent_id>/', CreateFolderModal.as_view(), name='modal_create_folder'),
     path('modal/update_folder/<int:pk>/', UpdateFolderModal.as_view(), name='modal_update_folder'),
     path('modal/delete_folder/<int:pk>/', DeleteFolderModal.as_view(), name='modal_delete_folder'),
+
+    path('modal/create_subscription/', CreateSubscriptionModal.as_view(), name='modal_create_subscription'),
+    path('modal/create_subscription/<int:parent_folder_id>/', CreateSubscriptionModal.as_view(), name='modal_create_subscription'),
+    path('modal/update_subscription/<int:pk>/', UpdateSubscriptionModal.as_view(), name='modal_update_subscription'),
+    path('modal/delete_subscription/<int:pk>/', DeleteSubscriptionModal.as_view(), name='modal_delete_subscription'),
 
     # Index
     path('', index, name='home'),

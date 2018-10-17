@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block modal_title %}
-    Delete folder
+    Delete subscription
 {% endblock modal_title %}
 
 {% block modal_content %}
@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block modal_body %}
-    <p>Are you sure you want to delete folder &quot;{{ object }}&quot; and all its subfolders?</p>
+    <p>Are you sure you want to delete subscription &quot;{{ object }}&quot;?</p>
     {{ form | crispy }}
 {% endblock modal_body %}
 

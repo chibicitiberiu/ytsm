@@ -1,19 +1,39 @@
 $accent-color: #007bff;
 
-/* Some material font helpers */
-.material-folder::before {
-    content: "\e2c7";
-}
+@mixin loading-dual-ring($scale : 1) {
+    display: inline-block;
+    width: $scale * 64px;
+    height: $scale * 64px;
 
-.material-person::before {
-    content: "\e7fd";
+    &:after {
+        content: " ";
+        display: block;
+        width: $scale * 46px;
+        height: $scale * 46px;
+        margin: 1px;
+        border-radius: 50%;
+        border: ($scale * 5px) solid $accent-color;
+        border-color: $accent-color transparent $accent-color transparent;
+        animation: loading-dual-ring 1.2s linear infinite;
+    }
 }
 
 /* Loading animation */
 .loading-dual-ring {
-    display: inline-block;
-    width: 64px;
-    height: 64px;
+    @include loading-dual-ring(1.0);
+}
+
+.loading-dual-ring-small {
+    @include loading-dual-ring(0.5);
+}
+
+@keyframes loading-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .loading-dual-ring-center-screen {
@@ -22,18 +42,6 @@ $accent-color: #007bff;
     left: 50%;
     margin-top: -32px;
     margin-left: -32px;
-}
-
-.loading-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 46px;
-    height: 46px;
-    margin: 1px;
-    border-radius: 50%;
-    border: 5px solid $accent-color;
-    border-color: $accent-color transparent $accent-color transparent;
-    animation: loading-dual-ring 1.2s linear infinite;
 }
 
 .black-overlay {
@@ -48,15 +56,6 @@ $accent-color: #007bff;
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
-}
-
-@keyframes loading-dual-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 .video-gallery {
@@ -89,6 +88,10 @@ $accent-color: #007bff;
             &:hover {
                 text-decoration: none;
             }
+        }
+
+        .card-img-top {
+
         }
     }
 

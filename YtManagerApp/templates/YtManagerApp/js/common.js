@@ -55,6 +55,7 @@ class AjaxModal
         this.modal = null;
         this.form = null;
         this.submitCallback = null;
+        this.modalLoadingRing = null;
     }
 
     setSubmitCallback(callback) {
@@ -84,6 +85,7 @@ class AjaxModal
 
         this.modal = this.wrapper.find('.modal');
         this.form = this.wrapper.find('form');
+        this.modalLoadingRing = this.wrapper.find('#modal-loading-ring');
 
         let pThis = this;
         this.form.submit(function(e) {
@@ -104,7 +106,14 @@ class AjaxModal
             })
             .fail(function() {
                 pThis._submitFailed();
+            })
+            .always(function() {
+                pThis.modalLoadingRing.fadeOut(100);
+                pThis.wrapper.find(":input").prop("disabled", false);
             });
+
+        this.modalLoadingRing.fadeIn(200);
+        this.wrapper.find(":input").prop("disabled", true);
 
         e.preventDefault();
     }

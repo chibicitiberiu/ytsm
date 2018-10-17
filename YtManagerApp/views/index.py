@@ -2,15 +2,14 @@ from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
 from django import forms
 from django.views.generic import CreateView, UpdateView, DeleteView
-from YtManagerApp.management.folders import traverse_tree
+from django.views.generic.edit import FormMixin
 from YtManagerApp.management.videos import get_videos
 from YtManagerApp.models import Subscription, SubscriptionFolder
 from YtManagerApp.views.controls.modal import ModalMixin
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Layout, Field, Div, HTML
 from django.db.models import Q
-
+from YtManagerApp.utils import youtube
 
 class VideoFilterForm(forms.Form):
     CHOICES_SORT = (
@@ -69,7 +68,7 @@ class VideoFilterForm(forms.Form):
         self.helper.form_id = 'form_video_filter'
         self.helper.form_class = 'form-inline'
         self.helper.form_method = 'POST'
-        self.helper.form_action = 'ajax_index_get_videos'
+        self.helper.form_action = 'ajax_get_videos'
         self.helper.field_class = 'mr-1'
         self.helper.label_class = 'ml-2 mr-1 no-asterisk'
 
@@ -104,7 +103,7 @@ def __tree_folder_id(fd_id):
 def __tree_sub_id(sub_id):
     if sub_id is None:
         return '#'
-    return 'folder' + str(sub_id)
+    return 'sub' + str(sub_id)
 
 
 def index(request: HttpRequest):
@@ -137,7 +136,7 @@ def ajax_get_tree(request: HttpRequest):
                 "parent": __tree_folder_id(node.parent_folder_id)
             }
 
-    result = traverse_tree(None, request.user, visit)
+    result = SubscriptionFolder.traverse(None, request.user, visit)
     return JsonResponse(result, safe=False)
 
 
@@ -220,6 +219,120 @@ class UpdateFolderModal(ModalMixin, UpdateView):
     form_class = SubscriptionFolderForm
 
 
-class DeleteFolderModal(ModalMixin, DeleteView):
+class DeleteFolderForm(forms.Form):
+    keep_subscriptions = forms.BooleanField(required=False, initial=False, label="Keep subscriptions")
+
+
+class DeleteFolderModal(ModalMixin, FormMixin, DeleteView):
     template_name = 'YtManagerApp/controls/folder_delete_modal.html'
     model = SubscriptionFolder
+    form_class = DeleteFolderForm
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object.delete_folder(keep_subscriptions=form.cleaned_data['keep_subscriptions'])
+        return super().form_valid(form)
+
+
+class CreateSubscriptionForm(forms.ModelForm):
+    playlist_url = forms.URLField(label='Playlist/Channel URL')
+
+    class Meta:
+        model = Subscription
+        fields = ['parent_folder']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'playlist_url',
+            'parent_folder'
+        )
+
+    def clean_playlist_url(self):
+        playlist_url = self.cleaned_data['playlist_url']
+        try:
+            youtube.YoutubeAPI.parse_channel_url(playlist_url)
+        except youtube.YoutubeInvalidURLException:
+            raise forms.ValidationError('Invalid playlist/channel URL, or not in a recognized format.')
+        return playlist_url
+
+
+class CreateSubscriptionModal(ModalMixin, CreateView):
+    template_name = 'YtManagerApp/controls/subscription_create_modal.html'
+    form_class = CreateSubscriptionForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        api = youtube.YoutubeAPI.build_public()
+        try:
+            form.instance.fetch_from_url(form.cleaned_data['playlist_url'], api)
+        except youtube.YoutubeChannelNotFoundException:
+            return self.modal_response(form, False, 'Could not find a channel based on the given URL. Please verify that the URL is correct.')
+        except youtube.YoutubeUserNotFoundException:
+            return self.modal_response(form, False, 'Could not find an user based on the given URL. Please verify that the URL is correct.')
+        except youtube.YoutubePlaylistNotFoundException:
+            return self.modal_response(form, False, 'Could not find a playlist based on the given URL. Please verify that the URL is correct.')
+        except youtube.YoutubeException as e:
+            return self.modal_response(form, False, str(e))
+        except youtube.APIError as e:
+            return self.modal_response(form, False, 'An error occurred while communicating with the YouTube API: ' + str(e))
+
+        return super().form_valid(form)
+
+
+class UpdateSubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['name', 'parent_folder', 'auto_download', 'download_limit', 'download_order', 'manager_delete_after_watched']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'name',
+            'parent_folder',
+            HTML('<hr>'),
+            HTML('<h5>Download configuration overloads</h5>'),
+            'auto_download',
+            'download_limit',
+            'download_order',
+            'manager_delete_after_watched'
+        )
+
+
+class UpdateSubscriptionModal(ModalMixin, UpdateView):
+    template_name = 'YtManagerApp/controls/subscription_update_modal.html'
+    model = Subscription
+    form_class = UpdateSubscriptionForm
+
+
+class DeleteSubscriptionForm(forms.Form):
+    keep_downloaded_videos = forms.BooleanField(required=False, initial=False, label="Keep downloaded videos")
+
+
+class DeleteSubscriptionModal(ModalMixin, FormMixin, DeleteView):
+    template_name = 'YtManagerApp/controls/subscription_delete_modal.html'
+    model = Subscription
+    form_class = DeleteSubscriptionForm
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object.delete_subscription(keep_downloaded_videos=form.cleaned_data['keep_downloaded_videos'])
+        return super().form_valid(form)

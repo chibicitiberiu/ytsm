@@ -236,11 +236,10 @@ function treeNode_Edit()
             modal.loadAndShow();
         }
         else {
-            //TODO:
-            //let id = node.id.replace('sub', '');
-            //let modal = new AjaxModal("{ url 'modal_update_subscription' 98765 }".replace('98765', id));
-            //modal.setSubmitCallback(tree_Refresh);
-            //modal.loadAndShow();
+            let id = node.id.replace('sub', '');
+            let modal = new AjaxModal("{% url 'modal_update_subscription' 98765 %}".replace('98765', id));
+            modal.setSubmitCallback(tree_Refresh);
+            modal.loadAndShow();
         }
     }
 }
@@ -259,11 +258,10 @@ function treeNode_Delete()
             modal.loadAndShow();
         }
         else {
-            //TODO:
-            //let id = node.id.replace('sub', '');
-            //let modal = new AjaxModal("{ url 'modal_delete_subscription' 98765 }".replace('98765', id));
-            //modal.setSubmitCallback(tree_Refresh);
-            //modal.loadAndShow();
+            let id = node.id.replace('sub', '');
+            let modal = new AjaxModal("{% url 'modal_delete_subscription' 98765 %}".replace('98765', id));
+            modal.setSubmitCallback(tree_Refresh);
+            modal.loadAndShow();
         }
     }
 }
@@ -274,7 +272,7 @@ function tree_Initialize()
     treeWrapper.jstree({
         core : {
             data : {
-                url : "{% url 'ajax_index_get_tree' %}"
+                url : "{% url 'ajax_get_tree' %}"
             },
             check_callback : tree_ValidateChange,
             themes : {
@@ -350,7 +348,7 @@ function videos_Reload()
     loadingDiv.fadeIn(300);
 
     // Perform query
-    $.post("{% url 'ajax_index_get_videos' %}", filterForm.serialize())
+    $.post("{% url 'ajax_get_videos' %}", filterForm.serialize())
         .done(function (result) {
             $("#videos-wrapper").html(result);
         })
@@ -393,6 +391,11 @@ $(document).ready(function ()
     // folderEditDialog = new FolderEditDialog('#folderEditDialog');
     // subscriptionEditDialog = new SubscriptionEditDialog('#subscriptionEditDialog');
     //
+    $("#btn_create_sub").on("click", function () {
+        let modal = new AjaxModal("{% url 'modal_create_subscription' %}");
+        modal.setSubmitCallback(tree_Refresh);
+        modal.loadAndShow();
+    });
     $("#btn_create_folder").on("click", function () {
         let modal = new AjaxModal("{% url 'modal_create_folder' %}");
         modal.setSubmitCallback(tree_Refresh);

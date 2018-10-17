@@ -35,10 +35,12 @@ class ModalMixin(ContextMixin):
 
         return data
 
-    def modal_response(self, form, success=True):
+    def modal_response(self, form, success=True, error_msg=None):
         result = {'success': success}
         if not success:
             result['errors'] = form.errors.get_json_data(escape_html=True)
+        if error_msg is not None:
+            result['errors']['__all__'] = [{'message': error_msg}]
 
         return JsonResponse(result)
 

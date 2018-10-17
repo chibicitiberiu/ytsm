@@ -1,9 +1,8 @@
-from YtManagerApp.models import Subscription, Video
+from YtManagerApp.models import Subscription, Video, SubscriptionFolder
 from YtManagerApp.utils.youtube import YoutubePlaylistItem
 from typing import Optional
 import re
 from django.db.models import Q
-from YtManagerApp.management.folders import traverse_tree
 from django.contrib.auth.models import User
 
 
@@ -57,7 +56,7 @@ def get_videos(user: User,
             if isinstance(node, Subscription):
                 return node.id
             return None
-        filter_kwargs['subscription_id__in'] = traverse_tree(folder_id, user, visit)
+        filter_kwargs['subscription_id__in'] = SubscriptionFolder.traverse(folder_id, user, visit)
 
     # Only watched
     if only_watched is not None:
