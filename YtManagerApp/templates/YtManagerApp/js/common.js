@@ -1,50 +1,3 @@
-class Dialog {
-    constructor(modalId) {
-        this.modal = $(modalId);
-        this.title = $(modalId + "_Title");
-        this.form = $(modalId + "_Form");
-        this.error = $(modalId + "_Error");
-        this.loading = $(modalId + "_Loading");
-        this.btnSubmit = $(modalId + "_Submit");
-        this.setState('normal');
-    }
-
-    setTitle(value) {
-        this.title.text(value);
-    }
-
-    setState(state) {
-        if (state === 'loading') {
-            this.loading.show();
-            this.error.hide();
-            this.form.hide();
-        }
-        if (state === 'error') {
-            this.loading.hide();
-            this.error.show();
-            this.form.hide();
-        }
-        if (state === 'normal') {
-            this.loading.hide();
-            this.error.hide();
-            this.form.show();
-        }
-    }
-
-    setError(text) {
-        this.error.text(text);
-    }
-
-    showModal() {
-        this.modal.modal();
-    }
-
-    hideModal() {
-        this.modal.modal('hide');
-    }
-}
-
-
 class AjaxModal
 {
     constructor(url)
@@ -100,7 +53,7 @@ class AjaxModal
     _submit(e) {
         let pThis = this;
         let url = this.form.attr('action');
-        $.post(this.url, this.form.serialize())
+        $.post(url, this.form.serialize())
             .done(function(result) {
                 pThis._submitDone(result);
             })
@@ -122,12 +75,22 @@ class AjaxModal
         // Clear old errors first
         this.form.find('.modal-field-error').remove();
 
+        if (!result.hasOwnProperty('success')) {
+            this._submitInvalidResponse();
+            return;
+        }
+
         if (result.success) {
             this._hideModal();
             if (this.submitCallback != null)
                 this.submitCallback();
         }
         else {
+            if (!result.hasOwnProperty('errors')) {
+                this._submitInvalidResponse();
+                return;
+            }
+
             for (let field in result.errors)
                 if (result.errors.hasOwnProperty(field))
                 {
@@ -160,9 +123,15 @@ class AjaxModal
     _submitFailed() {
         // Clear old errors first
         this.form.find('.modal-field-error').remove();
-
         this.form.find('.modal-body')
             .append(`<div class="alert alert-danger modal-field-error">An error occurred while processing request!</div>`);
+    }
+
+    _submitInvalidResponse() {
+        // Clear old errors first
+        this.form.find('.modal-field-error').remove();
+        this.form.find('.modal-body')
+            .append(`<div class="alert alert-danger modal-field-error">Invalid server response!</div>`);
     }
 
     loadAndShow()

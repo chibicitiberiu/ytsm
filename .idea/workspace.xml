@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_create_modal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_delete_modal.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_update_modal.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/folders.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/management.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/management.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/videos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_delete_modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_delete_modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/modal.html" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/modal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_edit_dialog.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/subscription_tree.js" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/subscription_tree.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/views/controls/modal.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/views/controls/modal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/views/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/views/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/subscription_tree.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,11 +61,11 @@
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.14" value="2" />
-          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.15" value="2" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.8" value="2" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -90,9 +75,9 @@
           <entry key="css" value="40" />
           <entry key="default" value="206" />
           <entry key="dummy" value="60" />
-          <entry key="html" value="7008" />
+          <entry key="html" value="7013" />
           <entry key="ini" value="2545" />
-          <entry key="js" value="9046" />
+          <entry key="js" value="9806" />
           <entry key="less" value="38" />
           <entry key="py" value="49344" />
           <entry key="py@youtube-channel-manager" value="265" />
@@ -103,9 +88,9 @@
         <counts>
           <entry key="CSS" value="40" />
           <entry key="CommandLine" value="148" />
-          <entry key="HTML" value="7008" />
+          <entry key="HTML" value="7013" />
           <entry key="Ini" value="2545" />
-          <entry key="JavaScript" value="9046" />
+          <entry key="JavaScript" value="9806" />
           <entry key="Less" value="38" />
           <entry key="PLAIN_TEXT" value="383" />
           <entry key="Python" value="49598" />
@@ -119,11 +104,11 @@
           <entry key="css" value="4" />
           <entry key="default" value="2" />
           <entry key="gif" value="1" />
-          <entry key="html" value="93" />
+          <entry key="html" value="94" />
           <entry key="ini" value="9" />
-          <entry key="js" value="21" />
+          <entry key="js" value="23" />
           <entry key="less" value="1" />
-          <entry key="py" value="237" />
+          <entry key="py" value="240" />
           <entry key="rnc" value="1" />
           <entry key="scss" value="23" />
           <entry key="ytmanagerapp_channel" value="3" />
@@ -136,13 +121,13 @@
         <counts>
           <entry key="CSS" value="4" />
           <entry key="Database Element" value="30" />
-          <entry key="HTML" value="93" />
+          <entry key="HTML" value="94" />
           <entry key="Image" value="1" />
           <entry key="Ini" value="9" />
-          <entry key="JavaScript" value="21" />
+          <entry key="JavaScript" value="23" />
           <entry key="Less" value="1" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="237" />
+          <entry key="Python" value="240" />
           <entry key="RNG Compact" value="1" />
           <entry key="SCSS" value="23" />
         </counts>
@@ -150,23 +135,14 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4618442">
+    <splitter split-orientation="horizontal" split-proportion="0.6894309">
       <split-first>
-        <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_update_modal.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
-                </state>
-              </provider>
-            </entry>
-          </file>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/YtManagerApp/views/index.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="415">
-                  <caret line="331" column="40" lean-forward="true" selection-start-line="331" selection-start-column="40" selection-end-line="331" selection-end-column="40" />
+                <state relative-caret-position="254">
+                  <caret line="153" selection-start-line="153" selection-end-line="153" />
                   <folding>
                     <element signature="e#0#73#0" expanded="true" />
                     <marker date="1539811542770" expanded="true" signature="3131:3310" ph="..." />
@@ -186,22 +162,13 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/urls.py">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/management/videos.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="629">
-                  <caret line="55" column="55" selection-start-line="55" selection-start-column="55" selection-end-line="55" selection-end-column="55" />
+                <state relative-caret-position="500">
+                  <caret line="55" column="37" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
                   <folding>
-                    <element signature="e#643#675#0" expanded="true" />
+                    <element signature="e#0#71#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_delete_modal.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
                 </state>
               </provider>
             </entry>
@@ -209,11 +176,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/modal.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="442">
-                  <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
-                  <folding>
-                    <element signature="e#1427#1450#0#HTML" expanded="true" />
-                  </folding>
+                <state relative-caret-position="323">
+                  <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
                 </state>
               </provider>
             </entry>
@@ -221,8 +185,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/YtManagerApp/views/old_views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="503">
-                  <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
+                <state relative-caret-position="1683">
+                  <caret line="102" selection-start-line="102" selection-end-line="102" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                   </folding>
@@ -230,11 +194,32 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/subscription_tree.js">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="467">
-                  <caret line="261" column="81" selection-start-line="261" selection-start-column="81" selection-end-line="261" selection-end-column="81" />
+                <state relative-caret-position="469">
+                  <caret line="133" column="1" lean-forward="true" selection-start-line="133" selection-start-column="1" selection-end-line="133" selection-end-column="1" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/YtManager/urls.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="391">
+                  <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+                  <folding>
+                    <element signature="e#643#679#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="187">
+                  <caret line="11" column="48" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
                 </state>
               </provider>
             </entry>
@@ -243,19 +228,15 @@
             <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_delete_modal.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="221">
-                  <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-                  <folding>
-                    <element signature="e#411#417#0#HTML" expanded="true" />
-                    <element signature="e#429#435#0#HTML" expanded="true" />
-                  </folding>
+                  <caret line="13" selection-start-line="13" selection-end-line="13" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/YtManagerApp/utils/youtube.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="476">
+                <state relative-caret-position="765">
                   <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
                   <folding>
                     <element signature="e#0#43#0" expanded="true" />
@@ -268,12 +249,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="361">
-                  <caret line="33" column="44" lean-forward="true" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+                  <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
                     <marker date="1539812251317" expanded="true" signature="3991:4134" ph="..." />
@@ -295,10 +276,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="SCSS File" />
-        <option value="JavaScript File" />
         <option value="Setup Script" />
         <option value="HTML File" />
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -356,8 +337,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/YtManagerApp/templates/registration/logout.html" />
-        <option value="$PROJECT_DIR$/YtManager/settings.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/main_default.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/login.scss" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/registration/register.html" />
@@ -385,7 +364,6 @@
         <option value="$PROJECT_DIR$/../YoutubeApi-tests/multiinheritance.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_edit_modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_update_modal.html" />
-        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/folders.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/model/folder.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/model/subscription.py" />
@@ -396,17 +374,20 @@
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_create_modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/management.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/modal.html" />
-        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js" />
         <option value="$PROJECT_DIR$/YtManagerApp/views/controls/modal.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_update_modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" />
         <option value="$PROJECT_DIR$/YtManagerApp/views/index.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/urls.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/subscription_tree.js" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_delete_modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_delete_modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/models.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/subscription_tree.js" />
+        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js" />
+        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/videos.js" />
+        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" />
+        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js" />
       </list>
     </option>
   </component>
@@ -589,17 +570,17 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.SCSS" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\controls" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\registration" />
+      <recent name="D:\Dev\youtube-channel-manager\config" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\js" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views\controls" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\static\YtManagerApp" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\controls" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\registration" />
-      <recent name="D:\Dev\youtube-channel-manager\config" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -736,7 +717,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19936034" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21428572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -796,28 +777,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/YtManager/urls.py</url>
-          <line>15</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/YtManagerApp/views/index.py</url>
+          <line>145</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/registration/password_reset_confirm.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/registration/password_reset_complete.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/registration/password_reset_done.html">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -954,59 +921,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/folder.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/subscription.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/user_settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/channel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/folders.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/videos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#0#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/folder.py" />
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/subscription.py" />
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/user_settings.py" />
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/model/channel.py" />
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/folders.py" />
     <entry file="file://C:/Python36/Lib/site-packages/django/views/generic/edit.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
@@ -1044,16 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/modal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
-          <folding>
-            <element signature="e#1427#1450#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/views/controls/modal.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="554">
@@ -1072,37 +982,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="138" column="21" lean-forward="true" selection-start-line="138" selection-start-column="21" selection-end-line="138" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/old_views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_edit_dialog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="47" selection-start-column="47" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_update_modal.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_edit_dialog.html" />
     <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_subscription">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1117,13 +997,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="71" column="10" lean-forward="true" selection-start-line="71" selection-start-column="10" selection-end-line="71" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_update_modal.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1131,10 +1004,92 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_update_modal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="55" column="55" selection-start-line="55" selection-start-column="55" selection-end-line="55" selection-end-column="55" />
+          <folding>
+            <element signature="e#643#675#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_delete_modal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/old_views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_delete_modal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/utils/youtube.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+            <marker date="1539811805520" expanded="true" signature="411:557" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <marker date="1539812251317" expanded="true" signature="3991:4134" ph="..." />
+            <marker date="1539812251317" expanded="true" signature="6531:6974" ph="..." />
+            <marker date="1539812251317" expanded="true" signature="9520:9529" ph="..." />
+            <marker date="1539812251317" expanded="true" signature="9520:9848" ph="..." />
+            <marker date="1539812251317" expanded="true" signature="9898:10426" ph="..." />
+            <marker date="1539812251317" expanded="true" signature="10398:10426" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/modal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="51" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="53" selection-start-line="53" selection-end-line="70" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/views/index.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="331" column="40" lean-forward="true" selection-start-line="331" selection-start-column="40" selection-end-line="331" selection-end-column="40" />
+        <state relative-caret-position="254">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
           <folding>
             <element signature="e#0#73#0" expanded="true" />
             <marker date="1539811542770" expanded="true" signature="3131:3310" ph="..." />
@@ -1152,65 +1107,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/urls.py">
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/videos.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="55" column="55" selection-start-line="55" selection-start-column="55" selection-end-line="55" selection-end-column="55" />
+        <state relative-caret-position="500">
+          <caret line="55" column="37" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
           <folding>
-            <element signature="e#643#675#0" expanded="true" />
+            <element signature="e#0#71#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/subscription_tree.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="261" column="81" selection-start-line="261" selection-start-column="81" selection-end-line="261" selection-end-column="81" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/videos.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_delete_modal.html">
+    <entry file="file://$PROJECT_DIR$/YtManager/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="391">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
           <folding>
-            <element signature="e#411#417#0#HTML" expanded="true" />
-            <element signature="e#429#435#0#HTML" expanded="true" />
+            <element signature="e#643#679#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_delete_modal.html">
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="187">
+          <caret line="11" column="48" selection-start-line="11" selection-start-column="48" selection-end-line="11" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/utils/youtube.py">
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-            <marker date="1539811805520" expanded="true" signature="411:557" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="33" column="44" lean-forward="true" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <marker date="1539812251317" expanded="true" signature="3991:4134" ph="..." />
-            <marker date="1539812251317" expanded="true" signature="6531:6974" ph="..." />
-            <marker date="1539812251317" expanded="true" signature="9520:9529" ph="..." />
-            <marker date="1539812251317" expanded="true" signature="9520:9848" ph="..." />
-            <marker date="1539812251317" expanded="true" signature="9898:10426" ph="..." />
-            <marker date="1539812251317" expanded="true" signature="10398:10426" ph="..." />
-          </folding>
+        <state relative-caret-position="469">
+          <caret line="133" column="1" lean-forward="true" selection-start-line="133" selection-start-column="1" selection-end-line="133" selection-end-column="1" />
         </state>
       </provider>
     </entry>
