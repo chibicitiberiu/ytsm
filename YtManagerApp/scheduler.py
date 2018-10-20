@@ -2,13 +2,13 @@ import logging
 import sys
 from apscheduler.schedulers.background import BackgroundScheduler
 
-from .appconfig import settings
-
 instance: BackgroundScheduler = None
 
 
 def initialize_scheduler():
+    from .appconfig import settings
     global instance
+
     logger = logging.getLogger('scheduler')
     executors = {
         'default': {

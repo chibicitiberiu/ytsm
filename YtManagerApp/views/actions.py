@@ -11,8 +11,6 @@ from crispy_forms.layout import Layout, Field, Div, HTML
 from django.db.models import Q
 from YtManagerApp.utils import youtube
 from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now
-from YtManagerApp.management.jobs.delete_video import schedule_delete_video
-from YtManagerApp.management.jobs.download_video import schedule_download_video
 
 
 class SyncNowView(View):
@@ -26,7 +24,7 @@ class SyncNowView(View):
 class DeleteVideoFilesView(View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
-        schedule_delete_video(video)
+        video.delete_files()
         return JsonResponse({
             'success': True
         })
@@ -35,7 +33,7 @@ class DeleteVideoFilesView(View):
 class DownloadVideoFilesView(View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
-        schedule_download_video(video)
+        video.download()
         return JsonResponse({
             'success': True
         })
@@ -44,8 +42,7 @@ class DownloadVideoFilesView(View):
 class MarkVideoWatchedView(View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
-        video.watched = True
-        video.save()
+        video.mark_watched()
         return JsonResponse({
             'success': True
         })
@@ -54,7 +51,7 @@ class MarkVideoWatchedView(View):
 class MarkVideoUnwatchedView(View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
-        video.watched = False
+        video.mark_unwatched()
         video.save()
         return JsonResponse({
             'success': True

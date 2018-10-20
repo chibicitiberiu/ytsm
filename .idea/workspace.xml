@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/YtManagerApp/views/actions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/appmain.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/appmain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/downloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/downloader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YtManagerApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YtManagerApp/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/utils/customconfigparser.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/utils/customconfigparser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/views/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/views/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/views/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/views/actions.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +77,7 @@
           <entry key="ini" value="2545" />
           <entry key="js" value="10149" />
           <entry key="less" value="38" />
-          <entry key="py" value="53254" />
+          <entry key="py" value="53601" />
           <entry key="py@youtube-channel-manager" value="265" />
           <entry key="scss" value="1535" />
         </counts>
@@ -108,7 +91,7 @@
           <entry key="JavaScript" value="10149" />
           <entry key="Less" value="38" />
           <entry key="PLAIN_TEXT" value="383" />
-          <entry key="Python" value="53508" />
+          <entry key="Python" value="53855" />
           <entry key="SCSS" value="1535" />
           <entry key="Scratch" value="32" />
         </counts>
@@ -123,7 +106,7 @@
           <entry key="ini" value="9" />
           <entry key="js" value="28" />
           <entry key="less" value="1" />
-          <entry key="py" value="296" />
+          <entry key="py" value="298" />
           <entry key="rnc" value="1" />
           <entry key="scss" value="28" />
           <entry key="ytmanagerapp_channel" value="3" />
@@ -142,7 +125,7 @@
           <entry key="JavaScript" value="28" />
           <entry key="Less" value="1" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="296" />
+          <entry key="Python" value="298" />
           <entry key="RNG Compact" value="1" />
           <entry key="SCSS" value="28" />
         </counts>
@@ -150,53 +133,18 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.3768394">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="231">
-                  <caret line="32" selection-start-line="32" selection-end-line="32" />
-                  <folding>
-                    <element signature="e#0#49#0" expanded="true" />
-                    <marker date="1540073249606" expanded="true" signature="1173:2414" ph="..." />
-                    <marker date="1540073249606" expanded="true" signature="4540:5210" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/management/downloader.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
-                  <folding>
-                    <element signature="e#0#34#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/YtManagerApp/views/actions.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="132">
-                  <caret line="45" selection-start-line="45" selection-end-line="45" />
+                <state relative-caret-position="459">
+                  <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
                   <folding>
                     <element signature="e#0#73#0" expanded="true" />
-                    <marker date="1540036987388" expanded="true" signature="870:875" ph="..." />
+                    <marker date="1540074642385" expanded="true" signature="714:719" ph="..." />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://C:/Python36/Lib/site-packages/django/views/generic/base.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="221">
-                  <caret line="87" selection-start-line="87" selection-end-line="87" />
                 </state>
               </provider>
             </entry>
@@ -208,29 +156,6 @@
                   <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
                   <folding>
                     <element signature="e#643#675#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="17">
-                  <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="119">
-                  <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-                  <folding>
-                    <element signature="e#0#37#0" expanded="true" />
-                    <marker date="1540036124738" expanded="true" signature="295:644" ph="..." />
-                    <marker date="1540036124738" expanded="true" signature="1414:1419" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -252,39 +177,46 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="21" selection-start-line="21" selection-end-line="21" />
+                <state relative-caret-position="68">
+                  <caret line="4" selection-start-line="4" selection-end-line="4" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="119">
+                  <caret line="293" column="12" selection-start-line="293" selection-start-column="12" selection-end-line="293" selection-end-column="12" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
+                    <marker date="1540074893218" expanded="true" signature="4003:4146" ph="..." />
+                    <marker date="1540074893218" expanded="true" signature="6543:6986" ph="..." />
+                    <marker date="1540074893218" expanded="true" signature="9532:9541" ph="..." />
+                    <marker date="1540074893218" expanded="true" signature="9532:9860" ph="..." />
+                    <marker date="1540074893218" expanded="true" signature="9910:10438" ph="..." />
+                    <marker date="1540074893218" expanded="true" signature="10410:10438" ph="..." />
+                    <marker date="1540074893218" expanded="true" signature="12057:13169" ph="..." />
+                    <marker date="1540074893218" expanded="true" signature="12992:13169" ph="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/appconfig.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="316">
-                  <caret line="270" column="26" selection-start-line="270" selection-start-column="26" selection-end-line="270" selection-end-column="26" />
-                  <folding>
-                    <element signature="e#0#14#0" expanded="true" />
-                    <marker date="1540071955669" expanded="true" signature="4001:4144" ph="..." />
-                    <marker date="1540071955669" expanded="true" signature="6541:6984" ph="..." />
-                    <marker date="1540071955669" expanded="true" signature="9530:9539" ph="..." />
-                    <marker date="1540071955669" expanded="true" signature="9530:9858" ph="..." />
-                    <marker date="1540071955669" expanded="true" signature="9908:10436" ph="..." />
-                    <marker date="1540071955669" expanded="true" signature="10408:10436" ph="..." />
-                    <marker date="1540071955669" expanded="true" signature="11310:11588" ph="..." />
-                  </folding>
+                <state relative-caret-position="136">
+                  <caret line="8" selection-start-line="8" selection-end-line="8" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/YtManagerApp/appconfig.py">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/scheduler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="282">
-                  <caret line="22" column="29" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="29" />
+                <state relative-caret-position="102">
+                  <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
                   </folding>
@@ -399,7 +331,6 @@
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/apps.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/customconfigparser.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/scheduler.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" />
         <option value="$PROJECT_DIR$/YtManagerApp/views/index.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js" />
@@ -407,11 +338,12 @@
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/urls.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html" />
-        <option value="$PROJECT_DIR$/YtManagerApp/views/actions.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/downloader.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/models.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/views/actions.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/scheduler.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/models.py" />
       </list>
     </option>
   </component>
@@ -747,8 +679,8 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4978678" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5299353" weight="0.3394794" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" visible="true" weight="0.3991323" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.5299353" visible="true" weight="0.3394794" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.2494577" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
@@ -797,17 +729,6 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py</url>
-          <line>32</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/YtManagerApp/management/folders.py" />
@@ -993,16 +914,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/scheduler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="446">
@@ -1107,28 +1018,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-            <marker date="1540036124738" expanded="true" signature="295:644" ph="..." />
-            <marker date="1540036124738" expanded="true" signature="1414:1419" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
-          <folding>
-            <element signature="e#643#675#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python36/Lib/site-packages/django/views/generic/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1143,23 +1032,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/actions.py">
+    <entry file="file://C:/Python36/Lib/mimetypes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-            <marker date="1540036987388" expanded="true" signature="870:875" ph="..." />
-          </folding>
+        <state relative-caret-position="4879">
+          <caret line="290" column="38" lean-forward="true" selection-start-line="290" selection-start-column="38" selection-end-line="290" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/YtManager/settings.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/management/downloader.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -1171,61 +1052,91 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py">
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="119">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="270" column="26" selection-start-line="270" selection-start-column="26" selection-end-line="270" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <marker date="1540071955669" expanded="true" signature="4001:4144" ph="..." />
-            <marker date="1540071955669" expanded="true" signature="6541:6984" ph="..." />
-            <marker date="1540071955669" expanded="true" signature="9530:9539" ph="..." />
-            <marker date="1540071955669" expanded="true" signature="9530:9858" ph="..." />
-            <marker date="1540071955669" expanded="true" signature="9908:10436" ph="..." />
-            <marker date="1540071955669" expanded="true" signature="10408:10436" ph="..." />
-            <marker date="1540071955669" expanded="true" signature="11310:11588" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python36/Lib/mimetypes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4879">
-          <caret line="290" column="38" lean-forward="true" selection-start-line="290" selection-start-column="38" selection-end-line="290" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManager/settings.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/appconfig.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="22" column="29" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="true" />
+            <marker date="1540036124738" expanded="true" signature="295:644" ph="..." />
+            <marker date="1540036124738" expanded="true" signature="1414:1419" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="38" column="63" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="63" />
           <folding>
-            <element signature="e#0#49#0" expanded="true" />
-            <marker date="1540073249606" expanded="true" signature="1173:2414" ph="..." />
-            <marker date="1540073249606" expanded="true" signature="4540:5210" ph="..." />
+            <element signature="e#643#675#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/actions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
+            <marker date="1540074642385" expanded="true" signature="714:719" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/appconfig.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/scheduler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="293" column="12" selection-start-line="293" selection-start-column="12" selection-end-line="293" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <marker date="1540074893218" expanded="true" signature="4003:4146" ph="..." />
+            <marker date="1540074893218" expanded="true" signature="6543:6986" ph="..." />
+            <marker date="1540074893218" expanded="true" signature="9532:9541" ph="..." />
+            <marker date="1540074893218" expanded="true" signature="9532:9860" ph="..." />
+            <marker date="1540074893218" expanded="true" signature="9910:10438" ph="..." />
+            <marker date="1540074893218" expanded="true" signature="10410:10438" ph="..." />
+            <marker date="1540074893218" expanded="true" signature="12057:13169" ph="..." />
+            <marker date="1540074893218" expanded="true" signature="12992:13169" ph="..." />
           </folding>
         </state>
       </provider>

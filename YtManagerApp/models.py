@@ -8,6 +8,8 @@ from django.db import models
 from django.db.models.functions import Lower
 from YtManagerApp.utils.youtube import YoutubeAPI, YoutubeChannelInfo, YoutubePlaylistInfo
 
+
+
 # help_text = user shown text
 # verbose_name = user shown name
 # null = nullable, blank = user is allowed to set value to empty
@@ -285,9 +287,22 @@ class Video(models.Model):
 
     def mark_watched(self):
         self.watched = True
+        self.save()
+        if self.downloaded_path is not None:
+            from YtManagerApp.appconfig import get_user_config
+            from YtManagerApp.management.jobs.delete_video import schedule_delete_video
+            from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
+
+            user_cfg = get_user_config(self.subscription.user)
+            if user_cfg.getboolean('user', 'DeleteWatched'):
+                schedule_delete_video(self)
+                schedule_synchronize_now_subscription(self.subscription)
 
     def mark_unwatched(self):
+        from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
         self.watched = False
+        self.save()
+        schedule_synchronize_now_subscription(self.subscription)
 
     def get_files(self):
         if self.downloaded_path is not None:
@@ -295,6 +310,25 @@ class Video(models.Model):
             for file in os.listdir(directory):
                 if file.startswith(file_pattern):
                     yield os.path.join(directory, file)
+
+    def delete_files(self):
+        if self.downloaded_path is not None:
+            from YtManagerApp.management.jobs.delete_video import schedule_delete_video
+            from YtManagerApp.appconfig import get_user_config
+            from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
+
+            schedule_delete_video(self)
+
+            # Mark watched?
+            user_cfg = get_user_config(self.subscription.user)
+            if user_cfg.getboolean('user', 'MarkDeletedAsWatched'):
+                self.watched = True
+                schedule_synchronize_now_subscription(self.subscription)
+
+    def download(self):
+        if not self.downloaded_path:
+            from YtManagerApp.management.jobs.download_video import schedule_download_video
+            schedule_download_video(self)
 
     def __str__(self):
         return self.name
