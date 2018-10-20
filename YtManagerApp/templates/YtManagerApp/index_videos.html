@@ -21,13 +21,28 @@
                         <small class="text-muted">{{ video.publish_date }}</small>
                         <a class="card-more float-right text-muted"
                            href="#" role="button" id="dropdownMenuLink"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="typcn typcn-cog"></span></a>
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="typcn typcn-cog"></span>
+                        </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Mark {{ video.watched | yesno:"not watched,watched" }}</a>
-                            {% if video.downloaded_path %}
-                                <a class="dropdown-item" href="#">Delete downloaded</a>
+                            {% if video.watched %}
+                                <a class="dropdown-item ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_unwatched' video.id %}">
+                                    Mark not watched
+                                </a>
                             {% else %}
-                                <a class="dropdown-item" href="#">Download</a>
+                                <a class="dropdown-item ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_watched' video.id %}">
+                                    Mark watched
+                                </a>
+                            {% endif %}
+
+                            {% if video.downloaded_path %}
+                                <a class="dropdown-item ajax-link" href="#" data-post-url="{% url 'ajax_action_delete_video_files' video.id %}">
+                                    Delete downloaded
+                                </a>
+                            {% else %}
+                                <a class="dropdown-item ajax-link" href="#" data-post-url="{% url 'ajax_action_download_video_files' video.id %}" >
+                                    Download
+                                </a>
                             {% endif %}
                         </div>
                     </div>

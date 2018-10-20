@@ -110,5 +110,5 @@ class ConfigParserWithEnv(ConfigParser):
         :param kwargs:
         :return:
         """
-        if isinstance(super()._interpolation, ExtendedInterpolatorWithEnv):
-            super()._interpolation.set_additional_options(**kwargs)
+        if isinstance(self._interpolation, ExtendedInterpolatorWithEnv):
+            self._interpolation.set_additional_options(**kwargs)

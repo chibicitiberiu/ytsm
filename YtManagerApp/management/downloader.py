@@ -35,7 +35,7 @@ def __get_subscription_config(sub: Subscription):
     return enabled, global_limit, limit, order
 
 
-def __process_subscription(sub: Subscription):
+def downloader_process_subscription(sub: Subscription):
     log.info('Processing subscription %d [%s %s]', sub.id, sub.playlist_id, sub.id)
 
     enabled, global_limit, limit, order = __get_subscription_config(sub)
@@ -70,7 +70,7 @@ def __process_subscription(sub: Subscription):
 
 def downloader_process_all():
     for subscription in Subscription.objects.all():
-        __process_subscription(subscription)
+        downloader_process_subscription(subscription)
 
 
 def fetch_thumbnail(url, object_type, identifier, quality):

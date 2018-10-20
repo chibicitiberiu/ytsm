@@ -1,5 +1,6 @@
 import logging
 from typing import Callable, Union, Any, Optional
+import os
 
 from django.contrib.auth.models import User
 from django.contrib.auth.models import User
@@ -281,6 +282,19 @@ class Video(models.Model):
     uploader_name = models.TextField(null=False)
     views = models.IntegerField(null=False, default=0)
     rating = models.FloatField(null=False, default=0.5)
+
+    def mark_watched(self):
+        self.watched = True
+
+    def mark_unwatched(self):
+        self.watched = False
+
+    def get_files(self):
+        if self.downloaded_path is not None:
+            directory, file_pattern = os.path.split(self.downloaded_path)
+            for file in os.listdir(directory):
+                if file.startswith(file_pattern):
+                    yield os.path.join(directory, file)
 
     def __str__(self):
         return self.name

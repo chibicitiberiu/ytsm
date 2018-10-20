@@ -130,7 +130,7 @@ function videos_ReloadWithTimer()
     {
         videos_Submit.call($('#form_video_filter'));
         videos_timeout = null;
-    }, 300);
+    }, 200);
 }
 
 function videos_Submit(e)
@@ -144,6 +144,7 @@ function videos_Submit(e)
     $.post(url, form.serialize())
         .done(function(result) {
             $("#videos-wrapper").html(result);
+            $(".ajax-link").on("click", ajaxLink_Clicked);
         })
         .fail(function() {
             $("#videos-wrapper").html('<div class="alert alert-danger">An error occurred while retrieving the video list!</div>');
@@ -184,4 +185,5 @@ $(document).ready(function ()
     filters_form.find('select[name=sort]').on('change', videos_ReloadWithTimer);
     filters_form.find('select[name=show_watched]').on('change', videos_ReloadWithTimer);
     filters_form.find('select[name=show_downloaded]').on('change', videos_ReloadWithTimer);
+    videos_Reload();
 });

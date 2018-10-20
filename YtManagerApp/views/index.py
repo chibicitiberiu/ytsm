@@ -1,15 +1,17 @@
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field, HTML
+from django import forms
+from django.db.models import Q
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
-from django import forms
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
+
 from YtManagerApp.management.videos import get_videos
 from YtManagerApp.models import Subscription, SubscriptionFolder
-from YtManagerApp.views.controls.modal import ModalMixin
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Div, HTML
-from django.db.models import Q
 from YtManagerApp.utils import youtube
+from YtManagerApp.views.controls.modal import ModalMixin
+
 
 class VideoFilterForm(forms.Form):
     CHOICES_SORT = (
@@ -276,15 +278,20 @@ class CreateSubscriptionModal(ModalMixin, CreateView):
         try:
             form.instance.fetch_from_url(form.cleaned_data['playlist_url'], api)
         except youtube.YoutubeChannelNotFoundException:
-            return self.modal_response(form, False, 'Could not find a channel based on the given URL. Please verify that the URL is correct.')
+            return self.modal_response(
+                form, False, 'Could not find a channel based on the given URL. Please verify that the URL is correct.')
         except youtube.YoutubeUserNotFoundException:
-            return self.modal_response(form, False, 'Could not find an user based on the given URL. Please verify that the URL is correct.')
+            return self.modal_response(
+                form, False, 'Could not find an user based on the given URL. Please verify that the URL is correct.')
         except youtube.YoutubePlaylistNotFoundException:
-            return self.modal_response(form, False, 'Could not find a playlist based on the given URL. Please verify that the URL is correct.')
+            return self.modal_response(
+                form, False, 'Could not find a playlist based on the given URL. Please verify that the URL is correct.')
         except youtube.YoutubeException as e:
-            return self.modal_response(form, False, str(e))
+            return self.modal_response(
+                form, False, str(e))
         except youtube.APIError as e:
-            return self.modal_response(form, False, 'An error occurred while communicating with the YouTube API: ' + str(e))
+            return self.modal_response(
+                form, False, 'An error occurred while communicating with the YouTube API: ' + str(e))
 
         return super().form_valid(form)
 
@@ -292,7 +299,8 @@ class CreateSubscriptionModal(ModalMixin, CreateView):
 class UpdateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['name', 'parent_folder', 'auto_download', 'download_limit', 'download_order', 'manager_delete_after_watched']
+        fields = ['name', 'parent_folder', 'auto_download',
+                  'download_limit', 'download_order', 'manager_delete_after_watched']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

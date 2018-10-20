@@ -1,24 +1,67 @@
-import logging
-
 from apscheduler.triggers.cron import CronTrigger
+from threading import Lock
+import os
+import errno
+import mimetypes
 
-from YtManagerApp.appconfig import settings
-from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all
+from YtManagerApp import scheduler
+from YtManagerApp.appconfig import settings, get_user_config
+from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all, downloader_process_subscription
 from YtManagerApp.management.videos import create_video
 from YtManagerApp.models import *
-from YtManagerApp import scheduler
 from YtManagerApp.utils.youtube import YoutubeAPI
 
 log = logging.getLogger('sync')
+__lock = Lock()
 
 
-def __synchronize_sub(subscription: Subscription, yt_api: YoutubeAPI):
+def __check_new_videos_sub(subscription: Subscription, yt_api: YoutubeAPI):
     # Get list of videos
     for video in yt_api.list_playlist_videos(subscription.playlist_id):
         results = Video.objects.filter(video_id=video.getVideoId(), subscription=subscription)
         if len(results) == 0:
-            log.info('New video for subscription "', subscription, '": ', video.getVideoId(), video.getTitle())
+            log.info('New video for subscription %s: %s %s"', subscription, video.getVideoId(), video.getTitle())
             create_video(video, subscription)
+        else:
+            # TODO... update view count, rating etc
+            pass
+
+
+def __detect_deleted(subscription: Subscription):
+    user_settings = get_user_config(subscription.user)
+
+    for video in Video.objects.filter(subscription=subscription, downloaded_path__isnull=False):
+        found_video = False
+        files = []
+        try:
+            files = list(video.get_files())
+        except OSError as e:
+            if e.errno != errno.ENOENT:
+                log.error("Could not access path %s. Error: %s", video.downloaded_path, e)
+                return
+
+        # Try to find a valid video file
+        for file in files:
+            mime, _ = mimetypes.guess_type(file)
+            if mime is not None and mime.startswith("video"):
+                found_video = True
+
+        # Video not found, we can safely assume that the video was deleted.
+        if not found_video:
+            log.info("Video %d was deleted! [%s %s]", video.id, video.video_id, video.name)
+            # Clean up
+            for file in files:
+                try:
+                    os.unlink(file)
+                except OSError as e:
+                    log.error("Could not delete redundant file %s. Error: %s", file, e)
+            video.downloaded_path = None
+
+            # Mark watched?
+            if user_settings.getboolean('user', 'MarkDeletedAsWatched'):
+                video.watched = True
+
+            video.save()
 
 
 def __fetch_thumbnails_obj(iterable, obj_type, id_attr):
@@ -46,23 +89,63 @@ def __fetch_thumbnails():
 
 
 def synchronize():
-    log.info("Running scheduled synchronization... ")
+    if not __lock.acquire(blocking=False):
+        # Synchronize already running in another thread
+        log.info("Synchronize already running in another thread")
+        return
 
-    # Sync subscribed playlists/channels
-    log.info("Sync - checking for new videos")
-    yt_api = YoutubeAPI.build_public()
-    for subscription in Subscription.objects.all():
-        __synchronize_sub(subscription, yt_api)
+    try:
+        log.info("Running scheduled synchronization... ")
 
-    log.info("Sync - checking for videos to download")
-    downloader_process_all()
+        # Sync subscribed playlists/channels
+        log.info("Sync - checking videos")
+        yt_api = YoutubeAPI.build_public()
+        for subscription in Subscription.objects.all():
+            __check_new_videos_sub(subscription, yt_api)
+            __detect_deleted(subscription)
 
-    log.info("Sync - fetching missing thumbnails")
-    __fetch_thumbnails()
+        log.info("Sync - checking for videos to download")
+        downloader_process_all()
 
-    log.info("Synchronization finished.")
+        log.info("Sync - fetching missing thumbnails")
+        __fetch_thumbnails()
+
+        log.info("Synchronization finished.")
+
+    finally:
+        __lock.release()
 
 
-def schedule_synchronize():
+def synchronize_subscription(subscription: Subscription):
+    __lock.acquire()
+    try:
+        log.info("Running synchronization for single subscription %d [%s]", subscription.id, subscription.name)
+        yt_api = YoutubeAPI.build_public()
+
+        log.info("Sync - checking videos")
+        __check_new_videos_sub(subscription, yt_api)
+        __detect_deleted(subscription)
+
+        log.info("Sync - checking for videos to download")
+        downloader_process_subscription(subscription)
+
+        log.info("Sync - fetching missing thumbnails")
+        __fetch_thumbnails()
+
+        log.info("Synchronization finished for subscription %d [%s].", subscription.id, subscription.name)
+
+    finally:
+        __lock.release()
+
+
+def schedule_synchronize_global():
     trigger = CronTrigger.from_crontab(settings.get('global', 'SynchronizationSchedule'))
-    scheduler.instance.add_job(synchronize, trigger, max_instances=1)
+    scheduler.instance.add_job(synchronize, trigger, max_instances=1, coalesce=True)
+
+
+def schedule_synchronize_now():
+    scheduler.instance.add_job(synchronize, max_instances=1, coalesce=True)
+
+
+def schedule_synchronize_now_subscription(subscription: Subscription):
+    scheduler.instance.add_job(synchronize_subscription, args=[subscription])

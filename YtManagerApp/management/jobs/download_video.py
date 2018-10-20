@@ -4,9 +4,22 @@ from YtManagerApp.appconfig import get_user_config
 import os
 import youtube_dl
 import logging
+import re
 
 log = logging.getLogger('video_downloader')
 log_youtube_dl = log.getChild('youtube_dl')
+
+
+def __get_valid_path(path):
+    """
+    Normalizes string, converts to lowercase, removes non-alpha characters,
+    and converts spaces to hyphens.
+    """
+    import unicodedata
+    value = unicodedata.normalize('NFKD', path).encode('ascii', 'ignore').decode('ascii')
+    value = re.sub('[:"*]', '', value).strip()
+    value = re.sub('[?<>|]', '#', value)
+    return value
 
 
 def __build_youtube_dl_params(video: Video, user_config):
@@ -24,7 +37,7 @@ def __build_youtube_dl_params(video: Video, user_config):
     user_config.set_additional_interpolation_options(**format_dict)
 
     download_path = user_config.get('user', 'DownloadPath')
-    output_pattern = user_config.get('user', 'DownloadFilePattern')
+    output_pattern = __get_valid_path(user_config.get('user', 'DownloadFilePattern'))
     output_path = os.path.join(download_path, output_pattern)
     output_path = os.path.normpath(output_path)
 
@@ -39,7 +52,7 @@ def __build_youtube_dl_params(video: Video, user_config):
         'allsubtitles': user_config.getboolean('user', 'DownloadSubtitlesAll'),
         'postprocessors': [
             {
-                'key': 'FFmpegMetadataPP'
+                'key': 'FFmpegMetadata'
             },
         ]
     }
@@ -72,7 +85,7 @@ def download_video(video: Video, attempt: int = 1):
     if ret == 0:
         video.downloaded_path = output_path
         video.save()
-        log.error('Video %d [%s %s] downloaded successfully!', video.id, video.video_id, video.name)
+        log.info('Video %d [%s %s] downloaded successfully!', video.id, video.video_id, video.name)
 
     elif attempt <= max_attempts:
         log.warning('Re-enqueueing video (attempt %d/%d)', attempt, max_attempts)
