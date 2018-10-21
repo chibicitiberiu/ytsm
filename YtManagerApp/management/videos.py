@@ -19,6 +19,7 @@ def create_video(yt_video: YoutubePlaylistItem, subscription: Subscription):
     video.icon_default = yt_video.getDefaultThumbnailUrl()
     video.icon_best = yt_video.getBestThumbnailUrl()
     video.save()
+    return video
 
 
 def get_videos(user: User,

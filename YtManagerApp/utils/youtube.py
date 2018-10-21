@@ -3,9 +3,12 @@ from googleapiclient.errors import Error as APIError
 from google_auth_oauthlib.flow import InstalledAppFlow
 from django.conf import settings
 import re
+from YtManagerApp.utils.iterutils import as_chunks
 
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
+
+YOUTUBE_LIST_LIMIT = 50
 
 
 class YoutubeException(Exception):
@@ -25,6 +28,10 @@ class YoutubeUserNotFoundException(YoutubeException):
 
 
 class YoutubePlaylistNotFoundException(YoutubeException):
+    pass
+
+
+class YoutubeVideoNotFoundException(YoutubeException):
     pass
 
 
@@ -130,6 +137,27 @@ class YoutubePlaylistItem(object):
         return self.__snippet['position']
 
 
+class YoutubeVideoStatistics(object):
+    def __init__(self, result_dict):
+        self.id = result_dict['id']
+        self.stats = result_dict['statistics']
+
+    def get_view_count(self):
+        return int(self.stats['viewCount'])
+
+    def get_like_count(self):
+        return int(self.stats['likeCount'])
+
+    def get_dislike_count(self):
+        return int(self.stats['dislikeCount'])
+
+    def get_favorite_count(self):
+        return int(self.stats['favoriteCount'])
+
+    def get_comment_count(self):
+        return int(self.stats['commentCount'])
+
+
 class YoutubeAPI(object):
     def __init__(self, service):
         self.service = service
@@ -229,6 +257,26 @@ class YoutubeAPI(object):
                 kwargs['pageToken'] = result['nextPageToken']
             else:
                 last_page = True
+
+    def get_single_video_stats(self, video_id) -> YoutubeVideoStatistics:
+        result = list(self.get_video_stats([video_id]))
+        if len(result) < 1:
+            raise YoutubeVideoNotFoundException('Could not find video with id ' + video_id + '!')
+        return result[0]
+
+    def get_video_stats(self, video_id_list):
+        for chunk in as_chunks(video_id_list, YOUTUBE_LIST_LIMIT):
+            kwargs = {
+                "part": "statistics",
+                "maxResults": YOUTUBE_LIST_LIMIT,
+                "id": ','.join(chunk)
+            }
+            result = self.service.videos()\
+                .list(**kwargs)\
+                .execute()
+
+            for item in result['items']:
+                yield YoutubeVideoStatistics(item)
 
     # @staticmethod
     # def build_oauth() -> 'YoutubeAPI':

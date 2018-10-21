@@ -104,8 +104,12 @@ $accent-color: #007bff;
         }
 
         .card-img-top {
-
         }
+
+        .progress {
+            width: 100px;
+        }
+
     }
 
     .video-icon-yes {
@@ -134,5 +138,9 @@ $accent-color: #007bff;
     ul {
         margin: 0;
     }
+}
 
+.star-rating {
+    display: inline-block;
+    margin-bottom: 0.5rem;
 }

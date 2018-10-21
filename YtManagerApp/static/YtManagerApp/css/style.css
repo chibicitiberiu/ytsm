@@ -92,6 +92,8 @@
   margin-right: -0.25rem; }
   .video-gallery .card .card-more:hover {
     text-decoration: none; }
+.video-gallery .card .progress {
+  width: 100px; }
 .video-gallery .video-icon-yes {
   color: #007bff; }
 .video-gallery .video-icon-no {
@@ -109,5 +111,9 @@
   padding: 0.5rem 0; }
   .modal-field-error ul {
     margin: 0; }
+
+.star-rating {
+  display: inline-block;
+  margin-bottom: 0.5rem; }
 
 /*# sourceMappingURL=style.css.map */

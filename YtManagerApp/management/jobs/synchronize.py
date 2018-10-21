@@ -21,10 +21,15 @@ def __check_new_videos_sub(subscription: Subscription, yt_api: YoutubeAPI):
         results = Video.objects.filter(video_id=video.getVideoId(), subscription=subscription)
         if len(results) == 0:
             log.info('New video for subscription %s: %s %s"', subscription, video.getVideoId(), video.getTitle())
-            create_video(video, subscription)
+            db_video = create_video(video, subscription)
         else:
-            # TODO... update view count, rating etc
-            pass
+            db_video = results.first()
+
+        # Update video stats - rating and view count
+        stats = yt_api.get_single_video_stats(db_video.video_id)
+        db_video.rating = stats.get_like_count() / (stats.get_like_count() + stats.get_dislike_count())
+        db_video.views = stats.get_view_count()
+        db_video.save()
 
 
 def __detect_deleted(subscription: Subscription):
