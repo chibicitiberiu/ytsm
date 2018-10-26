@@ -18,12 +18,12 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.urls import path
 
-from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
-from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal,\
-    CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal
 from .views.actions import SyncNowView, DeleteVideoFilesView, DownloadVideoFilesView, MarkVideoWatchedView, \
     MarkVideoUnwatchedView
-from .views import old_views
+from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
+from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
+    CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal
+from .views.settings import SettingsView
 
 urlpatterns = [
     # Authentication URLs
@@ -53,17 +53,8 @@ urlpatterns = [
     path('modal/update_subscription/<int:pk>/', UpdateSubscriptionModal.as_view(), name='modal_update_subscription'),
     path('modal/delete_subscription/<int:pk>/', DeleteSubscriptionModal.as_view(), name='modal_delete_subscription'),
 
-    # Index
+    # Pages
     path('', index, name='home'),
+    path('settings/', SettingsView.as_view(), name='settings'),
 
-
-    # Old stuff
-    path('ajax/get_children', old_views.ajax_get_children, name='ajax_get_children'),
-    path('ajax/get_folders', old_views.ajax_get_folders, name='ajax_get_folders'),
-    path('ajax/edit_folder', old_views.ajax_edit_folder, name='ajax_edit_folder'),
-    path('ajax/delete_folder/<int:fid>/', old_views.ajax_delete_folder, name='ajax_delete_folder'),
-    path('ajax/edit_subscription', old_views.ajax_edit_subscription, name='ajax_edit_subscription'),
-    path('ajax/delete_subscription/<int:sid>/', old_views.ajax_delete_subscription, name='ajax_delete_subscription'),
-    path('ajax/list_videos', old_views.ajax_list_videos, name='ajax_list_videos'),
-    # path('', old_views.index, name='home')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,12 @@
+{% extends "YtManagerApp/master_default.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Settings</h1>
+        <p>If no value is set, the server's defaults will be used.</p>
+        {% crispy form %}
+    </div>
+
+{% endblock body %}

@@ -43,7 +43,7 @@
                                 {% endif %}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
                             </div>
@@ -61,12 +61,12 @@
 
         </nav>
 
-        <div class="container-fluid">
+        <div id="main_body" class="container-fluid">
             {% block body %}
             {% endblock %}
         </div>
 
-        <footer class="footer bg-light">
+        <footer id="main_footer" class="footer bg-light">
             <span class="ml-auto text-muted">Last synchronized: just now</span>
             <button id="btn_sync_now" class="btn btn-sm btn-light" title="Synchronize now!">
                 <span class="typcn typcn-arrow-sync" aria-hidden="true"></span>
