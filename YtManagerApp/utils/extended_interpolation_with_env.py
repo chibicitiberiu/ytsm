@@ -2,7 +2,7 @@ import os
 import os.path
 import re
 from configparser import Interpolation, NoSectionError, NoOptionError, InterpolationMissingOptionError, \
-    InterpolationDepthError, InterpolationSyntaxError, ConfigParser
+    InterpolationDepthError, InterpolationSyntaxError
 
 MAX_INTERPOLATION_DEPTH = 10
 
@@ -15,12 +15,6 @@ class ExtendedInterpolatorWithEnv(Interpolation):
     using ${env:...}, and allows adding additional options using 'set_additional_options'. """
 
     _KEYCRE = re.compile(r"\$\{([^}]+)\}")
-
-    def __init__(self, **kwargs):
-        self.__kwargs = kwargs
-
-    def set_additional_options(self, **kwargs):
-        self.__kwargs = kwargs
 
     def before_get(self, parser, section, option, value, defaults):
         L = []
@@ -36,8 +30,6 @@ class ExtendedInterpolatorWithEnv(Interpolation):
         return value
 
     def _resolve_option(self, option, defaults):
-        if option in self.__kwargs:
-            return self.__kwargs[option]
         return defaults[option]
 
     def _resolve_section_option(self, section, option, parser):
@@ -98,17 +90,3 @@ class ExtendedInterpolatorWithEnv(Interpolation):
                     option, section,
                     "'$' must be followed by '$' or '{', "
                     "found: %r" % (rest,))
-
-
-class ConfigParserWithEnv(ConfigParser):
-    _DEFAULT_INTERPOLATION = ExtendedInterpolatorWithEnv()
-
-    def set_additional_interpolation_options(self, **kwargs):
-        """
-        Sets additional options to be used in interpolation.
-        Only works with ExtendedInterpolatorWithEnv
-        :param kwargs:
-        :return:
-        """
-        if isinstance(self._interpolation, ExtendedInterpolatorWithEnv):
-            self._interpolation.set_additional_options(**kwargs)

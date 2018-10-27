@@ -1,6 +1,8 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, HTML
 from django import forms
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
@@ -8,31 +10,12 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
 
 from YtManagerApp.management.videos import get_videos
-from YtManagerApp.models import Subscription, SubscriptionFolder
+from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
 from YtManagerApp.utils import youtube
 from YtManagerApp.views.controls.modal import ModalMixin
 
 
 class VideoFilterForm(forms.Form):
-    CHOICES_SORT = (
-        ('newest', 'Newest'),
-        ('oldest', 'Oldest'),
-        ('playlist', 'Playlist order'),
-        ('playlist_reverse', 'Reverse playlist order'),
-        ('popularity', 'Popularity'),
-        ('rating', 'Top rated'),
-    )
-
-    # Map select values to actual column names
-    MAPPING_SORT = {
-        'newest': '-publish_date',
-        'oldest': 'publish_date',
-        'playlist': 'playlist_index',
-        'playlist_reverse': '-playlist_index',
-        'popularity': '-views',
-        'rating': '-rating'
-    }
-
     CHOICES_SHOW_WATCHED = (
         ('y', 'Watched'),
         ('n', 'Not watched'),
@@ -52,7 +35,7 @@ class VideoFilterForm(forms.Form):
     }
 
     query = forms.CharField(label='', required=False)
-    sort = forms.ChoiceField(label='Sort:', choices=CHOICES_SORT, initial='newest')
+    sort = forms.ChoiceField(label='Sort:', choices=VIDEO_ORDER_CHOICES, initial='newest')
     show_watched = forms.ChoiceField(label='Show only: ', choices=CHOICES_SHOW_WATCHED, initial='all')
     show_downloaded = forms.ChoiceField(label='', choices=CHOICES_SHOW_DOWNLOADED, initial='all')
     subscription_id = forms.IntegerField(
@@ -85,7 +68,7 @@ class VideoFilterForm(forms.Form):
 
     def clean_sort(self):
         data = self.cleaned_data['sort']
-        return VideoFilterForm.MAPPING_SORT[data]
+        return VIDEO_ORDER_MAPPING[data]
 
     def clean_show_downloaded(self):
         data = self.cleaned_data['show_downloaded']
@@ -118,6 +101,7 @@ def index(request: HttpRequest):
         return render(request, 'YtManagerApp/index_unauthenticated.html')
 
 
+@login_required
 def ajax_get_tree(request: HttpRequest):
 
     def visit(node):
@@ -142,6 +126,7 @@ def ajax_get_tree(request: HttpRequest):
     return JsonResponse(result, safe=False)
 
 
+@login_required
 def ajax_get_videos(request: HttpRequest):
     if request.method == 'POST':
         form = VideoFilterForm(request.POST)
@@ -206,7 +191,7 @@ class SubscriptionFolderForm(forms.ModelForm):
             current = current.parent
 
 
-class CreateFolderModal(ModalMixin, CreateView):
+class CreateFolderModal(LoginRequiredMixin, ModalMixin, CreateView):
     template_name = 'YtManagerApp/controls/folder_create_modal.html'
     form_class = SubscriptionFolderForm
 
@@ -215,7 +200,7 @@ class CreateFolderModal(ModalMixin, CreateView):
         return super().form_valid(form)
 
 
-class UpdateFolderModal(ModalMixin, UpdateView):
+class UpdateFolderModal(LoginRequiredMixin, ModalMixin, UpdateView):
     template_name = 'YtManagerApp/controls/folder_update_modal.html'
     model = SubscriptionFolder
     form_class = SubscriptionFolderForm
@@ -225,7 +210,7 @@ class DeleteFolderForm(forms.Form):
     keep_subscriptions = forms.BooleanField(required=False, initial=False, label="Keep subscriptions")
 
 
-class DeleteFolderModal(ModalMixin, FormMixin, DeleteView):
+class DeleteFolderModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteView):
     template_name = 'YtManagerApp/controls/folder_delete_modal.html'
     model = SubscriptionFolder
     form_class = DeleteFolderForm
@@ -248,7 +233,8 @@ class CreateSubscriptionForm(forms.ModelForm):
 
     class Meta:
         model = Subscription
-        fields = ['parent_folder']
+        fields = ['parent_folder', 'auto_download',
+                  'download_limit', 'download_order', 'delete_after_watched']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -256,7 +242,13 @@ class CreateSubscriptionForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             'playlist_url',
-            'parent_folder'
+            'parent_folder',
+            HTML('<hr>'),
+            HTML('<h5>Download configuration overloads</h5>'),
+            'auto_download',
+            'download_limit',
+            'download_order',
+            'delete_after_watched'
         )
 
     def clean_playlist_url(self):
@@ -268,7 +260,7 @@ class CreateSubscriptionForm(forms.ModelForm):
         return playlist_url
 
 
-class CreateSubscriptionModal(ModalMixin, CreateView):
+class CreateSubscriptionModal(LoginRequiredMixin, ModalMixin, CreateView):
     template_name = 'YtManagerApp/controls/subscription_create_modal.html'
     form_class = CreateSubscriptionForm
 
@@ -300,7 +292,7 @@ class UpdateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['name', 'parent_folder', 'auto_download',
-                  'download_limit', 'download_order', 'manager_delete_after_watched']
+                  'download_limit', 'download_order', 'delete_after_watched']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -314,11 +306,11 @@ class UpdateSubscriptionForm(forms.ModelForm):
             'auto_download',
             'download_limit',
             'download_order',
-            'manager_delete_after_watched'
+            'delete_after_watched'
         )
 
 
-class UpdateSubscriptionModal(ModalMixin, UpdateView):
+class UpdateSubscriptionModal(LoginRequiredMixin, ModalMixin, UpdateView):
     template_name = 'YtManagerApp/controls/subscription_update_modal.html'
     model = Subscription
     form_class = UpdateSubscriptionForm
@@ -328,7 +320,7 @@ class DeleteSubscriptionForm(forms.Form):
     keep_downloaded_videos = forms.BooleanField(required=False, initial=False, label="Keep downloaded videos")
 
 
-class DeleteSubscriptionModal(ModalMixin, FormMixin, DeleteView):
+class DeleteSubscriptionModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteView):
     template_name = 'YtManagerApp/controls/subscription_delete_modal.html'
     model = Subscription
     form_class = DeleteSubscriptionForm

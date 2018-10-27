@@ -11,6 +11,23 @@ from YtManagerApp.utils.youtube import YoutubeAPI, YoutubeChannelInfo, YoutubePl
 # help_text = user shown text
 # verbose_name = user shown name
 # null = nullable, blank = user is allowed to set value to empty
+VIDEO_ORDER_CHOICES = [
+    ('newest', 'Newest'),
+    ('oldest', 'Oldest'),
+    ('playlist', 'Playlist order'),
+    ('playlist_reverse', 'Reverse playlist order'),
+    ('popularity', 'Popularity'),
+    ('rating', 'Top rated'),
+]
+
+VIDEO_ORDER_MAPPING = {
+    'newest': '-publish_date',
+    'oldest': 'publish_date',
+    'playlist': 'playlist_index',
+    'playlist_reverse': '-playlist_index',
+    'popularity': '-views',
+    'rating': '-rating'
+}
 
 
 class UserSettings(models.Model):
@@ -40,6 +57,7 @@ class UserSettings(models.Model):
     download_order = models.CharField(
         null=True, blank=True,
         max_length=100,
+        choices=VIDEO_ORDER_CHOICES,
         help_text='The order in which videos will be downloaded.'
     )
 
@@ -300,8 +318,14 @@ class Subscription(models.Model):
     # overrides
     auto_download = models.BooleanField(null=True, blank=True)
     download_limit = models.IntegerField(null=True, blank=True)
-    download_order = models.CharField(null=True, blank=True, max_length=128)
-    manager_delete_after_watched = models.BooleanField(null=True, blank=True)
+    download_order = models.CharField(
+        null=True, blank=True,
+        max_length=128,
+        choices=VIDEO_ORDER_CHOICES)
+    delete_after_watched = models.BooleanField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
     def fill_from_playlist(self, info_playlist: YoutubePlaylistInfo):
         self.name = info_playlist.getTitle()
@@ -331,8 +355,17 @@ class Subscription(models.Model):
     def delete_subscription(self, keep_downloaded_videos: bool):
         self.delete()
 
-    def __str__(self):
-        return self.name
+    def get_overloads_dict(self) -> dict:
+        d = {}
+        if self.auto_download is not None:
+            d['AutoDownload'] = self.auto_download
+        if self.download_limit is not None:
+            d['DownloadSubscriptionLimit'] = self.download_limit
+        if self.download_order is not None:
+            d['DownloadOrder'] = self.download_order
+        if self.delete_after_watched is not None:
+            d['DeleteWatched'] = self.delete_after_watched
+        return d
 
 
 class Video(models.Model):
@@ -354,12 +387,11 @@ class Video(models.Model):
         self.watched = True
         self.save()
         if self.downloaded_path is not None:
-            from YtManagerApp.appconfig import get_user_config
+            from YtManagerApp.appconfig import settings
             from YtManagerApp.management.jobs.delete_video import schedule_delete_video
             from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
 
-            user_cfg = get_user_config(self.subscription.user)
-            if user_cfg.getboolean('user', 'DeleteWatched'):
+            if settings.getboolean_sub(self.subscription, 'user', 'DeleteWatched'):
                 schedule_delete_video(self)
                 schedule_synchronize_now_subscription(self.subscription)
 
@@ -379,14 +411,13 @@ class Video(models.Model):
     def delete_files(self):
         if self.downloaded_path is not None:
             from YtManagerApp.management.jobs.delete_video import schedule_delete_video
-            from YtManagerApp.appconfig import get_user_config
+            from YtManagerApp.appconfig import settings
             from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
 
             schedule_delete_video(self)
 
             # Mark watched?
-            user_cfg = get_user_config(self.subscription.user)
-            if user_cfg.getboolean('user', 'MarkDeletedAsWatched'):
+            if settings.getboolean_sub(self, 'user', 'MarkDeletedAsWatched'):
                 self.watched = True
                 schedule_synchronize_now_subscription(self.subscription)
 

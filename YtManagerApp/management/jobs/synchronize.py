@@ -1,11 +1,11 @@
-from apscheduler.triggers.cron import CronTrigger
-from threading import Lock
-import os
 import errno
 import mimetypes
+from threading import Lock
+
+from apscheduler.triggers.cron import CronTrigger
 
 from YtManagerApp import scheduler
-from YtManagerApp.appconfig import settings, get_user_config
+from YtManagerApp.appconfig import settings
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all, downloader_process_subscription
 from YtManagerApp.management.videos import create_video
 from YtManagerApp.models import *
@@ -13,6 +13,8 @@ from YtManagerApp.utils.youtube import YoutubeAPI
 
 log = logging.getLogger('sync')
 __lock = Lock()
+
+_ENABLE_UPDATE_STATS = False
 
 
 def __check_new_videos_sub(subscription: Subscription, yt_api: YoutubeAPI):
@@ -23,6 +25,8 @@ def __check_new_videos_sub(subscription: Subscription, yt_api: YoutubeAPI):
             log.info('New video for subscription %s: %s %s"', subscription, video.getVideoId(), video.getTitle())
             db_video = create_video(video, subscription)
         else:
+            if not _ENABLE_UPDATE_STATS:
+                continue
             db_video = results.first()
 
         # Update video stats - rating and view count
@@ -33,7 +37,6 @@ def __check_new_videos_sub(subscription: Subscription, yt_api: YoutubeAPI):
 
 
 def __detect_deleted(subscription: Subscription):
-    user_settings = get_user_config(subscription.user)
 
     for video in Video.objects.filter(subscription=subscription, downloaded_path__isnull=False):
         found_video = False
@@ -63,7 +66,7 @@ def __detect_deleted(subscription: Subscription):
             video.downloaded_path = None
 
             # Mark watched?
-            if user_settings.getboolean('user', 'MarkDeletedAsWatched'):
+            if settings.getboolean_sub(subscription, 'user', 'MarkDeletedAsWatched'):
                 video.watched = True
 
             video.save()

@@ -3,6 +3,7 @@ from crispy_forms.layout import Submit
 from django import forms
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
@@ -78,5 +79,5 @@ class RegisterView(FormView):
         return context
 
 
-class RegisterDoneView(TemplateView):
+class RegisterDoneView(LoginRequiredMixin, TemplateView):
     template_name = 'registration/register_done.html'

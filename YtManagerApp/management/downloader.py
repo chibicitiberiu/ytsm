@@ -1,7 +1,7 @@
-from YtManagerApp import appconfig
+from YtManagerApp.appconfig import settings
 from YtManagerApp.management.jobs.download_video import schedule_download_video
-from YtManagerApp.models import Video, Subscription
-from django.conf import settings
+from YtManagerApp.models import Video, Subscription, VIDEO_ORDER_MAPPING
+from django.conf import settings as srv_settings
 import logging
 import requests
 import mimetypes
@@ -12,25 +12,18 @@ log = logging.getLogger('downloader')
 
 
 def __get_subscription_config(sub: Subscription):
-    user_config = appconfig.get_user_config(sub.user)
-
-    enabled = sub.auto_download
-    if enabled is None:
-        enabled = user_config.getboolean('user', 'AutoDownload')
+    enabled = settings.getboolean_sub(sub, 'user', 'AutoDownload')
 
     global_limit = -1
-    if len(user_config.get('user', 'DownloadGlobalLimit')) > 0:
-        global_limit = user_config.getint('user', 'DownloadGlobalLimit')
+    if len(settings.get_sub(sub, 'user', 'DownloadGlobalLimit')) > 0:
+        global_limit = settings.getint_sub(sub, 'user', 'DownloadGlobalLimit')
 
-    limit = sub.download_limit
-    if limit is None:
-        limit = -1
-        if len(user_config.get('user', 'DownloadSubscriptionLimit')) > 0:
-            limit = user_config.getint('user', 'DownloadSubscriptionLimit')
+    limit = -1
+    if len(settings.get_sub(sub, 'user', 'DownloadSubscriptionLimit')) > 0:
+        limit = settings.getint_sub(sub, 'user', 'DownloadSubscriptionLimit')
 
-    order = sub.download_order
-    if order is None:
-        order = user_config.get('user', 'DownloadOrder')
+    order = settings.get_sub(sub, 'user', 'DownloadOrder')
+    order = VIDEO_ORDER_MAPPING[order]
 
     return enabled, global_limit, limit, order
 
@@ -88,7 +81,7 @@ def fetch_thumbnail(url, object_type, identifier, quality):
 
     # Build file path
     file_name = f"{identifier}-{quality}{ext}"
-    abs_path_dir = os.path.join(settings.MEDIA_ROOT, "thumbs", object_type)
+    abs_path_dir = os.path.join(srv_settings.MEDIA_ROOT, "thumbs", object_type)
     abs_path = os.path.join(abs_path_dir, file_name)
 
     # Store image
@@ -106,5 +99,5 @@ def fetch_thumbnail(url, object_type, identifier, quality):
         return url
 
     # Return
-    media_url = urljoin(settings.MEDIA_URL, f"thumbs/{object_type}/{file_name}")
+    media_url = urljoin(srv_settings.MEDIA_URL, f"thumbs/{object_type}/{file_name}")
     return media_url

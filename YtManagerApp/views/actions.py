@@ -1,19 +1,12 @@
-from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
-from django.shortcuts import render
-from django import forms
-from django.views.generic import CreateView, UpdateView, DeleteView, View
-from django.views.generic.edit import FormMixin
-from YtManagerApp.management.videos import get_videos
-from YtManagerApp.models import Subscription, SubscriptionFolder, Video
-from YtManagerApp.views.controls.modal import ModalMixin
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Div, HTML
-from django.db.models import Q
-from YtManagerApp.utils import youtube
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
+from django.views.generic import View
+
 from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now
+from YtManagerApp.models import Video
 
 
-class SyncNowView(View):
+class SyncNowView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
         schedule_synchronize_now()
         return JsonResponse({
@@ -21,7 +14,7 @@ class SyncNowView(View):
         })
 
 
-class DeleteVideoFilesView(View):
+class DeleteVideoFilesView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
         video.delete_files()
@@ -30,7 +23,7 @@ class DeleteVideoFilesView(View):
         })
 
 
-class DownloadVideoFilesView(View):
+class DownloadVideoFilesView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
         video.download()
@@ -39,7 +32,7 @@ class DownloadVideoFilesView(View):
         })
 
 
-class MarkVideoWatchedView(View):
+class MarkVideoWatchedView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
         video.mark_watched()
@@ -48,7 +41,7 @@ class MarkVideoWatchedView(View):
         })
 
 
-class MarkVideoUnwatchedView(View):
+class MarkVideoUnwatchedView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
         video = Video.objects.get(id=kwargs['pk'])
         video.mark_unwatched()

@@ -1,8 +1,9 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, HTML, Submit
 from django import forms
-from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.views.generic import UpdateView
 
 from YtManagerApp.models import UserSettings
 
@@ -39,7 +40,7 @@ class SettingsForm(forms.ModelForm):
         )
 
 
-class SettingsView(UpdateView):
+class SettingsView(LoginRequiredMixin, UpdateView):
     form_class = SettingsForm
     model = UserSettings
     template_name = 'YtManagerApp/settings.html'
