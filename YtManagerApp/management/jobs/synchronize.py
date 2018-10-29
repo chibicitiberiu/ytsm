@@ -13,7 +13,7 @@ from YtManagerApp.utils import youtube
 log = logging.getLogger('sync')
 __lock = Lock()
 
-_ENABLE_UPDATE_STATS = False
+_ENABLE_UPDATE_STATS = True
 
 
 def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAPI):

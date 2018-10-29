@@ -169,7 +169,7 @@ class YouTube(object):
             query = Query(self, 'videos', api_params)
             response_list.append(ListResponse(query))
 
-        return itertools.chain(response_list)
+        return itertools.chain(*response_list)
 
     def parse_url(self, url: str) -> dict:
         """
