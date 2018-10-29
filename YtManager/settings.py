@@ -124,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'D:\\Dev\\youtube-channel-manager\\temp\\media'
+MEDIA_ROOT = 'data/media'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

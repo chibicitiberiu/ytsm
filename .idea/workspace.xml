@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManager/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManager/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -148,9 +149,9 @@
           <entry key="auth_group" value="1" />
           <entry key="gitignore" value="1" />
           <entry key="html" value="3" />
-          <entry key="ini" value="2" />
-          <entry key="md" value="5" />
-          <entry key="py" value="35" />
+          <entry key="ini" value="5" />
+          <entry key="md" value="6" />
+          <entry key="py" value="39" />
           <entry key="scss" value="2" />
           <entry key="ytmanagerapp_channel" value="1" />
           <entry key="ytmanagerapp_subscription" value="2" />
@@ -161,10 +162,10 @@
         <counts>
           <entry key="Database Element" value="7" />
           <entry key="HTML" value="3" />
-          <entry key="Ini" value="2" />
-          <entry key="Markdown" value="5" />
+          <entry key="Ini" value="5" />
+          <entry key="Markdown" value="6" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="35" />
+          <entry key="Python" value="39" />
           <entry key="SCSS" value="2" />
         </counts>
       </usages-collector>
@@ -172,43 +173,85 @@
         <counts>
           <entry key="Django Console" value="155" />
           <entry key="ini" value="2" />
-          <entry key="md" value="509" />
-          <entry key="py" value="3244" />
+          <entry key="md" value="3859" />
+          <entry key="py" value="3250" />
           <entry key="py@youtube-channel-manager" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="Bash" value="4" />
           <entry key="CommandLine" value="23" />
           <entry key="Ini" value="2" />
-          <entry key="Markdown" value="509" />
+          <entry key="Markdown" value="3855" />
           <entry key="PLAIN_TEXT" value="18" />
-          <entry key="Python" value="3399" />
+          <entry key="Python" value="3405" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="93" selection-start-line="9" selection-start-column="93" selection-end-line="9" selection-end-column="93" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.84480125">
+      <split-first>
+        <leaf>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="300">
+                  <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="405">
+                  <caret line="27" selection-start-line="27" selection-end-line="27" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/readme.md">
+              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+                <state split_layout="SPLIT">
+                  <first_editor relative-caret-position="390">
+                    <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+                  </first_editor>
+                  <second_editor />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/YtManager/wsgi.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="240">
+                  <caret line="16" selection-start-line="16" selection-end-line="16" />
+                  <folding>
+                    <element signature="e#226#235#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/YtManager/settings.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="469">
+                  <caret line="81" column="9" selection-start-line="81" selection-end-line="81" selection-end-column="9" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -307,7 +350,6 @@
         <option value="$PROJECT_DIR$/YtManagerApp/views/auth.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/views/settings.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/urls.py" />
-        <option value="$PROJECT_DIR$/YtManager/settings.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/customconfigparser.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/extended_interpolation_with_env.py" />
         <option value="$PROJECT_DIR$/config/defaults.ini" />
@@ -315,7 +357,6 @@
         <option value="$PROJECT_DIR$/YtManagerApp/management/downloader.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/scheduler.py" />
-        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/external/pytaw/README.md" />
         <option value="$PROJECT_DIR$/external/pytaw/pytaw/youtube.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" />
@@ -327,6 +368,8 @@
         <option value="$PROJECT_DIR$/config/config.ini" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" />
+        <option value="$PROJECT_DIR$/YtManager/settings.py" />
+        <option value="$PROJECT_DIR$/readme.md" />
       </list>
     </option>
   </component>
@@ -405,32 +448,11 @@
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -610,20 +632,20 @@
     <frame x="0" y="0" width="1920" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1913646" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09808102" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49520257" weight="0.38152173" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5234541" weight="0.2228261" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5229211" visible="true" weight="0.175" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.49307036" visible="true" weight="0.37608695" />
+      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.49307036" weight="0.37608695" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
       <window_info anchor="bottom" id="manage.py@youtube-channel-manager" order="7" sideWeight="0.49573562" weight="0.49347827" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3285968" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50692964" side_tool="true" visible="true" weight="0.37608695" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.47707888" side_tool="true" visible="true" weight="0.175" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49840087" weight="0.15326087" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49573562" weight="0.3576087" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.4968017" weight="0.33804348" />
@@ -667,7 +689,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Python36/Lib/site-packages/django/db/models/fields/__init__.py" />
     <entry file="file://C:/Python36/Lib/site-packages/django/forms/models.py" />
     <entry file="file://C:/Python36/Lib/site-packages/django/contrib/auth/decorators.py" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/views/settings.py">
@@ -781,23 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="421">
           <caret line="440" column="16" selection-start-line="440" selection-start-column="16" selection-end-line="440" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="60">
-            <caret line="4" selection-start-line="4" selection-end-line="4" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManager/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1046">
-          <caret line="132" selection-start-line="132" selection-end-line="132" />
         </state>
       </provider>
     </entry>
@@ -942,13 +946,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/login.scss">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -959,17 +956,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
+    <entry file="file://$PROJECT_DIR$/YtManager/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+        <state relative-caret-position="469">
+          <caret line="81" column="9" selection-start-line="81" selection-end-line="81" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="93" selection-start-line="9" selection-start-column="93" selection-end-line="9" selection-end-column="93" />
+        <state relative-caret-position="405">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManager/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#226#235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="14" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="390">
+            <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
