@@ -2,39 +2,418 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/YtManagerApp/migrations/0007_auto_20181029_1638.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/.pytaw.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/conf.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/index.rst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/make.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/main_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/pytaw/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/pytaw/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/pytaw/youtube.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/setup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/external/pytaw/tests/test_pytaw.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2dac2136-d902-4d27-8789-9371934602fd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2dac2136-d902-4d27-8789-9371934602fd.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/management.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/videos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/utils/iterutils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YtManagerApp/views/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/views/index.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/youtube-channel-manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/youtube-channel-manager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.babelrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.browserslistrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.github/CONTRIBUTING.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.github/ISSUE_TEMPLATE/bug.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.github/ISSUE_TEMPLATE/bug_report.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.github/ISSUE_TEMPLATE/feature.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.github/ISSUE_TEMPLATE/feature_request.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.github/SUPPORT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.stylelintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.stylelintrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/CNAME" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/CODE_OF_CONDUCT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/Gemfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/Gemfile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/_config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/composer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/dist/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/alert.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/button.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/carousel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/collapse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/dropdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/modal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/popover.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/scrollspy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/tab.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/src/util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/karma-bundle.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/karma.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/alert.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/button.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/carousel.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/collapse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/dropdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/modal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/popover.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/scrollspy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/tab.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/tooltip.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/unit/util.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/alert.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/button.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/carousel.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/collapse.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/dropdown.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/modal.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/popover.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/scrollspy.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/tab.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/js/tests/visual/tooltip.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/nuget/MyGet.ps1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/nuget/bootstrap.nuspec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/nuget/bootstrap.sass.nuspec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/package.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/sache.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_alert.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_badge.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_breadcrumb.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_button-group.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_buttons.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_card.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_carousel.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_close.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_code.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_custom-forms.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_dropdown.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_forms.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_functions.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_grid.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_images.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_input-group.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_jumbotron.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_list-group.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_media.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_mixins.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_modal.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_nav.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_navbar.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_pagination.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_popover.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_print.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_progress.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_reboot.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_root.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_tables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_tooltip.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_transitions.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_type.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_utilities.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/_variables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap-grid.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap-reboot.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/bootstrap.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_alert.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_background-variant.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_badge.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_border-radius.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_box-shadow.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_breakpoints.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_buttons.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_caret.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_clearfix.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_float.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_forms.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_gradients.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_grid-framework.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_grid.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_hover.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_image.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_list-group.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_lists.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_nav-divider.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_pagination.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_reset-text.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_resize.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_screen-reader.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_size.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_table-row.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_text-emphasis.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_text-hide.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_text-truncate.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_transition.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/mixins/_visibility.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_align.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_background.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_borders.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_clearfix.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_display.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_embed.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_flex.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_float.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_position.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_screenreaders.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_shadows.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_sizing.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_spacing.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_text.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/scss/utilities/_visibility.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/breakpoints.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/browser-bugs.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/browser-features.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/colors.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/examples.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/grays.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/nav.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/theme-colors.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_data/translations.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/ads.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/bugify.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/callout-danger-async-methods.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/callout-info-mediaqueries-breakpoints.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/callout-warning-color-assistive-technologies.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/callout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/docs-navbar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/docs-sidebar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/example.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/favicons.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/footer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/header.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/bootstrap.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/download.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/github.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/import.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/lightning.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/menu.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/slack.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/icons/twitter.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/scripts.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/skippy.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_includes/social.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_layouts/default.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_layouts/docs.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_layouts/examples.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_layouts/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_layouts/redirect.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/_layouts/simple.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/about/brand.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/about/license.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/about/overview.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/about/translations.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/brand/bootstrap-outline.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/brand/bootstrap-punchout.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/brand/bootstrap-social-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/brand/bootstrap-social.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/brand/bootstrap-solid.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/css/docs.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/css/docs.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/bootstrap-stack.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/bootstrap-themes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/android-chrome-192x192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/android-chrome-512x512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/apple-touch-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/browserconfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/favicon-16x16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/favicon-32x32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/mstile-144x144.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/mstile-150x150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/mstile-310x150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/mstile-310x310.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/mstile-70x70.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/img/favicons/safari-pinned-tab.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/docs.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/src/application.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/src/ie-emulation-modes-warning.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/src/pwa.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/src/search.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/vendor/anchor.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/vendor/clipboard.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/vendor/holder.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/vendor/jquery-slim.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/js/vendor/popper.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_ads.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_algolia.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_anchor.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_brand.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_browser-bugs.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_buttons.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_callouts.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_clipboard-js.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_colors.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_component-examples.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_content.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_examples.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_footer.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_masthead.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_nav.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_sidebar.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_skiplink.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_syntax.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/_variables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/docs.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/docs.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/assets/scss/docs.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/browser-bugs.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/alerts.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/badge.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/breadcrumb.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/button-group.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/buttons.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/card.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/carousel.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/collapse.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/dropdowns.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/forms.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/input-group.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/jumbotron.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/list-group.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/modal.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/navbar.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/navs.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/pagination.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/popovers.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/progress.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/scrollspy.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/components/tooltips.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/content/code.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/content/figures.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/content/images.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/content/reboot.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/content/tables.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/content/typography.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/.stylelintrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/album/album.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/album/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/blog/blog.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/blog/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/carousel/carousel.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/carousel/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/checkout/form-validation.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/checkout/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/cover/cover.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/cover/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/dashboard/dashboard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/dashboard/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/floating-labels/floating-labels.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/floating-labels/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/grid/grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/grid/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/jumbotron/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/jumbotron/jumbotron.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/navbar-bottom/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/navbar-fixed/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/navbar-fixed/navbar-top-fixed.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/navbar-static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/navbar-static/navbar-top.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/navbars/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/navbars/navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/offcanvas/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/offcanvas/offcanvas.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/offcanvas/offcanvas.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/pricing/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/pricing/pricing.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/product/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/product/product.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/album.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/blog.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/carousel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/checkout.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/cover.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/dashboard.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/floating-labels.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/grid.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/jumbotron.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/navbar-bottom.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/navbar-fixed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/navbar-static.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/navbars.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/offcanvas.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/pricing.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/product.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/sign-in.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/starter-template.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/sticky-footer-navbar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/screenshots/sticky-footer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/sign-in/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/sign-in/signin.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/starter-template/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/starter-template/starter-template.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/sticky-footer-navbar/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/sticky-footer-navbar/sticky-footer-navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/sticky-footer/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/sticky-footer/sticky-footer.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/tooltip-viewport/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/tooltip-viewport/tooltip-viewport.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/examples/tooltip-viewport/tooltip-viewport.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/extend/approach.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/extend/icons.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/extend/index.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/accessibility.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/best-practices.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/browsers-devices.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/build-tools.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/contents.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/download.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/introduction.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/javascript.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/theming.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/getting-started/webpack.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/layout/grid.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/layout/media-object.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/layout/overview.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/layout/utilities-for-layout.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/migration.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/borders.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/clearfix.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/close-icon.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/colors.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/display.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/embed.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/flex.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/float.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/image-replacement.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/position.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/screenreaders.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/shadows.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/sizing.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/spacing.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/text.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/vertical-align.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/docs/4.1/utilities/visibility.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/site/sw.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -171,17 +550,19 @@
         <counts>
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.13" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="auth_group" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="html" value="1" />
+          <entry key="html" value="2" />
           <entry key="ini" value="2" />
           <entry key="md" value="5" />
           <entry key="py" value="35" />
+          <entry key="scss" value="2" />
           <entry key="ytmanagerapp_channel" value="1" />
           <entry key="ytmanagerapp_subscription" value="2" />
           <entry key="ytmanagerapp_video" value="3" />
@@ -190,11 +571,12 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Database Element" value="7" />
-          <entry key="HTML" value="1" />
+          <entry key="HTML" value="2" />
           <entry key="Ini" value="2" />
           <entry key="Markdown" value="5" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="35" />
+          <entry key="SCSS" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -220,10 +602,10 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/config/config.ini">
+        <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+            <state relative-caret-position="-157">
+              <caret line="23" column="8" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -322,7 +704,6 @@
         <option value="$PROJECT_DIR$/YtManagerApp/templatetags/ratings.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/settings.html" />
-        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/server_settings.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/views/actions.py" />
@@ -347,6 +728,7 @@
         <option value="$PROJECT_DIR$/YtManagerApp/views/index.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" />
         <option value="$PROJECT_DIR$/config/config.ini" />
+        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" />
       </list>
     </option>
   </component>
@@ -355,11 +737,6 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/package.json" />
-    </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="803" />
@@ -420,7 +797,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -431,36 +807,39 @@
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="management" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="management" type="462c0819:PsiDirectoryNode" />
-              <item name="jobs" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -475,19 +854,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\js" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views\controls" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/YtManagerApp/import" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\management\jobs" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\controls" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\registration" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\js" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views\controls" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -633,12 +1012,12 @@
     <frame x="0" y="0" width="1920" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18923241" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1913646" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49520257" weight="0.38152173" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5234541" visible="true" weight="0.2228261" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5234541" weight="0.2228261" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.4936034" weight="0.37608695" />
@@ -646,8 +1025,8 @@
       <window_info anchor="bottom" id="manage.py@youtube-channel-manager" order="7" sideWeight="0.49573562" weight="0.49347827" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3285968" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.47654584" side_tool="true" visible="true" weight="0.2228261" />
-      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49946696" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50159913" side_tool="true" visible="true" weight="0.15326087" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49840087" visible="true" weight="0.15326087" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49573562" weight="0.3576087" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.4968017" weight="0.33804348" />
       <window_info anchor="bottom" id="Database Console" order="14" sideWeight="0.49838188" weight="0.21908894" />
@@ -690,14 +1069,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python36/Lib/site-packages/django/views/generic/detail.py" />
     <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_usersettings">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -771,9 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -811,20 +1179,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="485">
           <caret line="37" column="65" selection-start-line="37" selection-start-column="65" selection-end-line="38" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -915,16 +1273,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/management.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1500">
-          <caret line="100" column="20" lean-forward="true" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/management.py" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/management/videos.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-308">
@@ -939,9 +1288,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="174" column="11" lean-forward="true" selection-start-line="174" selection-start-column="11" selection-end-line="174" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -975,11 +1321,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <marker date="1540827548686" expanded="true" signature="184:185" ph="..." />
-            <marker date="1540827548686" expanded="true" signature="761:766" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1014,6 +1355,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
           <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/login.scss">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-157">
+          <caret line="23" column="8" lean-forward="true" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
         </state>
       </provider>
     </entry>
