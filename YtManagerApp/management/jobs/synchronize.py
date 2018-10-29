@@ -31,8 +31,12 @@ def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAP
 
         for yt_video in yt_api.videos(all_vids_ids, part='id,statistics'):
             video = all_vids_dict.get(yt_video.id)
-            if yt_video.like_count is not None and yt_video.dislike_count is not None:
+
+            if yt_video.n_likes is not None \
+                    and yt_video.n_dislikes is not None \
+                    and yt_video.n_likes + yt_video.n_dislikes > 0:
                 video.rating = yt_video.n_likes / (yt_video.n_likes + yt_video.n_dislikes)
+
             video.views = yt_video.n_views
             video.save()
 

@@ -2,6 +2,24 @@
 
 A self-hosted tool which manages your YouTube subscriptions, and downloads files automatically.
 
+## Current state
+
+Currently, the program will do what it's main job is to do: download videos, and keep track of the subscriptions.
+
+Of course, there are a lot of things that still need to be done. The web interface is still pretty limited. 
+This is what still needs to be done:
+
+* get status bar to actually display something (right now it's just a hardcoded message)
+* add an indication of what the synchronization jobs are doing to the UI
+* video page, which contains an embedded player
+* OAuth YouTube authentication, so private playlists can be obtained
+* Web UI improvements:
+    * Paging for videos
+    * Handle drag & drop for the subscription folders
+    * Update UI when something changes
+* Improve stability  
+* Bonus: Plex integration
+
 ## Dependencies
 
 * python3: `$ apt install python3`
