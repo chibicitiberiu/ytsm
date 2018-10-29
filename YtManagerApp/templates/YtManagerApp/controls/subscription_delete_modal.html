@@ -6,7 +6,7 @@
 {% endblock modal_title %}
 
 {% block modal_content %}
-    <form action="{% url 'modal_delete_folder' object.id %}" method="post">
+    <form action="{% url 'modal_delete_subscription' object.id %}" method="post">
         {% csrf_token %}
         {{ block.super }}
     </form>
