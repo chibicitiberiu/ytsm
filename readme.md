@@ -1,4 +1,4 @@
-#YouTube Subscription Manager
+# YouTube Subscription Manager
 
 A self-hosted tool which manages your YouTube subscriptions, and downloads files automatically.
 

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/YtManager/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManager/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -173,7 +172,7 @@
         <counts>
           <entry key="Django Console" value="155" />
           <entry key="ini" value="2" />
-          <entry key="md" value="3859" />
+          <entry key="md" value="3860" />
           <entry key="py" value="3250" />
           <entry key="py@youtube-channel-manager" value="41" />
         </counts>
@@ -183,7 +182,7 @@
           <entry key="Bash" value="4" />
           <entry key="CommandLine" value="23" />
           <entry key="Ini" value="2" />
-          <entry key="Markdown" value="3855" />
+          <entry key="Markdown" value="3856" />
           <entry key="PLAIN_TEXT" value="18" />
           <entry key="Python" value="3405" />
         </counts>
@@ -216,8 +215,8 @@
             <entry file="file://$PROJECT_DIR$/readme.md">
               <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
                 <state split_layout="SPLIT">
-                  <first_editor relative-caret-position="390">
-                    <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+                  <first_editor>
+                    <caret column="2" selection-start-column="2" selection-end-column="2" />
                   </first_editor>
                   <second_editor />
                 </state>
@@ -997,8 +996,8 @@
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="390">
-            <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+          <first_editor>
+            <caret column="2" selection-start-column="2" selection-end-column="2" />
           </first_editor>
           <second_editor />
         </state>
