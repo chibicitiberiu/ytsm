@@ -11,3 +11,4 @@ A self-hosted tool which manages your YouTube subscriptions, and downloads files
 * google-api-python-client: `$ pip3 install google-api-python-client`
 * google_auth_oauthlib: `$ pip3 install google_auth_oauthlib`
 * apscheduler (v3.5+): `$ pip3 install apscheduler`
+* (recommended) oauth2client: `$ pip3 install oauth2client`

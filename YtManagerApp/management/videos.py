@@ -1,25 +1,10 @@
-from YtManagerApp.models import Subscription, Video, SubscriptionFolder
-from YtManagerApp.utils.youtube import YoutubePlaylistItem
-from typing import Optional
 import re
-from django.db.models import Q
+from typing import Optional
+
 from django.contrib.auth.models import User
+from django.db.models import Q
 
-
-def create_video(yt_video: YoutubePlaylistItem, subscription: Subscription):
-    video = Video()
-    video.video_id = yt_video.getVideoId()
-    video.name = yt_video.getTitle()
-    video.description = yt_video.getDescription()
-    video.watched = False
-    video.downloaded_path = None
-    video.subscription = subscription
-    video.playlist_index = yt_video.getPlaylistIndex()
-    video.publish_date = yt_video.getPublishDate()
-    video.icon_default = yt_video.getDefaultThumbnailUrl()
-    video.icon_best = yt_video.getBestThumbnailUrl()
-    video.save()
-    return video
+from YtManagerApp.models import Subscription, Video, SubscriptionFolder
 
 
 def get_videos(user: User,

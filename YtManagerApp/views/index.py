@@ -1,4 +1,4 @@
-from crispy_forms.helper import FormHelperpython3
+from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, HTML
 from django import forms
 from django.contrib.auth.decorators import login_required
@@ -175,7 +175,8 @@ class SubscriptionFolderForm(forms.ModelForm):
             args_id.append(~Q(id=self.instance.id))
 
         if SubscriptionFolder.objects.filter(parent=parent, name__iexact=name, *args_id).count() > 0:
-            raise forms.ValidationError('A folder with the same name already exists in the given parent directory!', code='already_exists')
+            raise forms.ValidationError(
+                'A folder with the same name already exists in the given parent directory!', code='already_exists')
 
         # Check for cycles
         if self.instance is not None:
@@ -238,6 +239,7 @@ class CreateSubscriptionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.yt_api = youtube.YoutubeAPI.build_public()
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -252,11 +254,18 @@ class CreateSubscriptionForm(forms.ModelForm):
         )
 
     def clean_playlist_url(self):
-        playlist_url = self.cleaned_data['playlist_url']
+        playlist_url: str = self.cleaned_data['playlist_url']
         try:
-            youtube.YoutubeAPI.parse_channel_url(playlist_url)
-        except youtube.YoutubeInvalidURLException:
-            raise forms.ValidationError('Invalid playlist/channel URL, or not in a recognized format.')
+            parsed_url = self.yt_api.parse_url(playlist_url)
+        except youtube.InvalidURL as e:
+            raise forms.ValidationError(str(e))
+
+        is_playlist = 'playlist' in parsed_url
+        is_channel = parsed_url['type'] in ('channel', 'user', 'channel_custom')
+
+        if not is_channel and not is_playlist:
+            raise forms.ValidationError('The given URL must link to a channel or a playlist!')
+
         return playlist_url
 
 
@@ -269,21 +278,22 @@ class CreateSubscriptionModal(LoginRequiredMixin, ModalMixin, CreateView):
         api = youtube.YoutubeAPI.build_public()
         try:
             form.instance.fetch_from_url(form.cleaned_data['playlist_url'], api)
-        except youtube.YoutubeChannelNotFoundException:
-            return self.modal_response(
-                form, False, 'Could not find a channel based on the given URL. Please verify that the URL is correct.')
-        except youtube.YoutubeUserNotFoundException:
-            return self.modal_response(
-                form, False, 'Could not find an user based on the given URL. Please verify that the URL is correct.')
-        except youtube.YoutubePlaylistNotFoundException:
-            return self.modal_response(
-                form, False, 'Could not find a playlist based on the given URL. Please verify that the URL is correct.')
-        except youtube.YoutubeException as e:
-            return self.modal_response(
-                form, False, str(e))
-        except youtube.APIError as e:
-            return self.modal_response(
-                form, False, 'An error occurred while communicating with the YouTube API: ' + str(e))
+        except youtube.InvalidURL as e:
+            return self.modal_response(form, False, str(e))
+        except ValueError as e:
+            return self.modal_response(form, False, str(e))
+        # except youtube.YoutubeUserNotFoundException:
+        #     return self.modal_response(
+        #         form, False, 'Could not find an user based on the given URL. Please verify that the URL is correct.')
+        # except youtube.YoutubePlaylistNotFoundException:
+        #     return self.modal_response(
+        #         form, False, 'Could not find a playlist based on the given URL. Please verify that the URL is correct.')
+        # except youtube.YoutubeException as e:
+        #     return self.modal_response(
+        #         form, False, str(e))
+        # except youtube.APIError as e:
+        #     return self.modal_response(
+        #         form, False, 'An error occurred while communicating with the YouTube API: ' + str(e))
 
         return super().form_valid(form)
 

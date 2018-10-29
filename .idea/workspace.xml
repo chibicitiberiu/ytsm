@@ -2,10 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/YtManagerApp/migrations/0007_auto_20181029_1638.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/.pytaw.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/conf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/index.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/docs/make.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/main_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/pytaw/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/pytaw/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/pytaw/youtube.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/external/pytaw/tests/test_pytaw.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2dac2136-d902-4d27-8789-9371934602fd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2dac2136-d902-4d27-8789-9371934602fd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/youtube-channel-manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/youtube-channel-manager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/management.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/management/videos.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/management/videos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/scheduler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/utils/iterutils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/YtManagerApp/views/index.py" beforeDir="false" afterPath="$PROJECT_DIR$/YtManagerApp/views/index.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,18 +61,22 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="Django default" type="feb32156:DbDataSourceImpl" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="Django default" type="feb32156:DbDataSourceImpl" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="Django default" type="feb32156:DbDataSourceImpl" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="main: schema" type="90513b60:SqliteImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Django default" type="feb32156:DbDataSourceImpl" />
       </path>
     </expand>
     <select />
@@ -137,51 +170,60 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="auth_group" value="1" />
           <entry key="gitignore" value="1" />
           <entry key="html" value="1" />
-          <entry key="md" value="2" />
-          <entry key="py" value="3" />
+          <entry key="ini" value="2" />
+          <entry key="md" value="5" />
+          <entry key="py" value="35" />
+          <entry key="ytmanagerapp_channel" value="1" />
+          <entry key="ytmanagerapp_subscription" value="2" />
+          <entry key="ytmanagerapp_video" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Database Element" value="7" />
           <entry key="HTML" value="1" />
-          <entry key="Markdown" value="2" />
+          <entry key="Ini" value="2" />
+          <entry key="Markdown" value="5" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="3" />
+          <entry key="Python" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="md" value="464" />
-          <entry key="py" value="1" />
-          <entry key="py@youtube-channel-manager" value="12" />
+          <entry key="Django Console" value="155" />
+          <entry key="ini" value="2" />
+          <entry key="md" value="509" />
+          <entry key="py" value="3244" />
+          <entry key="py@youtube-channel-manager" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CommandLine" value="12" />
-          <entry key="Markdown" value="464" />
-          <entry key="Python" value="1" />
+          <entry key="CommandLine" value="23" />
+          <entry key="Ini" value="2" />
+          <entry key="Markdown" value="509" />
+          <entry key="PLAIN_TEXT" value="18" />
+          <entry key="Python" value="3399" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/readme.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="180">
-                <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-              </first_editor>
-              <second_editor />
+        <entry file="file://$PROJECT_DIR$/config/config.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="373">
+              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
             </state>
           </provider>
         </entry>
@@ -194,22 +236,13 @@
         <option value="SCSS File" />
         <option value="Setup Script" />
         <option value="JavaScript File" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ConfigParserWithEnv</find>
-      <find>logger</find>
-      <find>app_config</find>
-      <find>dialog_</find>
-      <find>.find</find>
-      <find>.show</find>
-      <find>videos_wrapper</find>
-      <find>videos_loading</find>
-      <find>submit</find>
       <find>modal_edit_folder</find>
       <find>modal_update_folder</find>
       <find>modal_delete_folder</find>
@@ -231,6 +264,15 @@
       <find>settings</find>
       <find>settings.</find>
       <find>manager_delete_after_watched</find>
+      <find>dist</find>
+      <find>relatedPlaylists</find>
+      <find>thumbnails</find>
+      <find>'thumbnails'</find>
+      <find>thumbn</find>
+      <find>thumbnail</find>
+      <find>get_or_create</find>
+      <find>video</find>
+      <find>class thum</find>
     </findStrings>
     <replaceStrings>
       <replace>loading</replace>
@@ -254,8 +296,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_create_modal.html" />
-        <option value="$PROJECT_DIR$/../YoutubeApi-tests/multiinheritance.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_edit_modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/folder_update_modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/folders.py" />
@@ -277,11 +317,7 @@
         <option value="$PROJECT_DIR$/YtManagerApp/apps.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/index.js" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/js/common.js" />
-        <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/scheduler.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/management/videos.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/iterutils.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templatetags/common.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templatetags/ratings.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html" />
@@ -297,14 +333,20 @@
         <option value="$PROJECT_DIR$/YtManagerApp/utils/customconfigparser.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/extended_interpolation_with_env.py" />
         <option value="$PROJECT_DIR$/config/defaults.ini" />
-        <option value="$PROJECT_DIR$/YtManagerApp/models.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/appconfig.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/downloader.py" />
-        <option value="$PROJECT_DIR$/config/config.ini" />
-        <option value="$PROJECT_DIR$/YtManagerApp/views/index.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/scheduler.py" />
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/external/pytaw/README.md" />
+        <option value="$PROJECT_DIR$/external/pytaw/pytaw/youtube.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/utils/youtube.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/management/videos.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/models.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/views/index.py" />
+        <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" />
+        <option value="$PROJECT_DIR$/config/config.ini" />
       </list>
     </option>
   </component>
@@ -320,8 +362,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="803" />
+    <option name="y" value="615" />
     <option name="width" value="643" />
     <option name="height" value="321" />
   </component>
@@ -378,6 +420,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -388,56 +431,36 @@
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="management" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
+              <item name="management" type="462c0819:PsiDirectoryNode" />
+              <item name="jobs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="import" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="import" type="462c0819:PsiDirectoryNode" />
-              <item name="bootstrap-4.1.3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -445,26 +468,26 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/Dev/youtube-channel-manager/YtManager/settings.py" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../YoutubeApi-tests/get_playlist_info.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pytaw" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\management\jobs" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\controls" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\registration" />
-      <recent name="D:\Dev\youtube-channel-manager\config" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\js" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views\controls" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\static\YtManagerApp" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/YtManagerApp/import" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\management\jobs" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\controls" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\registration" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -610,29 +633,29 @@
     <frame x="0" y="0" width="1920" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18603411" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18923241" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49733475" weight="0.329718" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5245203" visible="true" weight="0.33913043" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49520257" weight="0.38152173" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5234541" visible="true" weight="0.2228261" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.49520257" weight="0.37608695" />
+      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.4936034" weight="0.37608695" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
-      <window_info anchor="bottom" id="manage.py@youtube-channel-manager" order="7" sideWeight="0.49626866" weight="0.49347827" />
+      <window_info anchor="bottom" id="manage.py@youtube-channel-manager" order="7" sideWeight="0.49573562" weight="0.49347827" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3285968" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.47547975" side_tool="true" visible="true" weight="0.33913043" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.47654584" side_tool="true" visible="true" weight="0.2228261" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49946696" weight="0.329718" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49626866" weight="0.3576087" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49733475" weight="0.3347826" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49573562" weight="0.3576087" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.4968017" weight="0.33804348" />
       <window_info anchor="bottom" id="Database Console" order="14" sideWeight="0.49838188" weight="0.21908894" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32995737" />
-      <window_info anchor="right" id="Database" order="4" weight="0.2675906" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.20469083" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15138593" />
@@ -667,75 +690,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/utils/youtube.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/videos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templatetags/common.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templatetags/ratings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="30" column="9" lean-forward="true" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/old_views.py" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python36/Lib/site-packages/django/template/base.py" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index_videos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python36/Lib/site-packages/django/core/handlers/exception.py" />
-    <entry file="file://C:/Python36/Lib/site-packages/django/views/generic/base.py" />
-    <entry file="file://C:/Python36/Lib/site-packages/django/views/generic/edit.py" />
-    <entry file="file://C:/Python36/Lib/site-packages/django/db/models/query.py" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/server_settings.html" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/settings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="18" lean-forward="true" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -751,20 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_video">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_subscription">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python36/Lib/site-packages/django/db/models/fields/__init__.py" />
     <entry file="file://C:/Python36/Lib/site-packages/django/forms/models.py" />
     <entry file="file://C:/Python36/Lib/site-packages/django/contrib/auth/decorators.py" />
@@ -772,9 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -797,48 +734,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://C:/Python36/Lib/collections/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="102" column="12" lean-forward="true" selection-start-line="102" selection-start-column="12" selection-end-line="102" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/scheduler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-1184660488/builtins.py" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#643#675#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManager/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="746">
-          <caret line="132" selection-start-line="132" selection-end-line="132" />
         </state>
       </provider>
     </entry>
@@ -856,29 +760,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://C:/Python36/Lib/configparser.py" />
     <entry file="file://C:/Python36/Lib/site-packages/apscheduler/executors/base.py" />
     <entry file="file://C:/Python36/Lib/site-packages/django/db/models/fields/related_descriptors.py" />
-    <entry file="file:///usr/lib/python3/dist-packages/django/db/models/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="1652" selection-start-line="1652" selection-end-line="1652" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/index.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="49" selection-start-column="49" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file:///usr/lib/python3/dist-packages/django/db/models/base.py" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/appmain.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -916,30 +804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="123" selection-start-line="123" selection-end-line="123" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -954,13 +818,202 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="37" column="65" selection-start-line="37" selection-start-column="65" selection-end-line="38" selection-end-column="76" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.6/dist-packages/apscheduler/schedulers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="440" column="16" selection-start-line="440" selection-start-column="16" selection-end-line="440" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="180">
-            <caret line="12" column="31" lean-forward="true" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <first_editor relative-caret-position="60">
+            <caret line="4" selection-start-line="4" selection-end-line="4" />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManager/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1046">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_subscription">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/auth_group">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_video">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/external/pytaw/docs/conf.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/scheduler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/utils/iterutils.py" />
+    <entry file="das://77df9da5-0b97-445e-a895-744ef8257a74/schema/main/table/ytmanagerapp_channel">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://77df9da5-0b97-445e-a895-744ef8257a74/schema/main/table/ytmanagerapp_subscription">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://77df9da5-0b97-445e-a895-744ef8257a74/schema/main/table/ytmanagerapp_video">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/external/pytaw/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="75">
+            <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/management.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1500">
+          <caret line="100" column="20" lean-forward="true" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/videos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-308">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/external/pytaw/pytaw/youtube.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="174" column="11" lean-forward="true" selection-start-line="174" selection-start-column="11" selection-end-line="174" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.6/dist-packages/django/forms/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.6/dist-packages/django/db/backends/sqlite3/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="314" column="31" selection-start-line="314" selection-start-column="31" selection-end-line="314" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="280" column="32" selection-start-line="280" selection-start-column="22" selection-end-line="280" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <marker date="1540831325280" expanded="true" signature="7713:7719" ph="..." />
+            <marker date="1540831325280" expanded="true" signature="13276:13861" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/utils/youtube.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+            <marker date="1540827548686" expanded="true" signature="184:185" ph="..." />
+            <marker date="1540827548686" expanded="true" signature="761:766" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="71" selection-start-line="18" selection-start-column="71" selection-end-line="18" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/index.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="299" selection-start-line="299" selection-end-line="299" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="99" column="49" selection-start-line="99" selection-start-column="49" selection-end-line="99" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
         </state>
       </provider>
     </entry>

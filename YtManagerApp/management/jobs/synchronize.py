@@ -7,9 +7,8 @@ from apscheduler.triggers.cron import CronTrigger
 from YtManagerApp import scheduler
 from YtManagerApp.appconfig import settings
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all, downloader_process_subscription
-from YtManagerApp.management.videos import create_video
 from YtManagerApp.models import *
-from YtManagerApp.utils.youtube import YoutubeAPI
+from YtManagerApp.utils import youtube
 
 log = logging.getLogger('sync')
 __lock = Lock()
@@ -17,23 +16,25 @@ __lock = Lock()
 _ENABLE_UPDATE_STATS = False
 
 
-def __check_new_videos_sub(subscription: Subscription, yt_api: YoutubeAPI):
+def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAPI):
     # Get list of videos
-    for video in yt_api.list_playlist_videos(subscription.playlist_id):
-        results = Video.objects.filter(video_id=video.getVideoId(), subscription=subscription)
+    for item in yt_api.playlist_items(subscription.playlist_id):
+        results = Video.objects.filter(video_id=item.resource_video_id, subscription=subscription)
         if len(results) == 0:
-            log.info('New video for subscription %s: %s %s"', subscription, video.getVideoId(), video.getTitle())
-            db_video = create_video(video, subscription)
-        else:
-            if not _ENABLE_UPDATE_STATS:
-                continue
-            db_video = results.first()
+            log.info('New video for subscription %s: %s %s"', subscription, item.resource_video_id, item.title)
+            Video.create(item, subscription)
 
-        # Update video stats - rating and view count
-        stats = yt_api.get_single_video_stats(db_video.video_id)
-        db_video.rating = stats.get_like_count() / (stats.get_like_count() + stats.get_dislike_count())
-        db_video.views = stats.get_view_count()
-        db_video.save()
+    if _ENABLE_UPDATE_STATS:
+        all_vids = Video.objects.filter(subscription=subscription)
+        all_vids_ids = [video.video_id for video in all_vids]
+        all_vids_dict = {v.video_id: v for v in all_vids}
+
+        for yt_video in yt_api.videos(all_vids_ids, part='id,statistics'):
+            video = all_vids_dict.get(yt_video.id)
+            if yt_video.like_count is not None and yt_video.dislike_count is not None:
+                video.rating = yt_video.n_likes / (yt_video.n_likes + yt_video.n_dislikes)
+            video.views = yt_video.n_views
+            video.save()
 
 
 def __detect_deleted(subscription: Subscription):
@@ -82,11 +83,6 @@ def __fetch_thumbnails_obj(iterable, obj_type, id_attr):
 
 
 def __fetch_thumbnails():
-    # Fetch thumbnails
-    log.info("Fetching channel thumbnails... ")
-    __fetch_thumbnails_obj(Channel.objects.filter(icon_default__istartswith='http'), 'channel', 'channel_id')
-    __fetch_thumbnails_obj(Channel.objects.filter(icon_best__istartswith='http'), 'channel', 'channel_id')
-
     log.info("Fetching subscription thumbnails... ")
     __fetch_thumbnails_obj(Subscription.objects.filter(icon_default__istartswith='http'), 'sub', 'playlist_id')
     __fetch_thumbnails_obj(Subscription.objects.filter(icon_best__istartswith='http'), 'sub', 'playlist_id')
@@ -107,7 +103,7 @@ def synchronize():
 
         # Sync subscribed playlists/channels
         log.info("Sync - checking videos")
-        yt_api = YoutubeAPI.build_public()
+        yt_api = youtube.YoutubeAPI.build_public()
         for subscription in Subscription.objects.all():
             __check_new_videos_sub(subscription, yt_api)
             __detect_deleted(subscription)
@@ -128,7 +124,7 @@ def synchronize_subscription(subscription: Subscription):
     __lock.acquire()
     try:
         log.info("Running synchronization for single subscription %d [%s]", subscription.id, subscription.name)
-        yt_api = YoutubeAPI.build_public()
+        yt_api = youtube.YoutubeAPI.build_public()
 
         log.info("Sync - checking videos")
         __check_new_videos_sub(subscription, yt_api)
@@ -148,12 +144,15 @@ def synchronize_subscription(subscription: Subscription):
 
 def schedule_synchronize_global():
     trigger = CronTrigger.from_crontab(settings.get('global', 'SynchronizationSchedule'))
-    scheduler.instance.add_job(synchronize, trigger, max_instances=1, coalesce=True)
+    job = scheduler.scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
+    log.info('Scheduled synchronize job job=%s', job.id)
 
 
 def schedule_synchronize_now():
-    scheduler.instance.add_job(synchronize, max_instances=1, coalesce=True)
+    job = scheduler.scheduler.add_job(synchronize, max_instances=1, coalesce=True)
+    log.info('Scheduled synchronize now job job=%s', job.id)
 
 
 def schedule_synchronize_now_subscription(subscription: Subscription):
-    scheduler.instance.add_job(synchronize_subscription, args=[subscription])
+    job = scheduler.scheduler.add_job(synchronize_subscription, args=[subscription])
+    log.info('Scheduled synchronize subscription job subscription=(%s), job=%s', subscription, job.id)

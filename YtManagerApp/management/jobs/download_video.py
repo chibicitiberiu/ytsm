@@ -25,8 +25,8 @@ def __get_valid_path(path):
 def __build_youtube_dl_params(video: Video):
     # resolve path
     pattern_dict = {
-        'channel': video.subscription.channel.name,
-        'channel_id': video.subscription.channel.channel_id,
+        'channel': video.subscription.channel_name,
+        'channel_id': video.subscription.channel_id,
         'playlist': video.subscription.name,
         'playlist_id': video.subscription.playlist_id,
         'playlist_index': "{:03d}".format(1 + video.playlist_index),
@@ -88,12 +88,17 @@ def download_video(video: Video, attempt: int = 1):
 
     elif attempt <= max_attempts:
         log.warning('Re-enqueueing video (attempt %d/%d)', attempt, max_attempts)
-        scheduler.instance.add_job(download_video, args=[video, attempt + 1])
+        __schedule_download_video(video, attempt + 1)
 
     else:
         log.error('Multiple attempts to download video %d [%s %s] failed!', video.id, video.video_id, video.name)
         video.downloaded_path = ''
         video.save()
+
+
+def __schedule_download_video(video: Video, attempt=1):
+    job = scheduler.scheduler.add_job(download_video, args=[video, attempt])
+    log.info('Scheduled download video job video=(%s), attempt=%d, job=%s', video, attempt, job.id)
 
 
 def schedule_download_video(video: Video):
@@ -102,4 +107,4 @@ def schedule_download_video(video: Video):
     :param video:
     :return:
     """
-    scheduler.instance.add_job(download_video, args=[video, 1])
+    __schedule_download_video(video)

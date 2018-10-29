@@ -35,4 +35,5 @@ def schedule_delete_video(video: Video):
     :param video:
     :return:
     """
-    scheduler.instance.add_job(delete_video, args=[video])
+    job = scheduler.scheduler.add_job(delete_video, args=[video])
+    log.info('Scheduled delete video job video=(%s), job=%s', video, job.id)

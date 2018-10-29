@@ -2,12 +2,12 @@ import logging
 import sys
 from apscheduler.schedulers.background import BackgroundScheduler
 
-instance: BackgroundScheduler = None
+scheduler: BackgroundScheduler = None
 
 
 def initialize_scheduler():
     from .appconfig import settings
-    global instance
+    global scheduler
 
     logger = logging.getLogger('scheduler')
     executors = {
@@ -17,8 +17,8 @@ def initialize_scheduler():
         }
     }
     job_defaults = {
-        'misfire_grace_time': sys.maxsize
+        'misfire_grace_time': 60 * 60 * 24 * 365        # 1 year
     }
 
-    instance = BackgroundScheduler(logger=logger, executors=executors, job_defaults=job_defaults)
-    instance.start()
+    scheduler = BackgroundScheduler(logger=logger, executors=executors, job_defaults=job_defaults)
+    scheduler.start()
