@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx:/etc/nginx/conf.d/
+      - ./app/YtManagerApp/static:/www/static
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ytmanager
+
+  web:
+    build: .
+    tty: true
+    command: ./init.sh
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./media:/usr/src/app/data/media
+    depends_on:
+      - db
+
