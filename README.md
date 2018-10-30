@@ -6,8 +6,7 @@ A self-hosted tool which manages your YouTube subscriptions, and downloads files
 
 Currently, the program will do what it's main job is to do: download videos, and keep track of the subscriptions.
 
-Of course, there are a lot of things that still need to be done. The web interface is still pretty limited. 
-This is what still needs to be done:
+Of course, there are a lot of things that still need to be done. The web interface is still pretty limited, and there might still be uncaught bugs. These are some of the things that need to be done:
 
 * get status bar to actually display something (right now it's just a hardcoded message)
 * add an indication of what the synchronization jobs are doing to the UI
@@ -19,12 +18,7 @@ This is what still needs to be done:
     * Update UI when something changes
 * Improve stability  
 * Bonus: Plex integration
-
-# Docker
-
-To run with docker, edit the config file (config/config.ini) and then run `docker-compose up -d`, it will bind to port 80.
-
-You can edit the default download locations in the docker-compose.yml file.
+* Bonus: Support for additional services (Twitch, Vimeo)
 
 ## Dependencies
 
@@ -39,6 +33,8 @@ You can edit the default download locations in the docker-compose.yml file.
 * (recommended) oauth2client: `$ pip3 install oauth2client`
 
 ## Installation
+
+### Normal installation for development/testing
 
 1. Install all the dependencies listed above.
 
@@ -90,7 +86,15 @@ individual user.
 
 10. Add some subscriptions, and enjoy!
 
-### Correct deploying procedure
+### Docker
+
+A much easier way to install is to use Docker.
+
+To run with docker, edit the config file (config/config.ini) and then run `docker-compose up -d`, it will bind to port 80.
+
+You can edit the default download locations in the docker-compose.yml file.
+
+### Deploying for production
 
 This is a *django* project, so the correct way to deploy it to a server would be by using *mod_wsgi*. Since this project 
 is still in development, I haven't really thought about getting it ready for production. 
