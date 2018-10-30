@@ -1,0 +1,10 @@
+apscheduler 
+gunicorn
+django 
+django-crispy-forms 
+youtube-dl 
+google-api-python-client 
+google_auth_oauthlib 
+oauth2client
+psycopg2-binary
+python-dateutil

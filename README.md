@@ -20,6 +20,12 @@ This is what still needs to be done:
 * Improve stability  
 * Bonus: Plex integration
 
+# Docker
+
+To run with docker, edit the config file (config/config.ini) and then run `docker-compose up -d`, it will bind to port 80.
+
+You can edit the default download locations in the docker-compose.yml file.
+
 ## Dependencies
 
 * python3: `$ apt install python3`
