@@ -81,12 +81,12 @@ WSGI_APPLICATION = 'YtManager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DATABASE_NAME', 'ytmanager.db'),
-        'HOST': os.getenv('DATABASE_HOST', None),
-        'USER': os.getenv('DATABASE_USERNAME', None),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', None),
-        'PORT': os.getenv('DATABASE_PORT', None)
+        'ENGINE': os.getenv('DATABASE_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('DATABASE_NAME', 'ytmanager'),
+        'HOST': os.getenv('DATABASE_HOST', 'db'),
+        'USER': os.getenv('DATABASE_USERNAME', 'postgres'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        'PORT': os.getenv('DATABASE_PORT', 5432)
     }
 }
 
