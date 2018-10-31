@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'YtManager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DATABASE_NAME', 'ytsm.db'),
+        'NAME': os.getenv('DATABASE_NAME', 'ytmanager.db'),
         'HOST': os.getenv('DATABASE_HOST', None),
         'USER': os.getenv('DATABASE_USERNAME', None),
         'PASSWORD': os.getenv('DATABASE_PASSWORD', None),
