@@ -30,6 +30,7 @@ services:
       - "8000:8000"
     volumes:
       - ./media:/usr/src/app/data/media
+      - ./db:/usr/src/app/data/db
     depends_on:
       - db
 
