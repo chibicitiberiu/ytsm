@@ -2,6 +2,7 @@ apscheduler
 gunicorn
 django 
 django-crispy-forms 
+dj_database_url
 youtube-dl 
 google-api-python-client 
 google_auth_oauthlib 
