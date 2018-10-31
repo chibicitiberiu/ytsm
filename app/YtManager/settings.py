@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^zv8@i2h!ko2lo=%ivq(9e#x=%q*i^^)6#4@(juzdx%&0c+9a0'
 
-YOUTUBE_API_KEY = "AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8"
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', 'AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,13 +81,13 @@ WSGI_APPLICATION = 'YtManager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432,
+        'ENGINE': os.getenv('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.getenv('DATABASE_NAME', 'ytsm.db'),
+        'HOST': os.getenv('DATABASE_HOST', None),
+        'USER': os.getenv('DATABASE_USERNAME', None),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', None),
+        'PORT': os.getenv('DATABASE_PORT', None)
     }
-
 }
 
 # Password validation

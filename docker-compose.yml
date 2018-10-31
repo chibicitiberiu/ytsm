@@ -22,6 +22,8 @@ services:
 
   web:
     build: .
+    env_file:
+      - env.env
     tty: true
     command: ./init.sh
     ports:
