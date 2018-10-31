@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'YtManager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('YTSM_DATABASE_ENGINE', 'django.db.backends.postgresql'),
+        'ENGINE': os.getenv('YTSM_DATABASE_ENGINE', 'django.db.backends.sqlite3'),
         'NAME': os.getenv('YTSM_DATABASE_NAME', os.path.join(BASE_DIR, 'ytmanager.db')),
         'HOST': os.getenv('YTSM_DATABASE_HOST', None),
         'USER': os.getenv('YTSM_DATABASE_USERNAME', None),
