@@ -4,7 +4,7 @@ Running with Docker
 Sample Run command
 -----
 ```bash
-docker run --expose 80:8000 --env-file sqlite3.env.env --volume ./downloads:/usr/src/app/data/downloads chibicitiberiu/ytsm:latest
+docker run -d --name ytsm -p 80:8000 --env-file sqlite3.env.env --volume ./downloads:/usr/src/app/data/downloads chibicitiberiu/ytsm:latest
 ```
 ### Quick Rundown:
 - `--expose 80:8000` maps the Host OS port 80 to the container port 80
@@ -26,3 +26,14 @@ Volumes
 -----
 - /usr/src/app/data/media
 - /usr/src/app/data/db
+
+
+Notes
+----
+If you experience any issues with the app running, make sure to run the following command to apply Django migrations to the database
+
+### When using just the Dockerfile/Image
+- `docker exec ytsm python manage.py migrate`
+
+### When using the docker-compose file
+- `docker exec ytsm_web_1 python manage.py migrate`
