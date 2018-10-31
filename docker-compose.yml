@@ -11,19 +11,10 @@ services:
     depends_on:
       - web
 
-  db:
-    image: postgres
-    restart: always
-    volumes:
-      - /var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ytmanager
-
   web:
     build: .
     env_file:
-      - env.env
+      - sqlite3.env.env
     tty: true
     ports:
       - "8000:8000"
@@ -32,4 +23,3 @@ services:
       - ./db:/usr/src/app/data/db
     depends_on:
       - db
-
