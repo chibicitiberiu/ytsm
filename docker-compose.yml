@@ -25,7 +25,6 @@ services:
     env_file:
       - env.env
     tty: true
-    command: ./init.sh
     ports:
       - "8000:8000"
     volumes:
