@@ -24,4 +24,4 @@ COPY ./config/ ./config/
 
 EXPOSE 8000
 
-CMD ["/bin/bash ./init.sh"]
+CMD ["/bin/bash", "init.sh"]
