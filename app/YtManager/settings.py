@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^zv8@i2h!ko2lo=%ivq(9e#x=%q*i^^)6#4@(juzdx%&0c+9a0'
 
-YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY', 'AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8')
+YOUTUBE_API_KEY = os.getenv('YTSM_YOUTUBE_API_KEY', 'AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,16 +81,16 @@ WSGI_APPLICATION = 'YtManager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DATABASE_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': os.getenv('DATABASE_NAME', 'ytmanager'),
-        'HOST': os.getenv('DATABASE_HOST', 'db'),
-        'USER': os.getenv('DATABASE_USERNAME', 'postgres'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
-        'PORT': os.getenv('DATABASE_PORT', 5432)
+        'ENGINE': os.getenv('YTSM_DATABASE_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('YTSM_DATABASE_NAME', 'ytmanager'),
+        'HOST': os.getenv('YTSM_DATABASE_HOST', 'db'),
+        'USER': os.getenv('YTSM_DATABASE_USERNAME', 'postgres'),
+        'PASSWORD': os.getenv('YTSM_DATABASE_PASSWORD', 'postgres'),
+        'PORT': os.getenv('YTSM_DATABASE_PORT', 5432)
     }
 }
 
-if os.getenv('DATABASE_URL', None):
+if os.getenv('YTSM_DATABASE_URL', None):
     import dj_database_url
     DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
