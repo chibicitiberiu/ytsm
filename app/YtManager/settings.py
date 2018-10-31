@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'YtManager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('YTSM_DATABASE_ENGINE', 'django.db.backends.postgresql'),
-        'NAME': os.getenv('YTSM_DATABASE_NAME', 'ytmanager'),
-        'HOST': os.getenv('YTSM_DATABASE_HOST', 'db'),
-        'USER': os.getenv('YTSM_DATABASE_USERNAME', 'postgres'),
-        'PASSWORD': os.getenv('YTSM_DATABASE_PASSWORD', 'postgres'),
-        'PORT': os.getenv('YTSM_DATABASE_PORT', 5432)
+        'NAME': os.getenv('YTSM_DATABASE_NAME', '/usr/src/app/data/db/ytmanager.db'),
+        'HOST': os.getenv('YTSM_DATABASE_HOST', None),
+        'USER': os.getenv('YTSM_DATABASE_USERNAME', None),
+        'PASSWORD': os.getenv('YTSM_DATABASE_PASSWORD', None),
+        'PORT': os.getenv('YTSM_DATABASE_PORT', None)
     }
 }
 
