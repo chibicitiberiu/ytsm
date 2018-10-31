@@ -21,3 +21,5 @@ VOLUME /usr/src/app/data/db
 
 COPY ./app/ .
 COPY ./config/ ./config/
+
+CMD ["/bin/bash ./init.sh"]
