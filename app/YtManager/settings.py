@@ -120,12 +120,14 @@ LOG_FORMAT = '%(asctime)s|%(process)d|%(thread)d|%(name)s|%(filename)s|%(lineno)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONFIG_DIR = os.path.join(BASE_DIR, "config")
+DATA_DIR = os.path.join(BASE_DIR, "data")
 
-_DEFAULT_CONFIG_FILE = os.path.join(BASE_DIR, 'config/config.ini')
-_DEFAULT_LOG_FILE = os.path.join(BASE_DIR, 'data/log.log')
-_DEFAULT_MEDIA_ROOT = os.path.join(BASE_DIR, 'data/media')
+_DEFAULT_CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.ini')
+_DEFAULT_LOG_FILE = os.path.join(DATA_DIR, 'log.log')
+_DEFAULT_MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 
-DEFAULTS_FILE = os.path.join(BASE_DIR, 'config/defaults.ini')
+DEFAULTS_FILE = os.path.join(CONFIG_DIR, 'defaults.ini')
 CONFIG_FILE = os.getenv('YTSM_CONFIG_FILE', _DEFAULT_CONFIG_FILE)
 
 #
@@ -138,7 +140,7 @@ _DEFAULT_YOUTUBE_API_KEY = 'AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8'
 
 _DEFAULT_DATABASE = {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'ytmanager.db'),
+        'NAME': os.path.join(DATA_DIR, 'ytmanager.db'),
         'HOST': None,
         'USER': None,
         'PASSWORD': None,

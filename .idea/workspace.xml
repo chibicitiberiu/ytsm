@@ -1,13 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" INFOencoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/youtube-channel-manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/youtube-channel-manager.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/YtManager/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/YtManager/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/YtManagerApp/appconfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/YtManagerApp/appconfig.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -142,6 +137,7 @@
     <session id="-187512657">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.6" value="1" />
@@ -154,6 +150,7 @@
           <entry key="gitignore" value="1" />
           <entry key="html" value="4" />
           <entry key="ini" value="7" />
+          <entry key="log" value="1" />
           <entry key="md" value="8" />
           <entry key="py" value="57" />
           <entry key="scss" value="2" />
@@ -168,7 +165,7 @@
           <entry key="HTML" value="4" />
           <entry key="Ini" value="7" />
           <entry key="Markdown" value="8" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Python" value="57" />
           <entry key="SCSS" value="2" />
         </counts>
@@ -179,36 +176,45 @@
           <entry key="html" value="12" />
           <entry key="ini" value="2" />
           <entry key="md" value="4881" />
-          <entry key="py" value="5687" />
-          <entry key="py@youtube-channel-manager" value="41" />
+          <entry key="py" value="5777" />
+          <entry key="py@youtube-channel-manager" value="48" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Bash" value="4" />
-          <entry key="CommandLine" value="23" />
+          <entry key="CommandLine" value="30" />
           <entry key="HTML" value="12" />
           <entry key="Ini" value="2" />
           <entry key="Markdown" value="4877" />
           <entry key="PLAIN_TEXT" value="18" />
-          <entry key="Python" value="6106" />
+          <entry key="Python" value="6196" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.45192307">
+    <splitter split-orientation="horizontal" split-proportion="0.59837276">
       <split-first>
         <leaf>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/YtManager/settings.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="358">
-                  <caret line="207" selection-start-line="207" selection-end-line="207" />
+                <state relative-caret-position="208">
+                  <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
                   <folding>
                     <element signature="e#314#323#0" expanded="true" />
-                    <marker date="1541026657396" expanded="true" signature="4447:6293" ph="..." />
+                    <marker date="1541026976247" expanded="true" signature="4515:6361" ph="..." />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/app/data/log.log">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="405">
+                  <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
                 </state>
               </provider>
             </entry>
@@ -229,8 +235,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/YtManagerApp/appconfig.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="418">
-                  <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+                <state relative-caret-position="463">
+                  <caret line="112" selection-start-line="112" selection-end-line="112" />
                   <folding>
                     <element signature="e#0#14#0" expanded="true" />
                   </folding>
@@ -366,8 +372,8 @@
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/synchronize.py" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/app/YtManager/settings.py" />
         <option value="$PROJECT_DIR$/app/YtManagerApp/appconfig.py" />
+        <option value="$PROJECT_DIR$/app/YtManager/settings.py" />
       </list>
     </option>
   </component>
@@ -452,19 +458,7 @@
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManager" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -641,22 +635,21 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17697228" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17697228" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49520257" weight="0.38152173" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.5197228" visible="true" weight="0.32717392" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5191898" weight="0.32717392" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.4904051" weight="0.37608695" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
-      <window_info anchor="bottom" id="manage.py@youtube-channel-manager" order="7" sideWeight="0.49573562" weight="0.49347827" />
+      <window_info anchor="bottom" id="manage.py@youtube-channel-manager" order="7" sideWeight="0.49520257" weight="0.49347827" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49946696" weight="0.32826087" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.48027718" side_tool="true" visible="true" weight="0.32717392" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.48081023" side_tool="true" visible="true" weight="0.32717392" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.4978678" weight="0.15326087" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49520257" weight="0.3576087" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.4946695" weight="0.1521739" />
@@ -700,7 +693,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Python36/Lib/configparser.py" />
     <entry file="file://C:/Python36/Lib/site-packages/apscheduler/executors/base.py" />
     <entry file="file://C:/Python36/Lib/site-packages/django/db/models/fields/related_descriptors.py" />
     <entry file="file:///usr/lib/python3/dist-packages/django/db/models/base.py" />
@@ -1030,24 +1022,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/YtManager/settings.py">
+    <entry file="file://$PROJECT_DIR$/app/YtManagerApp/appconfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="207" selection-start-line="207" selection-end-line="207" />
+        <state relative-caret-position="463">
+          <caret line="112" selection-start-line="112" selection-end-line="112" />
           <folding>
-            <element signature="e#314#323#0" expanded="true" />
-            <marker date="1541026657396" expanded="true" signature="4447:6293" ph="..." />
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/YtManagerApp/appconfig.py">
+    <entry file="file://$PROJECT_DIR$/app/YtManager/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="107" lean-forward="true" selection-start-line="107" selection-end-line="107" />
+        <state relative-caret-position="208">
+          <caret line="152" lean-forward="true" selection-start-line="152" selection-end-line="152" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#314#323#0" expanded="true" />
+            <marker date="1541026976247" expanded="true" signature="4515:6361" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/data/log.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
