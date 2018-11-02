@@ -5,9 +5,12 @@ import os
 import youtube_dl
 import logging
 import re
+from threading import Lock
 
 log = logging.getLogger('video_downloader')
 log_youtube_dl = log.getChild('youtube_dl')
+
+_lock = Lock()
 
 
 def __get_valid_path(path):
@@ -73,27 +76,36 @@ def download_video(video: Video, attempt: int = 1):
 
     log.info('Downloading video %d [%s %s]', video.id, video.video_id, video.name)
 
-    max_attempts = settings.getint_sub(video.subscription, 'user', 'DownloadMaxAttempts', fallback=3)
+    # Issue: if multiple videos are downloaded at the same time, a race condition appears in the mkdirs() call that
+    # youtube-dl makes, which causes it to fail with the error 'Cannot create folder - file already exists'.
+    # For now, allow a single download instance.
+    _lock.acquire()
 
-    youtube_dl_params, output_path = __build_youtube_dl_params(video)
-    with youtube_dl.YoutubeDL(youtube_dl_params) as yt:
-        ret = yt.download(["https://www.youtube.com/watch?v=" + video.video_id])
+    try:
+        max_attempts = settings.getint_sub(video.subscription, 'user', 'DownloadMaxAttempts', fallback=3)
 
-    log.info('Download finished with code %d', ret)
+        youtube_dl_params, output_path = __build_youtube_dl_params(video)
+        with youtube_dl.YoutubeDL(youtube_dl_params) as yt:
+            ret = yt.download(["https://www.youtube.com/watch?v=" + video.video_id])
 
-    if ret == 0:
-        video.downloaded_path = output_path
-        video.save()
-        log.info('Video %d [%s %s] downloaded successfully!', video.id, video.video_id, video.name)
+        log.info('Download finished with code %d', ret)
 
-    elif attempt <= max_attempts:
-        log.warning('Re-enqueueing video (attempt %d/%d)', attempt, max_attempts)
-        __schedule_download_video(video, attempt + 1)
+        if ret == 0:
+            video.downloaded_path = output_path
+            video.save()
+            log.info('Video %d [%s %s] downloaded successfully!', video.id, video.video_id, video.name)
 
-    else:
-        log.error('Multiple attempts to download video %d [%s %s] failed!', video.id, video.video_id, video.name)
-        video.downloaded_path = ''
-        video.save()
+        elif attempt <= max_attempts:
+            log.warning('Re-enqueueing video (attempt %d/%d)', attempt, max_attempts)
+            __schedule_download_video(video, attempt + 1)
+
+        else:
+            log.error('Multiple attempts to download video %d [%s %s] failed!', video.id, video.video_id, video.name)
+            video.downloaded_path = ''
+            video.save()
+
+    finally:
+        _lock.release()
 
 
 def __schedule_download_video(video: Video, attempt=1):
