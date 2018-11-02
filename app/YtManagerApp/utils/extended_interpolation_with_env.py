@@ -35,7 +35,7 @@ class ExtendedInterpolatorWithEnv(Interpolation):
     def _resolve_section_option(self, section, option, parser):
         if section == 'env':
             return os.getenv(option, '')
-        return parser.get(section, option, raw=True)
+        return parser.get(section, parser.optionxform(option), raw=True)
 
     def _interpolate_some(self, parser, option, accum, rest, section, map,
                           depth):
@@ -70,7 +70,7 @@ class ExtendedInterpolatorWithEnv(Interpolation):
                         v = self._resolve_option(opt, map)
                     elif len(path) == 2:
                         sect = path[0]
-                        opt = parser.optionxform(path[1])
+                        opt = path[1]
                         v = self._resolve_section_option(sect, opt, parser)
                     else:
                         raise InterpolationSyntaxError(

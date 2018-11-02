@@ -12,35 +12,26 @@ from django.contrib.auth.models import User
 from .models import UserSettings, Subscription
 from .utils.extended_interpolation_with_env import ExtendedInterpolatorWithEnv
 
-_CONFIG_DIR = os.path.join(dj_settings.BASE_DIR, 'config')
-_LOG_FILE = 'log.log'
-_LOG_PATH = os.path.join(_CONFIG_DIR, _LOG_FILE)
-_LOG_FORMAT = '%(asctime)s|%(process)d|%(thread)d|%(name)s|%(filename)s|%(lineno)d|%(levelname)s|%(message)s'
-
 
 class AppSettings(ConfigParser):
     _DEFAULT_INTERPOLATION = ExtendedInterpolatorWithEnv()
-    __DEFAULTS_FILE = 'defaults.ini'
-    __SETTINGS_FILE = 'config.ini'
 
     def __init__(self, *args, **kwargs):
         super().__init__(allow_no_value=True, *args, **kwargs)
-        self.__defaults_path = os.path.join(_CONFIG_DIR, AppSettings.__DEFAULTS_FILE)
-        self.__settings_path = os.path.join(_CONFIG_DIR, AppSettings.__SETTINGS_FILE)
 
     def initialize(self):
-        self.read([self.__defaults_path, self.__settings_path])
+        self.read([dj_settings.DEFAULTS_FILE, dj_settings.CONFIG_FILE])
 
     def save(self):
-        if os.path.exists(self.__settings_path):
+        if os.path.exists(dj_settings.CONFIG_FILE):
             # Create a backup
-            copyfile(self.__settings_path, self.__settings_path + ".backup")
+            copyfile(dj_settings.CONFIG_FILE, dj_settings.CONFIG_FILE + ".backup")
         else:
             # Ensure directory exists
-            settings_dir = os.path.dirname(self.__settings_path)
+            settings_dir = os.path.dirname(dj_settings.CONFIG_FILE)
             os.makedirs(settings_dir, exist_ok=True)
 
-        with open(self.__settings_path, 'w') as f:
+        with open(dj_settings.CONFIG_FILE, 'w') as f:
             self.write(f)
 
     def __get_combined_dict(self, vars: Optional[Any], sub: Optional[Subscription], user: Optional[User]) -> ChainMap:
@@ -112,12 +103,10 @@ def initialize_app_config():
 
 
 def __initialize_logger():
-    log_level_str = settings.get('global', 'LogLevel', fallback='INFO')
+    log_dir = os.path.dirname(dj_settings.LOG_FILE)
+    os.makedirs(log_dir, exist_ok=True)
 
-    try:
-        log_level = getattr(logging, log_level_str)
-        logging.basicConfig(filename=_LOG_PATH, level=log_level, format=_LOG_FORMAT)
-
-    except AttributeError:
-        logging.basicConfig(filename=_LOG_PATH, level=logging.INFO, format=_LOG_FORMAT)
-        logging.warning('Invalid log level "%s" in config file.', log_level_str)
+    logging.basicConfig(
+        filename=dj_settings.LOG_FILE,
+        level=dj_settings.LOG_LEVEL,
+        format=dj_settings.LOG_FORMAT)

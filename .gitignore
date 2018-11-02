@@ -115,10 +115,16 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-media/
+data/
 
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.idea
+
+# Dolphin generated file
+.directory
+

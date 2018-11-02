@@ -11,23 +11,13 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import logging
+from os.path import dirname as up
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^zv8@i2h!ko2lo=%ivq(9e#x=%q*i^^)6#4@(juzdx%&0c+9a0'
-
-YOUTUBE_API_KEY = os.getenv('YTSM_YOUTUBE_API_KEY', 'AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+#
+# Basic Django stuff
+#
 ALLOWED_HOSTS = ['*']
-
 SESSION_COOKIE_AGE = 3600 * 30      # one month
 
 # Application definition
@@ -76,24 +66,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'YtManager.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('YTSM_DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('YTSM_DATABASE_NAME', os.path.join(BASE_DIR, 'ytmanager.db')),
-        'HOST': os.getenv('YTSM_DATABASE_HOST', None),
-        'USER': os.getenv('YTSM_DATABASE_USERNAME', None),
-        'PASSWORD': os.getenv('YTSM_DATABASE_PASSWORD', None),
-        'PORT': os.getenv('YTSM_DATABASE_PORT', None)
-    }
-}
-
-if os.getenv('YTSM_DATABASE_URL', None):
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.parse(os.environ['YTSM_DATABASE_URL'], conn_max_age=600)
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -112,6 +84,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -126,14 +101,126 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'data/media'
+
+
+# Misc Django stuff
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login'
+LOG_FORMAT = '%(asctime)s|%(process)d|%(thread)d|%(name)s|%(filename)s|%(lineno)d|%(levelname)s|%(message)s'
+
+#
+# Directories
+#
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+PROJECT_ROOT = up(up(os.path.dirname(__file__)))            # Project root
+BASE_DIR = os.path.join(PROJECT_ROOT, "app")                # Base dir of the application
+CONFIG_DIR = os.path.join(PROJECT_ROOT, "config")
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
+
+_DEFAULT_CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.ini')
+_DEFAULT_LOG_FILE = os.path.join(DATA_DIR, 'log.log')
+_DEFAULT_MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
+
+DEFAULTS_FILE = os.path.join(CONFIG_DIR, 'defaults.ini')
+CONFIG_FILE = os.getenv('YTSM_CONFIG_FILE', _DEFAULT_CONFIG_FILE)
+
+#
+# Defaults
+#
+_DEFAULT_DEBUG = False
+
+_DEFAULT_SECRET_KEY = '^zv8@i2h!ko2lo=%ivq(9e#x=%q*i^^)6#4@(juzdx%&0c+9a0'
+_DEFAULT_YOUTUBE_API_KEY = 'AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8'
+
+_DEFAULT_DATABASE = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(DATA_DIR, 'ytmanager.db'),
+        'HOST': None,
+        'USER': None,
+        'PASSWORD': None,
+        'PORT': None,
+    }
+
+_SCHEDULER_SYNC_SCHEDULE = '5 * * * *'
+_DEFAULT_SCHEDULER_CONCURRENCY = 1
+
+
+#
+# Load globals from config.ini
+#
+def load_config_ini():
+    from configparser import ConfigParser
+    from YtManagerApp.utils.extended_interpolation_with_env import ExtendedInterpolatorWithEnv
+    import dj_database_url
+
+    cfg = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolatorWithEnv())
+    read_ok = cfg.read([DEFAULTS_FILE, CONFIG_FILE])
+
+    if DEFAULTS_FILE not in read_ok:
+        print('Failed to read file ' + DEFAULTS_FILE)
+        raise Exception('Cannot read file ' + DEFAULTS_FILE)
+    if CONFIG_FILE not in read_ok:
+        print('Failed to read file ' + CONFIG_FILE)
+        raise Exception('Cannot read file ' + CONFIG_FILE)
+
+    # Debug
+    global DEBUG
+    DEBUG = cfg.getboolean('global', 'Debug', fallback=_DEFAULT_DEBUG)
+
+    # Media root, which is where thumbnails are stored
+    global MEDIA_ROOT
+    MEDIA_ROOT = cfg.get('global', 'MediaRoot', fallback=_DEFAULT_MEDIA_ROOT)
+
+    # Keys - secret key, youtube API key
+    # SECURITY WARNING: keep the secret key used in production secret!
+    global SECRET_KEY, YOUTUBE_API_KEY
+    SECRET_KEY = cfg.get('global', 'SecretKey', fallback=_DEFAULT_SECRET_KEY)
+    YOUTUBE_API_KEY = cfg.get('global', 'YoutubeApiKey', fallback=_DEFAULT_YOUTUBE_API_KEY)
+
+    # Database
+    global DATABASES
+    DATABASES = {
+        'default': _DEFAULT_DATABASE
+    }
+
+    if cfg.has_option('global', 'DatabaseURL'):
+        DATABASES['default'] = dj_database_url.parse(cfg.get('global', 'DatabaseURL'), conn_max_age=600)
+
+    else:
+        DATABASES['default'] = {
+            'ENGINE': cfg.get('global', 'DatabaseEngine', fallback=_DEFAULT_DATABASE['ENGINE']),
+            'NAME': cfg.get('global', 'DatabaseName', fallback=_DEFAULT_DATABASE['NAME']),
+            'HOST': cfg.get('global', 'DatabaseHost', fallback=_DEFAULT_DATABASE['HOST']),
+            'USER': cfg.get('global', 'DatabaseUser', fallback=_DEFAULT_DATABASE['USER']),
+            'PASSWORD': cfg.get('global', 'DatabasePassword', fallback=_DEFAULT_DATABASE['PASSWORD']),
+            'PORT': cfg.get('global', 'DatabasePort', fallback=_DEFAULT_DATABASE['PORT']),
+        }
+
+    # Log settings
+    global LOG_LEVEL, LOG_FILE
+    log_level_str = cfg.get('global', 'LogLevel', fallback='INFO')
+
+    try:
+        LOG_LEVEL = getattr(logging, log_level_str)
+    except AttributeError:
+        print("Invalid log level " + LOG_LEVEL)
+        LOG_LEVEL = logging.INFO
+
+    LOG_FILE = cfg.get('global', 'LogFile', fallback=_DEFAULT_LOG_FILE)
+
+    # Scheduler settings
+    global SCHEDULER_SYNC_SCHEDULE, SCHEDULER_CONCURRENCY
+    SCHEDULER_SYNC_SCHEDULE = cfg.get('global', 'SynchronizationSchedule', fallback=_SCHEDULER_SYNC_SCHEDULE)
+    SCHEDULER_CONCURRENCY = cfg.getint('global', 'SchedulerConcurrency', fallback=_DEFAULT_SCHEDULER_CONCURRENCY)
+
+
+load_config_ini()
