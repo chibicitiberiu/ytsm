@@ -234,6 +234,21 @@ class YouTube(object):
                 result['type'] = 'search'
                 result['query'] = url_query['search_query'][0]
 
+            # https://www.youtube.com/feeds/videos.xml?channel_id=UC0QHWhjbe5fGJEPz3sVb6nw
+            # https://www.youtube.com/feeds/videos.xml?playlist_id=PLQMVnqe4XbictUtFZK1-gBYvyUzTWJnOk
+            elif url_path[1] == 'feeds':
+                if url_path[2] == 'videos.xml':
+                    if 'channel_id' in url_query:
+                        result['type'] = 'channel'
+                        result['channel'] = url_query['channel_id'][0]
+                    elif 'playlist_id' in url_query:
+                        result['type'] = 'playlist'
+                        result['playlist'] = url_query['playlist_id'][0]
+                    else:
+                        raise InvalidURL('Unrecognized URL format: ' + url)
+                else:
+                    raise InvalidURL('Unrecognized URL format: ' + url)
+
             # Custom channel URLs might have the format https://www.youtube.com/LinusTechTips, which are pretty much
             # impossible to handle properly
             else:
