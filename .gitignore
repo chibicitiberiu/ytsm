@@ -123,5 +123,8 @@ data/
 !.vscode/launch.json
 !.vscode/extensions.json
 
+.idea
+
 # Dolphin generated file
 .directory
+
