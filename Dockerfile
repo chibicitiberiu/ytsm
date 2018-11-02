@@ -10,6 +10,7 @@ COPY ./requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 ENV YTSM_DEBUG='False'
+ENV YTSM_DATA_PATH='/usr/src/ytsm/data'
 
 VOLUME /usr/src/ytsm/config
 VOLUME /usr/src/ytsm/data

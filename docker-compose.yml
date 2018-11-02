@@ -6,6 +6,7 @@ services:
     volumes:
       - ./docker/nginx:/etc/nginx/conf.d/
       - ./app/YtManagerApp/static:/www/static
+      - ./data/media:/www/media
     ports:
       - "80:80"
     depends_on:
