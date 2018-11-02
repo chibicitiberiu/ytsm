@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/YtManager/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/YtManager/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/YtManagerApp/utils/extended_interpolation_with_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/YtManagerApp/utils/extended_interpolation_with_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/init.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/init.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/defaults.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/defaults.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/docker/nginx/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sqlite3.env.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/init.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/init.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -165,12 +155,12 @@
           <entry key="env" value="4" />
           <entry key="gitignore" value="1" />
           <entry key="html" value="4" />
-          <entry key="ini" value="18" />
+          <entry key="ini" value="19" />
           <entry key="log" value="2" />
           <entry key="md" value="8" />
           <entry key="py" value="66" />
           <entry key="scss" value="2" />
-          <entry key="sh" value="6" />
+          <entry key="sh" value="7" />
           <entry key="txt" value="5" />
           <entry key="yml" value="4" />
           <entry key="ytmanagerapp_channel" value="1" />
@@ -180,11 +170,11 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Bash" value="6" />
+          <entry key="Bash" value="7" />
           <entry key="Database Element" value="7" />
           <entry key="Dockerfile" value="2" />
           <entry key="HTML" value="4" />
-          <entry key="Ini" value="18" />
+          <entry key="Ini" value="19" />
           <entry key="Log" value="1" />
           <entry key="Markdown" value="8" />
           <entry key="PLAIN_TEXT" value="12" />
@@ -198,21 +188,21 @@
           <entry key="Django Console" value="466" />
           <entry key="Dockerfile" value="266" />
           <entry key="html" value="12" />
-          <entry key="ini" value="1482" />
+          <entry key="ini" value="1483" />
           <entry key="md" value="4881" />
           <entry key="py" value="6482" />
           <entry key="py@youtube-channel-manager" value="48" />
-          <entry key="sh" value="52" />
+          <entry key="sh" value="53" />
           <entry key="yml" value="129" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Bash" value="56" />
+          <entry key="Bash" value="57" />
           <entry key="CommandLine" value="30" />
           <entry key="Dockerfile" value="266" />
           <entry key="HTML" value="12" />
-          <entry key="Ini" value="1482" />
+          <entry key="Ini" value="1483" />
           <entry key="Markdown" value="4877" />
           <entry key="PLAIN_TEXT" value="18" />
           <entry key="Python" value="6948" />
@@ -224,49 +214,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+        <entry file="file://$PROJECT_DIR$/docker/init.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="45">
+              <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/YtManager/settings.py">
+        <entry file="file://$PROJECT_DIR$/config/defaults.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="177" lean-forward="true" selection-start-line="177" selection-end-line="177" />
-              <folding>
-                <element signature="e#314#323#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/config.ini">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docker/init.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/lib/python3.6/configparser.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="1150" column="8" selection-start-line="1150" selection-start-column="8" selection-end-line="1150" selection-end-column="8" />
+            <state relative-caret-position="645">
+              <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -382,14 +342,14 @@
         <option value="$PROJECT_DIR$/app/YtManagerApp/appconfig.py" />
         <option value="$PROJECT_DIR$/app/init.sh" />
         <option value="$PROJECT_DIR$/app/YtManagerApp/urls.py" />
-        <option value="$PROJECT_DIR$/config/defaults.ini" />
         <option value="$PROJECT_DIR$/docker/config.ini" />
         <option value="$PROJECT_DIR$/Dockerfile" />
-        <option value="$PROJECT_DIR$/docker/init.sh" />
         <option value="$PROJECT_DIR$/docker-compose.yml" />
         <option value="$PROJECT_DIR$/config/config.ini" />
         <option value="$PROJECT_DIR$/app/YtManagerApp/utils/extended_interpolation_with_env.py" />
         <option value="$PROJECT_DIR$/app/YtManager/settings.py" />
+        <option value="$PROJECT_DIR$/docker/init.sh" />
+        <option value="$PROJECT_DIR$/config/defaults.ini" />
       </list>
     </option>
   </component>
@@ -470,19 +430,6 @@
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
@@ -854,13 +801,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/defaults.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sqlite3.env.env" />
     <entry file="file://$PROJECT_DIR$/docker/config.ini">
       <provider selected="true" editor-type-id="text-editor">
@@ -880,20 +820,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docker/init.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
@@ -928,6 +854,27 @@
           <folding>
             <element signature="e#314#323#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="12" lean-forward="true" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker/init.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/defaults.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
         </state>
       </provider>
     </entry>
