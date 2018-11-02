@@ -1,26 +1,21 @@
 FROM python:3
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/ytsm/app
 
+# ffmpeg is needed for youtube-dl
 RUN apt-get update
 RUN apt-get install ffmpeg -y
 
-COPY ./app/requirements.txt ./ 
+COPY ./requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENV YTSM_DATABASE_ENGINE='django.db.backends.sqlite3'
-ENV YTSM_DATABASE_NAME='/usr/src/app/data/db/ytmanager.db'
-ENV YTSM_DATABASE_HOST=''
-ENV YTSM_DATABASE_USERNAME=''
-ENV YTSM_DATABASE_PASSWORD=''
-ENV YTSM_DATABASE_PORT=''
-ENV YTSM_YOUTUBE_API_KEY='AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8'
+ENV YTSM_DEBUG='False'
 
-VOLUME /usr/src/app/data/media
-VOLUME /usr/src/app/data/db
+VOLUME /usr/src/ytsm/config
+VOLUME /usr/src/ytsm/data
 
-COPY ./app/ .
-COPY ./config/ ./config/
+COPY ./app/ ./
+COPY ./docker/init.sh ./
 
 EXPOSE 8000
 

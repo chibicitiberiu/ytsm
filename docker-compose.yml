@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./nginx:/etc/nginx/conf.d/
+      - ./docker/nginx:/etc/nginx/conf.d/
       - ./app/YtManagerApp/static:/www/static
     ports:
       - "80:80"
@@ -13,11 +13,9 @@ services:
 
   web:
     build: .
-    env_file:
-      - sqlite3.env.env
     tty: true
     ports:
       - "8000:8000"
     volumes:
-      - ./media:/usr/src/app/data/media
-      - ./db:/usr/src/app/data/db
+      - ./config:/usr/src/ytsm/config
+      - ./data:/usr/src/ytsm/data

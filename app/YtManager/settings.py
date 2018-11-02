@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import logging
+from os.path import dirname as up
 
 #
 # Basic Django stuff
@@ -119,9 +120,11 @@ LOG_FORMAT = '%(asctime)s|%(process)d|%(thread)d|%(name)s|%(filename)s|%(lineno)
 #
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CONFIG_DIR = os.path.join(BASE_DIR, "config")
-DATA_DIR = os.path.join(BASE_DIR, "data")
+PROJECT_ROOT = up(up(os.path.dirname(__file__)))            # Project root
+BASE_DIR = os.path.join(PROJECT_ROOT, "app")                # Base dir of the application
+CONFIG_DIR = os.path.join(PROJECT_ROOT, "config")
+DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
 
 _DEFAULT_CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.ini')
 _DEFAULT_LOG_FILE = os.path.join(DATA_DIR, 'log.log')
@@ -160,7 +163,14 @@ def load_config_ini():
     import dj_database_url
 
     cfg = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolatorWithEnv())
-    cfg.read([DEFAULTS_FILE, CONFIG_FILE])
+    read_ok = cfg.read([DEFAULTS_FILE, CONFIG_FILE])
+
+    if DEFAULTS_FILE not in read_ok:
+        print('Failed to read file ' + DEFAULTS_FILE)
+        raise Exception('Cannot read file ' + DEFAULTS_FILE)
+    if CONFIG_FILE not in read_ok:
+        print('Failed to read file ' + CONFIG_FILE)
+        raise Exception('Cannot read file ' + CONFIG_FILE)
 
     # Debug
     global DEBUG
@@ -183,7 +193,7 @@ def load_config_ini():
     }
 
     if cfg.has_option('global', 'DatabaseURL'):
-        DATABASES['default'] = dj_database_url.parse(cfg.get('global', 'DatabaseURL'))
+        DATABASES['default'] = dj_database_url.parse(cfg.get('global', 'DatabaseURL'), conn_max_age=600)
 
     else:
         DATABASES['default'] = {

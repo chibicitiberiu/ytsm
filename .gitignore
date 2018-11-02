@@ -115,7 +115,7 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
-media/
+data/
 
 .vscode/*
 !.vscode/settings.json

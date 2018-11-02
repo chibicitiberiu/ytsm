@@ -3,6 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="245751b6-c863-4572-8723-8499964fe105" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/YtManager/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/YtManager/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/YtManagerApp/utils/extended_interpolation_with_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/YtManagerApp/utils/extended_interpolation_with_env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/init.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker/init.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/defaults.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/defaults.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/docker/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sqlite3.env.env" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -137,24 +148,31 @@
     <session id="-187512657">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="Dockerfile" value="2" />
           <entry key="auth_group" value="1" />
+          <entry key="conf" value="1" />
+          <entry key="env" value="4" />
           <entry key="gitignore" value="1" />
           <entry key="html" value="4" />
-          <entry key="ini" value="7" />
-          <entry key="log" value="1" />
+          <entry key="ini" value="18" />
+          <entry key="log" value="2" />
           <entry key="md" value="8" />
-          <entry key="py" value="58" />
+          <entry key="py" value="66" />
           <entry key="scss" value="2" />
+          <entry key="sh" value="6" />
+          <entry key="txt" value="5" />
+          <entry key="yml" value="4" />
           <entry key="ytmanagerapp_channel" value="1" />
           <entry key="ytmanagerapp_subscription" value="2" />
           <entry key="ytmanagerapp_video" value="3" />
@@ -162,48 +180,93 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Bash" value="6" />
           <entry key="Database Element" value="7" />
+          <entry key="Dockerfile" value="2" />
           <entry key="HTML" value="4" />
-          <entry key="Ini" value="7" />
+          <entry key="Ini" value="18" />
+          <entry key="Log" value="1" />
           <entry key="Markdown" value="8" />
-          <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="58" />
+          <entry key="PLAIN_TEXT" value="12" />
+          <entry key="Python" value="66" />
           <entry key="SCSS" value="2" />
+          <entry key="YAML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Django Console" value="419" />
+          <entry key="Django Console" value="466" />
+          <entry key="Dockerfile" value="266" />
           <entry key="html" value="12" />
-          <entry key="ini" value="2" />
+          <entry key="ini" value="1482" />
           <entry key="md" value="4881" />
-          <entry key="py" value="5777" />
+          <entry key="py" value="6482" />
           <entry key="py@youtube-channel-manager" value="48" />
+          <entry key="sh" value="52" />
+          <entry key="yml" value="129" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Bash" value="4" />
+          <entry key="Bash" value="56" />
           <entry key="CommandLine" value="30" />
+          <entry key="Dockerfile" value="266" />
           <entry key="HTML" value="12" />
-          <entry key="Ini" value="2" />
+          <entry key="Ini" value="1482" />
           <entry key="Markdown" value="4877" />
           <entry key="PLAIN_TEXT" value="18" />
-          <entry key="Python" value="6196" />
+          <entry key="Python" value="6948" />
+          <entry key="YAML" value="129" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/YtManager/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+            <state relative-caret-position="540">
+              <caret line="177" lean-forward="true" selection-start-line="177" selection-end-line="177" />
               <folding>
                 <element signature="e#314#323#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/config.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docker/init.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/lib/python3.6/configparser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="1150" column="8" selection-start-line="1150" selection-start-column="8" selection-end-line="1150" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -223,7 +286,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ajax_index_get_videos</find>
       <find>ajax_index_get_tree</find>
       <find>self.helper</find>
       <find>csrf</find>
@@ -253,6 +315,7 @@
       <find>DeleteS</find>
       <find>dj_settings</find>
       <find>is_true</find>
+      <find>_resolve_section_option</find>
     </findStrings>
     <replaceStrings>
       <replace>loading</replace>
@@ -276,13 +339,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/YtManagerApp/model/folder.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/model/subscription.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/model/user_settings.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/model/__init__.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/model/channel.py" />
-        <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_create_modal.html" />
-        <option value="$PROJECT_DIR$/YtManagerApp/management/management.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/modal.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/views/controls/modal.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_update_modal.html" />
@@ -305,7 +361,6 @@
         <option value="$PROJECT_DIR$/YtManagerApp/urls.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/customconfigparser.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/utils/extended_interpolation_with_env.py" />
-        <option value="$PROJECT_DIR$/config/defaults.ini" />
         <option value="$PROJECT_DIR$/YtManagerApp/appconfig.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/downloader.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/delete_video.py" />
@@ -316,7 +371,6 @@
         <option value="$PROJECT_DIR$/YtManagerApp/models.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/views/index.py" />
         <option value="$PROJECT_DIR$/YtManagerApp/management/jobs/download_video.py" />
-        <option value="$PROJECT_DIR$/config/config.ini" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" />
         <option value="$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" />
         <option value="$PROJECT_DIR$/YtManager/settings.py" />
@@ -326,6 +380,15 @@
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/app/YtManagerApp/appconfig.py" />
+        <option value="$PROJECT_DIR$/app/init.sh" />
+        <option value="$PROJECT_DIR$/app/YtManagerApp/urls.py" />
+        <option value="$PROJECT_DIR$/config/defaults.ini" />
+        <option value="$PROJECT_DIR$/docker/config.ini" />
+        <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/docker/init.sh" />
+        <option value="$PROJECT_DIR$/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/config/config.ini" />
+        <option value="$PROJECT_DIR$/app/YtManagerApp/utils/extended_interpolation_with_env.py" />
         <option value="$PROJECT_DIR$/app/YtManager/settings.py" />
       </list>
     </option>
@@ -336,11 +399,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="803" />
-    <option name="y" value="615" />
-    <option name="width" value="643" />
-    <option name="height" value="321" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="683" />
+    <option name="y" value="121" />
+    <option name="width" value="1127" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -412,7 +475,24 @@
               <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
               <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="YtManagerApp" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="youtube-channel-manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="youtube-channel-manager" type="462c0819:PsiDirectoryNode" />
+              <item name="docker" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -432,19 +512,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docker/nginx" />
+      <recent name="$PROJECT_DIR$/docker" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\js" />
+      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views\controls" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docker" />
       <recent name="$PROJECT_DIR$/YtManagerApp/import" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\management\jobs" />
       <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\controls" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\registration" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp\js" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views\controls" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\views" />
-      <recent name="D:\Dev\youtube-channel-manager\YtManagerApp\templates\YtManagerApp" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -590,11 +670,11 @@
     <frame x="0" y="0" width="1920" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17857143" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18017058" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49520257" weight="0.38152173" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4946695" weight="0.38152173" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5191898" weight="0.32717392" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
@@ -603,10 +683,10 @@
       <window_info anchor="bottom" id="manage.py@youtube-channel-manager" order="7" sideWeight="0.49520257" weight="0.49347827" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49946696" weight="0.32826087" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.48081023" side_tool="true" visible="true" weight="0.32717392" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5053305" side_tool="true" visible="true" weight="0.1521739" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.4978678" weight="0.15326087" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49520257" weight="0.3576087" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.4946695" weight="0.1521739" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.5063966" weight="0.1521739" />
       <window_info anchor="bottom" id="Database Console" order="14" sideWeight="0.49838188" weight="0.21908894" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -647,57 +727,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Python36/Lib/site-packages/apscheduler/executors/base.py" />
-    <entry file="file://C:/Python36/Lib/site-packages/django/db/models/fields/related_descriptors.py" />
-    <entry file="file:///usr/lib/python3/dist-packages/django/db/models/base.py" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/appmain.py" />
-    <entry file="file://$PROJECT_DIR$/config/defaults.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/views/actions.py" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/import/bootstrap-4.1.3/.gitignore" />
-    <entry file="file:///usr/local/lib/python3.6/dist-packages/apscheduler/schedulers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="440" column="16" selection-start-line="440" selection-start-column="16" selection-end-line="440" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_subscription">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/auth_group">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://2dac2136-d902-4d27-8789-9371934602fd/schema/main/table/ytmanagerapp_video">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/external/pytaw/docs/conf.py" />
-    <entry file="file://$PROJECT_DIR$/YtManagerApp/scheduler.py" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/utils/iterutils.py" />
-    <entry file="das://77df9da5-0b97-445e-a895-744ef8257a74/schema/main/table/ytmanagerapp_channel">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://77df9da5-0b97-445e-a895-744ef8257a74/schema/main/table/ytmanagerapp_channel" />
     <entry file="das://77df9da5-0b97-445e-a895-744ef8257a74/schema/main/table/ytmanagerapp_subscription">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -733,13 +764,6 @@
     <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/login.scss" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/static/YtManagerApp/css/style.scss" />
     <entry file="file://$PROJECT_DIR$/YtManager/wsgi.py" />
-    <entry file="file://$PROJECT_DIR$/config/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="14" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/index.html" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/master_default.html" />
     <entry file="file://$PROJECT_DIR$/YtManagerApp/templates/YtManagerApp/controls/subscription_delete_modal.html" />
@@ -799,35 +823,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/data/log.log">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="LogFileEditorProvider" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/config/config.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/data/log.log" />
+    <entry file="file://$PROJECT_DIR$/app/config/config.ini" />
     <entry file="file://$PROJECT_DIR$/app/YtManagerApp/appconfig.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12">
           <caret line="81" column="24" lean-forward="true" selection-start-line="81" selection-start-column="24" selection-end-line="81" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/YtManagerApp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/log.log" />
+    <entry file="file://$PROJECT_DIR$/docker/nginx/nginx.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/defaults.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sqlite3.env.env" />
+    <entry file="file://$PROJECT_DIR$/docker/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="22" lean-forward="true" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker/init.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.6/configparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="1150" column="8" selection-start-line="1150" selection-start-column="8" selection-end-line="1150" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/YtManagerApp/utils/extended_interpolation_with_env.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="81" column="28" lean-forward="true" selection-start-line="81" selection-start-column="28" selection-end-line="81" selection-end-column="28" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/YtManager/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
+        <state relative-caret-position="540">
+          <caret line="177" lean-forward="true" selection-start-line="177" selection-end-line="177" />
           <folding>
             <element signature="e#314#323#0" expanded="true" />
           </folding>
