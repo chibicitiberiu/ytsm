@@ -6,13 +6,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.edit import FormMixin
 
 from YtManagerApp.management.videos import get_videos
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
-from YtManagerApp.utils import youtube
+from YtManagerApp.utils import youtube, subscription_file_parser
 from YtManagerApp.views.controls.modal import ModalMixin
+
+import logging
 
 
 class VideoFilterForm(forms.Form):
@@ -345,4 +347,102 @@ class DeleteSubscriptionModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteV
 
     def form_valid(self, form):
         self.object.delete_subscription(keep_downloaded_videos=form.cleaned_data['keep_downloaded_videos'])
+        return super().form_valid(form)
+
+
+class ImportSubscriptionsForm(forms.Form):
+    TRUE_FALSE_CHOICES = (
+        (None, '(default)'),
+        (True, 'Yes'),
+        (False, 'No')
+    )
+
+    VIDEO_ORDER_CHOICES_WITH_EMPTY = (
+        ('', '(default)'),
+        *VIDEO_ORDER_CHOICES,
+    )
+
+    file = forms.FileField(label='File to import',
+                           help_text='Supported file types: OPML, subscription list')
+    parent_folder = forms.ModelChoiceField(SubscriptionFolder.objects, required=False)
+    auto_download = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, required=False)
+    download_limit = forms.IntegerField(required=False)
+    download_order = forms.ChoiceField(choices=VIDEO_ORDER_CHOICES_WITH_EMPTY, required=False)
+    delete_after_watched = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.yt_api = youtube.YoutubeAPI.build_public()
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'file',
+            'parent_folder',
+            HTML('<hr>'),
+            HTML('<h5>Download configuration overloads</h5>'),
+            'auto_download',
+            'download_limit',
+            'download_order',
+            'delete_after_watched'
+        )
+
+    def __clean_empty_none(self, name: str):
+        data = self.cleaned_data[name]
+        if isinstance(data, str) and len(data) == 0:
+            return None
+        return data
+
+    def __clean_boolean(self, name: str):
+        data = self.cleaned_data[name]
+        if isinstance(data, str) and len(data) == 0:
+            return None
+        if isinstance(data, str):
+            return data == 'True'
+        return data
+
+    def clean_auto_download(self):
+        return self.__clean_boolean('auto_download')
+
+    def clean_delete_after_watched(self):
+        return self.__clean_boolean('delete_after_watched')
+
+    def clean_download_order(self):
+        return self.__clean_empty_none('download_order')
+
+
+class ImportSubscriptionsModal(LoginRequiredMixin, ModalMixin, FormView):
+    template_name = 'YtManagerApp/controls/subscriptions_import_modal.html'
+    form_class = ImportSubscriptionsForm
+
+    def form_valid(self, form):
+        file = form.cleaned_data['file']
+
+        # Parse file
+        try:
+            url_list = list(subscription_file_parser.parse(file))
+        except subscription_file_parser.FormatNotSupportedError:
+            return super().modal_response(form, success=False,
+                                          error_msg="The file could not be parsed! "
+                                                    "Possible problems: format not supported, file is malformed.")
+
+        print(form.cleaned_data)
+
+        # Create subscriptions
+        api = youtube.YoutubeAPI.build_public()
+        for url in url_list:
+            sub = Subscription()
+            sub.user = self.request.user
+            sub.parent_folder = form.cleaned_data['parent_folder']
+            sub.auto_download = form.cleaned_data['auto_download']
+            sub.download_limit = form.cleaned_data['download_limit']
+            sub.download_order = form.cleaned_data['download_order']
+            sub.delete_after_watched = form.cleaned_data['delete_after_watched']
+            try:
+                sub.fetch_from_url(url, api)
+            except Exception as e:
+                logging.error("Import subscription error - error processing URL %s: %s", url, e)
+                continue
+
+            sub.save()
+
         return super().form_valid(form)

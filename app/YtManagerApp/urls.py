@@ -22,7 +22,7 @@ from .views.actions import SyncNowView, DeleteVideoFilesView, DownloadVideoFiles
     MarkVideoUnwatchedView
 from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
 from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
-    CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal
+    CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal, ImportSubscriptionsModal
 from .views.settings import SettingsView
 
 urlpatterns = [
@@ -50,6 +50,8 @@ urlpatterns = [
 
     path('modal/create_subscription/', CreateSubscriptionModal.as_view(), name='modal_create_subscription'),
     path('modal/create_subscription/<int:parent_folder_id>/', CreateSubscriptionModal.as_view(), name='modal_create_subscription'),
+    path('modal/import_subscriptions/', ImportSubscriptionsModal.as_view(), name='modal_import_subscriptions'),
+    path('modal/import_subscriptions/<int:parent_folder_id>/', ImportSubscriptionsModal.as_view(), name='modal_import_subscriptions'),
     path('modal/update_subscription/<int:pk>/', UpdateSubscriptionModal.as_view(), name='modal_update_subscription'),
     path('modal/delete_subscription/<int:pk>/', DeleteSubscriptionModal.as_view(), name='modal_delete_subscription'),
 

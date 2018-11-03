@@ -162,6 +162,9 @@ function videos_Submit(e)
 ///
 $(document).ready(function ()
 {
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     tree_Initialize();
 
     // Subscription toolbar
@@ -172,6 +175,11 @@ $(document).ready(function ()
     });
     $("#btn_create_folder").on("click", function () {
         let modal = new AjaxModal("{% url 'modal_create_folder' %}");
+        modal.setSubmitCallback(tree_Refresh);
+        modal.loadAndShow();
+    });
+    $("#btn_import").on("click", function () {
+        let modal = new AjaxModal("{% url 'modal_import_subscriptions' %}");
         modal.setSubmitCallback(tree_Refresh);
         modal.loadAndShow();
     });
