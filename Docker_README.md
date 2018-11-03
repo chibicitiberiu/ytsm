@@ -4,7 +4,7 @@ Running with Docker
 Sample Run command
 -----
 ```bash
-docker run -d --name ytsm -p 80:8000 --env-file sqlite3.env.env --volume ./downloads:/usr/src/app/data/downloads chibicitiberiu/ytsm:latest
+docker run -d --name ytsm -p 80:8000 --volume ./downloads:/usr/src/app/data/downloads chibicitiberiu/ytsm:latest
 ```
 ### Quick Rundown:
 - `--expose 80:8000` maps the Host OS port 80 to the container port 80
