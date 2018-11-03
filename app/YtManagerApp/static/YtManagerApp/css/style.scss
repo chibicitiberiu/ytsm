@@ -148,3 +148,11 @@ $accent-color: #007bff;
     display: inline-block;
     margin-bottom: 0.5rem;
 }
+
+.btn-toolbar {
+    margin: .5rem 0;
+    .btn {
+        padding: 0.15rem 0.4rem;
+        font-size: 14pt;
+    }
+}
