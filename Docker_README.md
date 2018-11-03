@@ -23,8 +23,8 @@ Environment variables
 
 Volumes
 -----
-- /usr/src/app/data/media
-- /usr/src/app/data/db
+- /usr/src/app/data
+- /usr/src/app/config
 
 
 Notes
