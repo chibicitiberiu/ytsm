@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.1">
+  <body>
+    <outline text="YouTube Subscriptions" title="YouTube Subscriptions">
+      <outline text="Doctor Mike" title="Doctor Mike" type="rss"
+        xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0QHWhjbe5fGJEPz3sVb6nw"/>
+      <outline text="Internet Historian" title="Internet Historian" type="rss"
+        xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCR1D15p_vdP3HkrH8wgjQRw"/>
+      <outline text="GDC" title="GDC" type="rss"
+        xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0JB7TSe49lg56u6qH8y_MQ"/>
+      <outline text="Smarter Every Day 2" title="Smarter Every Day 2" type="rss"
+        xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8VkNBOwvsTlFjoSnNSMmxw"/>
+      <outline text="TotalBiscuit" title="TotalBiscuit" type="rss"
+        xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCy1Ms_5qBTawC-k7PVjHXKQ"/>
+      <outline text="LastWeekTonight" title="LastWeekTonight" type="rss"
+        xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3XTzVzaHQEd30rQbuvCtTQ"/>
+    </outline>
+  </body>
+</opml>

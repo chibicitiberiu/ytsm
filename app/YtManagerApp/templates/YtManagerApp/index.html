@@ -29,19 +29,27 @@
         <div class="col-3">
             {# Tree toolbar #}
             <div class="btn-toolbar" role="toolbar" aria-label="Subscriptions toolbar">
-                <div class="btn-group btn-group-sm mr-2" role="group">
-                    <button id="btn_create_sub" type="button" class="btn btn-secondary" >
+                <div class="btn-group mr-2" role="group">
+                    <button id="btn_create_sub" type="button" class="btn btn-light"
+                            data-toggle="tooltip" title="Add subscription...">
                         <span class="typcn typcn-plus" aria-hidden="true"></span>
                     </button>
-                    <button id="btn_create_folder" type="button" class="btn btn-secondary">
+                    <button id="btn_create_folder" type="button" class="btn btn-light"
+                            data-toggle="tooltip" title="Add folder...">
                         <span class="typcn typcn-folder-add" aria-hidden="true"></span>
                     </button>
+                    <button id="btn_import" type="button" class="btn btn-light"
+                            data-toggle="tooltip" title="Import from file...">
+                        <span class="typcn typcn-document-add" aria-hidden="true"></span>
+                    </button>
                 </div>
-                <div class="btn-group btn-group-sm mr-2" role="group">
-                    <button id="btn_edit_node" type="button" class="btn btn-secondary" >
+                <div class="btn-group mr-2" role="group">
+                    <button id="btn_edit_node" type="button" class="btn btn-light"
+                            data-toggle="tooltip" title="Edit selection">
                         <span class="typcn typcn-edit" aria-hidden="true"></span>
                     </button>
-                    <button id="btn_delete_node" type="button" class="btn btn-secondary" >
+                    <button id="btn_delete_node" type="button" class="btn btn-light"
+                            data-toggle="tooltip" title="Delete selection">
                         <span class="typcn typcn-trash" aria-hidden="true"></span>
                     </button>
                 </div>

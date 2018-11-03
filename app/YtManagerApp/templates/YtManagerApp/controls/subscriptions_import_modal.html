@@ -1,0 +1,22 @@
+{% extends 'YtManagerApp/controls/modal.html' %}
+{% load crispy_forms_tags %}
+
+{% block modal_title %}
+    Import subscriptions
+{% endblock modal_title %}
+
+{% block modal_content %}
+    <form action="{% url 'modal_import_subscriptions' %}" method="post"
+          enctype="multipart/form-data">
+        {{ block.super }}
+    </form>
+{% endblock %}
+
+{% block modal_body %}
+    {% crispy form %}
+{% endblock modal_body %}
+
+{% block modal_footer %}
+    <input class="btn btn-primary" type="submit" value="Import">
+    <input class="btn btn-secondary" type="button" value="Cancel" data-dismiss="modal" aria-label="Cancel">
+{% endblock modal_footer %}
