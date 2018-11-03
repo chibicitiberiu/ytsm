@@ -53,7 +53,21 @@ class AjaxModal
     _submit(e) {
         let pThis = this;
         let url = this.form.attr('action');
-        $.post(url, this.form.serialize())
+        let ajax_settings = {
+            url: url,
+        };
+
+        if (this.form.attr('enctype') === 'multipart/form-data') {
+            ajax_settings.data = new FormData(this.form[0]);
+            ajax_settings.contentType = false;
+            ajax_settings.processData = false;
+            ajax_settings.cache = false;
+        }
+        else {
+            ajax_settings.data = this.form.serialize();
+        }
+
+        $.post(ajax_settings)
             .done(function(result) {
                 pThis._submitDone(result);
             })
