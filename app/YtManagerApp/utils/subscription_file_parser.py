@@ -38,8 +38,10 @@ class SubscriptionListFileParser(SubFileParser):
     def probe(self, file_handle):
         file_handle.seek(0)
         for line in file_handle:
+            if isinstance(line, bytes) or isinstance(line, bytearray):
+                line = line.decode()
             # Trim comments and spaces
-            line = re.sub('#.*', '', line).strip()
+            line = re.sub('(^|\s)#.*', '', line).strip()
             if len(line) > 0:
                 return self.__is_url(line)
         return False
@@ -47,8 +49,10 @@ class SubscriptionListFileParser(SubFileParser):
     def parse(self, file_handle):
         file_handle.seek(0)
         for line in file_handle:
+            if isinstance(line, bytes) or isinstance(line, bytearray):
+                line = line.decode()
             # Trim comments and spaces
-            line = re.sub('#.*', '', line).strip()
+            line = re.sub('(^|\s)#.*', '', line).strip()
             if len(line) > 0:
                 yield line
 
