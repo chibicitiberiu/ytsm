@@ -158,6 +158,30 @@ function videos_Submit(e)
 }
 
 ///
+/// Notifications
+///
+const NOTIFICATION_INTERVAL = 1000;
+
+function get_and_process_notifications()
+{
+    $.get("{% url 'ajax_get_notifications' 12345 %}".replace("12345", LAST_NOTIFICATION_ID))
+        .done(function(data) {
+            for (let entry of data)
+            {
+                LAST_NOTIFICATION_ID = entry.id;
+                let dt = new Date(entry.time);
+
+                // Status update
+                if (entry.msg === 'st-up') {
+                    let txt = `<span class="status-timestamp">${dt.getHours()}:${dt.getMinutes()}</span>${entry.status}`;
+                    $('#status-message').html(txt);
+                }
+
+            }
+        });
+}
+
+///
 /// Initialization
 ///
 $(document).ready(function ()
@@ -186,4 +210,7 @@ $(document).ready(function ()
     filters_form.find('select[name=show_watched]').on('change', videos_ReloadWithTimer);
     filters_form.find('select[name=show_downloaded]').on('change', videos_ReloadWithTimer);
     videos_Reload();
+
+    // Notification manager
+    setInterval(get_and_process_notifications, NOTIFICATION_INTERVAL);
 });

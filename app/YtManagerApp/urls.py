@@ -24,6 +24,7 @@ from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
 from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
     CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal
 from .views.settings import SettingsView
+from .views.notifications import ajax_get_notifications
 
 urlpatterns = [
     # Authentication URLs
@@ -41,6 +42,8 @@ urlpatterns = [
 
     path('ajax/get_tree/', ajax_get_tree, name='ajax_get_tree'),
     path('ajax/get_videos/', ajax_get_videos, name='ajax_get_videos'),
+
+    path('ajax/get_notifications/<int:last_id>', ajax_get_notifications, name='ajax_get_notifications'),
 
     # Modals
     path('modal/create_folder/', CreateFolderModal.as_view(), name='modal_create_folder'),

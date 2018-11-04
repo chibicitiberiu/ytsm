@@ -10,6 +10,8 @@ from YtManagerApp.management.downloader import fetch_thumbnail, downloader_proce
 from YtManagerApp.models import *
 from YtManagerApp.utils import youtube
 
+from YtManagerApp.management import notification_manager
+
 log = logging.getLogger('sync')
 __lock = Lock()
 
@@ -104,6 +106,7 @@ def synchronize():
 
     try:
         log.info("Running scheduled synchronization... ")
+        notification_manager.notify_status_update(f'Synchronization started for all subscriptions.')
 
         # Sync subscribed playlists/channels
         log.info("Sync - checking videos")
@@ -119,6 +122,7 @@ def synchronize():
         __fetch_thumbnails()
 
         log.info("Synchronization finished.")
+        notification_manager.notify_status_update(f'Synchronization finished for all subscriptions.')
 
     finally:
         __lock.release()
@@ -128,6 +132,8 @@ def synchronize_subscription(subscription: Subscription):
     __lock.acquire()
     try:
         log.info("Running synchronization for single subscription %d [%s]", subscription.id, subscription.name)
+        notification_manager.notify_status_update(f'Synchronization started for subscription <strong>{subscription.name}</strong>.')
+
         yt_api = youtube.YoutubeAPI.build_public()
 
         log.info("Sync - checking videos")
@@ -141,6 +147,7 @@ def synchronize_subscription(subscription: Subscription):
         __fetch_thumbnails()
 
         log.info("Synchronization finished for subscription %d [%s].", subscription.id, subscription.name)
+        notification_manager.notify_status_update(f'Synchronization finished for subscription <strong>{subscription.name}</strong>.')
 
     finally:
         __lock.release()
