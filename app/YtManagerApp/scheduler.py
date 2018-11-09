@@ -1,19 +1,19 @@
 import logging
 import sys
 from apscheduler.schedulers.background import BackgroundScheduler
+from django.conf import settings
 
 scheduler: BackgroundScheduler = None
 
 
 def initialize_scheduler():
-    from .appconfig import settings
     global scheduler
 
     logger = logging.getLogger('scheduler')
     executors = {
         'default': {
             'type': 'threadpool',
-            'max_workers': settings.getint('global', 'SchedulerConcurrency')
+            'max_workers': settings.SCHEDULER_CONCURRENCY
         }
     }
     job_defaults = {
