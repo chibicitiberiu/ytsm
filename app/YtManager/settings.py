@@ -126,11 +126,13 @@ CONFIG_DIR = os.path.join(PROJECT_ROOT, "config")
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
 
+
+_DEFAULT_CONFIG_DIR = os.path.join(BASE_DIR, "default")
 _DEFAULT_CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.ini')
 _DEFAULT_LOG_FILE = os.path.join(DATA_DIR, 'log.log')
 _DEFAULT_MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 
-DEFAULTS_FILE = os.path.join(CONFIG_DIR, 'defaults.ini')
+DEFAULTS_FILE = os.path.join(_DEFAULT_CONFIG_DIR, 'defaults.ini')
 CONFIG_FILE = os.getenv('YTSM_CONFIG_FILE', _DEFAULT_CONFIG_FILE)
 
 #

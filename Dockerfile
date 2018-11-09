@@ -17,7 +17,6 @@ VOLUME /usr/src/ytsm/data
 
 COPY ./app/ ./
 COPY ./docker/init.sh ./
-COPY ./config/ /usr/src/ytsm/config/
 
 EXPOSE 8000
 
