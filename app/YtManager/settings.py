@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +126,6 @@ CONFIG_DIR = os.path.join(PROJECT_ROOT, "config")
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
 
-
 _DEFAULT_CONFIG_DIR = os.path.join(BASE_DIR, "default")
 _DEFAULT_CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.ini')
 _DEFAULT_LOG_FILE = os.path.join(DATA_DIR, 'log.log')
@@ -134,6 +133,7 @@ _DEFAULT_MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 
 DEFAULTS_FILE = os.path.join(_DEFAULT_CONFIG_DIR, 'defaults.ini')
 CONFIG_FILE = os.getenv('YTSM_CONFIG_FILE', _DEFAULT_CONFIG_FILE)
+DATA_CONFIG_FILE = os.path.join(DATA_DIR, 'config.ini')
 
 #
 # Defaults
@@ -156,37 +156,84 @@ _SCHEDULER_SYNC_SCHEDULE = '5 * * * *'
 _DEFAULT_SCHEDULER_CONCURRENCY = 1
 
 
+CONFIG_ERRORS = []
+CONFIG_WARNINGS = []
+
+
 #
 # Load globals from config.ini
 #
+def get_global_opt(name, cfgparser, env_variable=None, fallback=None, boolean=False, integer=False):
+    """
+    Reads a configuration option, in the following order:
+    1. environment variable
+    2. config parser
+    3. fallback
+
+    :param name:
+    :param env_variable:
+    :param fallback:
+    :param boolean:
+    :return:
+    """
+    # Get from environment variable
+    if env_variable is not None:
+        value = os.getenv(env_variable)
+
+        if value is not None and boolean:
+            return value.lower() in ['true', 't', 'on', 'yes', 'y', '1']
+        elif value is not None and integer:
+            try:
+                return int(value)
+            except ValueError:
+                CONFIG_WARNINGS.append(f'Environment variable {env_variable}: value must be an integer value!')
+        elif value is not None:
+            return value
+
+    # Get from config parser
+    if boolean:
+        try:
+            return cfgparser.getboolean('global', name, fallback=fallback)
+        except ValueError:
+            CONFIG_WARNINGS.append(f'config.ini file: Value set for option global.{name} is not valid! '
+                                   f'Valid options: true, false, on, off.')
+            return fallback
+
+    if integer:
+        try:
+            return cfgparser.getint('global', name, fallback=fallback)
+        except ValueError:
+            CONFIG_WARNINGS.append(f'config.ini file: Value set for option global.{name} must be an integer number! ')
+            return fallback
+
+    return cfgparser.get('global', name, fallback=fallback)
+
+
 def load_config_ini():
     from configparser import ConfigParser
     from YtManagerApp.utils.extended_interpolation_with_env import ExtendedInterpolatorWithEnv
     import dj_database_url
 
     cfg = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolatorWithEnv())
-    read_ok = cfg.read([DEFAULTS_FILE, CONFIG_FILE])
+    read_ok = cfg.read([DEFAULTS_FILE, CONFIG_FILE, DATA_CONFIG_FILE])
 
     if DEFAULTS_FILE not in read_ok:
-        print('Failed to read file ' + DEFAULTS_FILE)
-        raise Exception('Cannot read file ' + DEFAULTS_FILE)
-    if CONFIG_FILE not in read_ok:
-        print('Failed to read file ' + CONFIG_FILE)
-        raise Exception('Cannot read file ' + CONFIG_FILE)
+        CONFIG_ERRORS.append(f'File {DEFAULTS_FILE} could not be read! Please make sure the file is in the right place,'
+                             f' and it has read permissions.')
 
     # Debug
     global DEBUG
-    DEBUG = cfg.getboolean('global', 'Debug', fallback=_DEFAULT_DEBUG)
+    DEBUG = get_global_opt('Debug', cfg, env_variable='YTSM_DEBUG', fallback=_DEFAULT_DEBUG, boolean=True)
 
     # Media root, which is where thumbnails are stored
     global MEDIA_ROOT
-    MEDIA_ROOT = cfg.get('global', 'MediaRoot', fallback=_DEFAULT_MEDIA_ROOT)
+    MEDIA_ROOT = get_global_opt('MediaRoot', cfg, env_variable='YTSM_MEDIA_ROOT', fallback=_DEFAULT_MEDIA_ROOT)
 
     # Keys - secret key, youtube API key
     # SECURITY WARNING: keep the secret key used in production secret!
     global SECRET_KEY, YOUTUBE_API_KEY
-    SECRET_KEY = cfg.get('global', 'SecretKey', fallback=_DEFAULT_SECRET_KEY)
-    YOUTUBE_API_KEY = cfg.get('global', 'YoutubeApiKey', fallback=_DEFAULT_YOUTUBE_API_KEY)
+    SECRET_KEY = get_global_opt('SecretKey', cfg, env_variable='YTSM_SECRET_KEY', fallback=_DEFAULT_SECRET_KEY)
+    YOUTUBE_API_KEY = get_global_opt('YoutubeApiKey', cfg, env_variable='YTSM_YTAPI_KEY', fallback=_DEFAULT_YOUTUBE_API_KEY)
 
     # Database
     global DATABASES
@@ -199,30 +246,32 @@ def load_config_ini():
 
     else:
         DATABASES['default'] = {
-            'ENGINE': cfg.get('global', 'DatabaseEngine', fallback=_DEFAULT_DATABASE['ENGINE']),
-            'NAME': cfg.get('global', 'DatabaseName', fallback=_DEFAULT_DATABASE['NAME']),
-            'HOST': cfg.get('global', 'DatabaseHost', fallback=_DEFAULT_DATABASE['HOST']),
-            'USER': cfg.get('global', 'DatabaseUser', fallback=_DEFAULT_DATABASE['USER']),
-            'PASSWORD': cfg.get('global', 'DatabasePassword', fallback=_DEFAULT_DATABASE['PASSWORD']),
-            'PORT': cfg.get('global', 'DatabasePort', fallback=_DEFAULT_DATABASE['PORT']),
+            'ENGINE': get_global_opt('DatabaseEngine', cfg, env_variable='YTSM_DB_ENGINE', fallback=_DEFAULT_DATABASE['ENGINE']),
+            'NAME': get_global_opt('DatabaseName', cfg, env_variable='YTSM_DB_NAME', fallback=_DEFAULT_DATABASE['NAME']),
+            'HOST': get_global_opt('DatabaseHost', cfg, env_variable='YTSM_DB_HOST', fallback=_DEFAULT_DATABASE['HOST']),
+            'USER': get_global_opt('DatabaseUser', cfg, env_variable='YTSM_DB_USER', fallback=_DEFAULT_DATABASE['USER']),
+            'PASSWORD': get_global_opt('DatabasePassword', cfg, env_variable='YTSM_DB_PASSWORD', fallback=_DEFAULT_DATABASE['PASSWORD']),
+            'PORT': get_global_opt('DatabasePort', cfg, env_variable='YTSM_DB_PORT', fallback=_DEFAULT_DATABASE['PORT']),
         }
 
     # Log settings
     global LOG_LEVEL, LOG_FILE
-    log_level_str = cfg.get('global', 'LogLevel', fallback='INFO')
+    log_level_str = get_global_opt('LogLevel', cfg, env_variable='YTSM_LOG_LEVEL', fallback='INFO')
 
     try:
         LOG_LEVEL = getattr(logging, log_level_str)
     except AttributeError:
+        CONFIG_WARNINGS.append(f'Invalid log level {log_level_str}. '
+                               f'Valid options are: DEBUG, INFO, WARN, ERROR, CRITICAL.')
         print("Invalid log level " + LOG_LEVEL)
         LOG_LEVEL = logging.INFO
 
-    LOG_FILE = cfg.get('global', 'LogFile', fallback=_DEFAULT_LOG_FILE)
+    LOG_FILE = get_global_opt('LogFile', cfg, env_variable='YTSM_LOG_FILE', fallback=_DEFAULT_LOG_FILE)
 
     # Scheduler settings
     global SCHEDULER_SYNC_SCHEDULE, SCHEDULER_CONCURRENCY
-    SCHEDULER_SYNC_SCHEDULE = cfg.get('global', 'SynchronizationSchedule', fallback=_SCHEDULER_SYNC_SCHEDULE)
-    SCHEDULER_CONCURRENCY = cfg.getint('global', 'SchedulerConcurrency', fallback=_DEFAULT_SCHEDULER_CONCURRENCY)
+    SCHEDULER_SYNC_SCHEDULE = get_global_opt('SynchronizationSchedule', cfg, fallback=_SCHEDULER_SYNC_SCHEDULE)
+    SCHEDULER_CONCURRENCY = get_global_opt('SchedulerConcurrency', cfg, fallback=_DEFAULT_SCHEDULER_CONCURRENCY, integer=True)
 
 
 load_config_ini()

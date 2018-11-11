@@ -8,7 +8,7 @@ from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.edit import FormMixin
-
+from django.conf import settings
 from YtManagerApp.management.videos import get_videos
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
 from YtManagerApp.utils import youtube, subscription_file_parser
@@ -94,13 +94,17 @@ def __tree_sub_id(sub_id):
 
 
 def index(request: HttpRequest):
+    context = {
+        'config_errors': settings.CONFIG_ERRORS,
+        'config_warnings': settings.CONFIG_WARNINGS,
+    }
     if request.user.is_authenticated:
-        context = {
-            'filter_form': VideoFilterForm()
-        }
+        context.update({
+            'filter_form': VideoFilterForm(),
+        })
         return render(request, 'YtManagerApp/index.html', context)
     else:
-        return render(request, 'YtManagerApp/index_unauthenticated.html')
+        return render(request, 'YtManagerApp/index_unauthenticated.html', context)
 
 
 @login_required
