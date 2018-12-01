@@ -1,0 +1,12 @@
+{% extends "YtManagerApp/master_default.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Done!</h1>
+        <p>The application is now ready to use!</p>
+        {% crispy form %}
+    </div>
+
+{% endblock body %}
