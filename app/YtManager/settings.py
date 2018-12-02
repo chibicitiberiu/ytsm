@@ -124,17 +124,15 @@ LOG_FORMAT = '%(asctime)s|%(process)d|%(thread)d|%(name)s|%(filename)s|%(lineno)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_ROOT = up(up(os.path.dirname(__file__)))            # Project root
-BASE_DIR = os.path.join(PROJECT_ROOT, "app")                # Base dir of the application
+BASE_DIR = up(os.path.dirname(__file__))                    # Base dir of the application
 CONFIG_DIR = os.path.join(PROJECT_ROOT, "config")
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
 
-_DEFAULT_CONFIG_DIR = os.path.join(BASE_DIR, "default")
 _DEFAULT_CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.ini')
 _DEFAULT_LOG_FILE = os.path.join(DATA_DIR, 'log.log')
 _DEFAULT_MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 
-DEFAULTS_FILE = os.path.join(_DEFAULT_CONFIG_DIR, 'defaults.ini')
 CONFIG_FILE = os.getenv('YTSM_CONFIG_FILE', _DEFAULT_CONFIG_FILE)
 DATA_CONFIG_FILE = os.path.join(DATA_DIR, 'config.ini')
 
