@@ -1,6 +1,6 @@
-from YtManagerApp.appconfig import settings
 from YtManagerApp.management.jobs.download_video import schedule_download_video
 from YtManagerApp.models import Video, Subscription, VIDEO_ORDER_MAPPING
+from YtManagerApp.utils import first_non_null
 from django.conf import settings as srv_settings
 import logging
 import requests
@@ -12,17 +12,12 @@ log = logging.getLogger('downloader')
 
 
 def __get_subscription_config(sub: Subscription):
-    enabled = settings.getboolean_sub(sub, 'user', 'AutoDownload')
+    user = sub.user
 
-    global_limit = -1
-    if len(settings.get_sub(sub, 'user', 'DownloadGlobalLimit')) > 0:
-        global_limit = settings.getint_sub(sub, 'user', 'DownloadGlobalLimit')
-
-    limit = -1
-    if len(settings.get_sub(sub, 'user', 'DownloadSubscriptionLimit')) > 0:
-        limit = settings.getint_sub(sub, 'user', 'DownloadSubscriptionLimit')
-
-    order = settings.get_sub(sub, 'user', 'DownloadOrder')
+    enabled = first_non_null(sub.auto_download, user.preferences['download_enabled'])
+    global_limit = user.preferences['download_global_limit']
+    limit = first_non_null(sub.download_limit, user.preferences['download_limit_per_subscription'])
+    order = first_non_null(sub.download_order, user.preferences['download_order'])
     order = VIDEO_ORDER_MAPPING[order]
 
     return enabled, global_limit, limit, order

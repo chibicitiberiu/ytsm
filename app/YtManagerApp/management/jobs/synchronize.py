@@ -5,7 +5,7 @@ from threading import Lock
 from apscheduler.triggers.cron import CronTrigger
 
 from YtManagerApp import scheduler
-from YtManagerApp.appconfig import settings
+from YtManagerApp.management.appconfig import global_prefs
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all, downloader_process_subscription
 from YtManagerApp.models import *
 from YtManagerApp.utils import youtube
@@ -43,6 +43,8 @@ def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAP
 
 def __detect_deleted(subscription: Subscription):
 
+    user = subscription.user
+
     for video in Video.objects.filter(subscription=subscription, downloaded_path__isnull=False):
         found_video = False
         files = []
@@ -71,7 +73,7 @@ def __detect_deleted(subscription: Subscription):
             video.downloaded_path = None
 
             # Mark watched?
-            if settings.getboolean_sub(subscription, 'user', 'MarkDeletedAsWatched'):
+            if user.preferences['MarkDeletedAsWatched']:
                 video.watched = True
 
             video.save()
@@ -147,7 +149,7 @@ def synchronize_subscription(subscription: Subscription):
 
 
 def schedule_synchronize_global():
-    trigger = CronTrigger.from_crontab(settings.get('global', 'SynchronizationSchedule'))
+    trigger = CronTrigger.from_crontab(global_prefs['synchronization_schedule'])
     job = scheduler.scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
     log.info('Scheduled synchronize job job=%s', job.id)
 

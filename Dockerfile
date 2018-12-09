@@ -14,6 +14,7 @@ ENV YTSM_DATA_PATH='/usr/src/ytsm/data'
 
 VOLUME /usr/src/ytsm/config
 VOLUME /usr/src/ytsm/data
+VOLUME /usr/src/ytsm/download
 
 COPY ./app/ ./
 COPY ./docker/init.sh ./

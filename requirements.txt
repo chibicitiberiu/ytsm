@@ -1,4 +1,5 @@
-apscheduler 
+requests
+apscheduler
 gunicorn
 django 
 django-crispy-forms 

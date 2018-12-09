@@ -23,17 +23,17 @@ SESSION_COOKIE_AGE = 3600 * 30      # one month
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
+    'dynamic_preferences',
+    'dynamic_preferences.users.apps.UserPreferencesConfig',
     'YtManagerApp.apps.YtManagerAppConfig',
     'crispy_forms',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'dynamic_preferences',
-    'dynamic_preferences.users.apps.UserPreferencesConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,16 +125,14 @@ LOG_FORMAT = '%(asctime)s|%(process)d|%(thread)d|%(name)s|%(filename)s|%(lineno)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_ROOT = up(up(os.path.dirname(__file__)))            # Project root
 BASE_DIR = up(os.path.dirname(__file__))                    # Base dir of the application
-CONFIG_DIR = os.path.join(PROJECT_ROOT, "config")
-DATA_DIR = os.path.join(PROJECT_ROOT, "data")
+
+CONFIG_DIR = os.getenv("YTSM_CONFIG_DIR", os.path.join(PROJECT_ROOT, "config"))
+DATA_DIR = os.getenv("YTSM_DATA_DIR", os.path.join(PROJECT_ROOT, "data"))
+os.chdir(DATA_DIR)
+
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
+MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
 
-_DEFAULT_CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.ini')
-_DEFAULT_LOG_FILE = os.path.join(DATA_DIR, 'log.log')
-_DEFAULT_MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
-
-CONFIG_FILE = os.getenv('YTSM_CONFIG_FILE', _DEFAULT_CONFIG_FILE)
-DATA_CONFIG_FILE = os.path.join(DATA_DIR, 'config.ini')
 
 #
 # Defaults
@@ -142,7 +140,6 @@ DATA_CONFIG_FILE = os.path.join(DATA_DIR, 'config.ini')
 _DEFAULT_DEBUG = False
 
 _DEFAULT_SECRET_KEY = '^zv8@i2h!ko2lo=%ivq(9e#x=%q*i^^)6#4@(juzdx%&0c+9a0'
-_DEFAULT_YOUTUBE_API_KEY = 'AIzaSyBabzE4Bup77WexdLMa9rN9z-wJidEfNX8'
 
 _DEFAULT_DATABASE = {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -152,10 +149,6 @@ _DEFAULT_DATABASE = {
         'PASSWORD': None,
         'PORT': None,
     }
-
-_SCHEDULER_SYNC_SCHEDULE = '5 * * * *'
-_DEFAULT_SCHEDULER_CONCURRENCY = 1
-
 
 CONFIG_ERRORS = []
 CONFIG_WARNINGS = []
@@ -171,6 +164,8 @@ def get_global_opt(name, cfgparser, env_variable=None, fallback=None, boolean=Fa
     2. config parser
     3. fallback
 
+    :param integer:
+    :param cfgparser:
     :param name:
     :param env_variable:
     :param fallback:
@@ -216,25 +211,22 @@ def load_config_ini():
     import dj_database_url
 
     cfg = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolatorWithEnv())
-    read_ok = cfg.read([DEFAULTS_FILE, CONFIG_FILE, DATA_CONFIG_FILE])
 
-    if DEFAULTS_FILE not in read_ok:
-        CONFIG_ERRORS.append(f'File {DEFAULTS_FILE} could not be read! Please make sure the file is in the right place,'
-                             f' and it has read permissions.')
+    cfg_file = os.path.join(CONFIG_DIR, "config.ini")
+    read_ok = cfg.read([cfg_file])
+
+    if cfg_file not in read_ok:
+        CONFIG_ERRORS.append(f'Configuration file {cfg_file} could not be read! Please make sure the file is in the '
+                             'right place, and it has read permissions.')
 
     # Debug
     global DEBUG
     DEBUG = get_global_opt('Debug', cfg, env_variable='YTSM_DEBUG', fallback=_DEFAULT_DEBUG, boolean=True)
 
-    # Media root, which is where thumbnails are stored
-    global MEDIA_ROOT
-    MEDIA_ROOT = get_global_opt('MediaRoot', cfg, env_variable='YTSM_MEDIA_ROOT', fallback=_DEFAULT_MEDIA_ROOT)
-
-    # Keys - secret key, youtube API key
+    # Secret key
     # SECURITY WARNING: keep the secret key used in production secret!
-    global SECRET_KEY, YOUTUBE_API_KEY
+    global SECRET_KEY
     SECRET_KEY = get_global_opt('SecretKey', cfg, env_variable='YTSM_SECRET_KEY', fallback=_DEFAULT_SECRET_KEY)
-    YOUTUBE_API_KEY = get_global_opt('YoutubeApiKey', cfg, env_variable='YTSM_YTAPI_KEY', fallback=_DEFAULT_YOUTUBE_API_KEY)
 
     # Database
     global DATABASES
@@ -247,16 +239,22 @@ def load_config_ini():
 
     else:
         DATABASES['default'] = {
-            'ENGINE': get_global_opt('DatabaseEngine', cfg, env_variable='YTSM_DB_ENGINE', fallback=_DEFAULT_DATABASE['ENGINE']),
-            'NAME': get_global_opt('DatabaseName', cfg, env_variable='YTSM_DB_NAME', fallback=_DEFAULT_DATABASE['NAME']),
-            'HOST': get_global_opt('DatabaseHost', cfg, env_variable='YTSM_DB_HOST', fallback=_DEFAULT_DATABASE['HOST']),
-            'USER': get_global_opt('DatabaseUser', cfg, env_variable='YTSM_DB_USER', fallback=_DEFAULT_DATABASE['USER']),
-            'PASSWORD': get_global_opt('DatabasePassword', cfg, env_variable='YTSM_DB_PASSWORD', fallback=_DEFAULT_DATABASE['PASSWORD']),
-            'PORT': get_global_opt('DatabasePort', cfg, env_variable='YTSM_DB_PORT', fallback=_DEFAULT_DATABASE['PORT']),
+            'ENGINE': get_global_opt('DatabaseEngine', cfg,
+                                     env_variable='YTSM_DB_ENGINE', fallback=_DEFAULT_DATABASE['ENGINE']),
+            'NAME': get_global_opt('DatabaseName', cfg,
+                                   env_variable='YTSM_DB_NAME', fallback=_DEFAULT_DATABASE['NAME']),
+            'HOST': get_global_opt('DatabaseHost', cfg,
+                                   env_variable='YTSM_DB_HOST', fallback=_DEFAULT_DATABASE['HOST']),
+            'USER': get_global_opt('DatabaseUser', cfg,
+                                   env_variable='YTSM_DB_USER', fallback=_DEFAULT_DATABASE['USER']),
+            'PASSWORD': get_global_opt('DatabasePassword', cfg,
+                                       env_variable='YTSM_DB_PASSWORD', fallback=_DEFAULT_DATABASE['PASSWORD']),
+            'PORT': get_global_opt('DatabasePort', cfg,
+                                   env_variable='YTSM_DB_PORT', fallback=_DEFAULT_DATABASE['PORT']),
         }
 
     # Log settings
-    global LOG_LEVEL, LOG_FILE
+    global LOG_LEVEL
     log_level_str = get_global_opt('LogLevel', cfg, env_variable='YTSM_LOG_LEVEL', fallback='INFO')
 
     try:
@@ -266,13 +264,6 @@ def load_config_ini():
                                f'Valid options are: DEBUG, INFO, WARN, ERROR, CRITICAL.')
         print("Invalid log level " + LOG_LEVEL)
         LOG_LEVEL = logging.INFO
-
-    LOG_FILE = get_global_opt('LogFile', cfg, env_variable='YTSM_LOG_FILE', fallback=_DEFAULT_LOG_FILE)
-
-    # Scheduler settings
-    global SCHEDULER_SYNC_SCHEDULE, SCHEDULER_CONCURRENCY
-    SCHEDULER_SYNC_SCHEDULE = get_global_opt('SynchronizationSchedule', cfg, fallback=_SCHEDULER_SYNC_SCHEDULE)
-    SCHEDULER_CONCURRENCY = get_global_opt('SchedulerConcurrency', cfg, fallback=_DEFAULT_SCHEDULER_CONCURRENCY, integer=True)
 
 
 load_config_ini()
