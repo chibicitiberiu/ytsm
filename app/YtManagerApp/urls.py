@@ -24,6 +24,7 @@ from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
 from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
     CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal, ImportSubscriptionsModal
 from .views.settings import SettingsView
+from .views import first_time
 
 urlpatterns = [
     # Authentication URLs
@@ -58,5 +59,12 @@ urlpatterns = [
     # Pages
     path('', index, name='home'),
     path('settings/', SettingsView.as_view(), name='settings'),
+
+    # First time setup
+    path('first_time/step0_welcome', first_time.Step0WelcomeView.as_view(), name='first_time_0'),
+    path('first_time/step1_apikey', first_time.Step1ApiKeyView.as_view(), name='first_time_1'),
+    path('first_time/step2_admin', first_time.Step2CreateAdminUserView.as_view(), name='first_time_2'),
+    path('first_time/step3_config', first_time.Step3ConfigureView.as_view(), name='first_time_3'),
+    path('first_time/done', first_time.DoneView.as_view(), name='first_time_done'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

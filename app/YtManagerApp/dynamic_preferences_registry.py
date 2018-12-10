@@ -4,6 +4,8 @@ from dynamic_preferences.registries import global_preferences_registry
 from dynamic_preferences.users.registries import user_preferences_registry
 
 from YtManagerApp.models import VIDEO_ORDER_CHOICES
+from django.conf import settings
+import os
 
 # we create some section objects to link related preferences together
 
@@ -83,7 +85,7 @@ class AutoDeleteWatched(BooleanPreference):
 @user_preferences_registry.register
 class AutoDownloadEnabled(BooleanPreference):
     section = downloader
-    name = 'download_enabled'
+    name = 'auto_enabled'
     default = True
     required = True
 
@@ -91,7 +93,7 @@ class AutoDownloadEnabled(BooleanPreference):
 @user_preferences_registry.register
 class DownloadGlobalLimit(IntegerPreference):
     section = downloader
-    name = 'download_global_limit'
+    name = 'global_limit'
     default = None
     required = False
 
@@ -107,7 +109,7 @@ class DownloadGlobalSizeLimit(IntegerPreference):
 @user_preferences_registry.register
 class DownloadSubscriptionLimit(IntegerPreference):
     section = downloader
-    name = 'download_limit_per_subscription'
+    name = 'limit_per_subscription'
     default = 5
     required = False
 
@@ -115,7 +117,7 @@ class DownloadSubscriptionLimit(IntegerPreference):
 @user_preferences_registry.register
 class DownloadMaxAttempts(IntegerPreference):
     section = downloader
-    name = 'download_max_attempts'
+    name = 'max_download_attempts'
     default = 3
     required = True
 
@@ -133,7 +135,7 @@ class DownloadOrder(ChoicePreference):
 class DownloadPath(StringPreference):
     section = downloader
     name = 'download_path'
-    default = None
+    default = os.path.join(settings.DATA_DIR, 'downloads')
     required = False
 
 

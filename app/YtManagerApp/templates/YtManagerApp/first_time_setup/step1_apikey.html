@@ -1,0 +1,66 @@
+{% extends "YtManagerApp/master_default.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>Step 1: Set up YouTube API key (optional)</h1>
+        <p>This program uses the YouTube API in order to obtain information about videos, channels and playlists.
+        In order to access this API, YouTube requires that we register on their site and request an API key. YouTube
+        uses this key in order to limit the number of requests made to their platform, in order to prevent abuses.</p>
+
+        <p>To use this program, it is <em>recommended</em> that you create an API key for your own account. While a key
+        is already provided the developer, there is a chance that the quota limits will be reached, which will prevent
+        this program from reaching YouTube. Follow the steps below, or press <strong>Skip</strong> to use the provided key.</p>
+
+        <h4>
+            <a data-toggle="collapse" href="#HowToObtainKey" role="button" aria-expanded="false" aria-controls="HowToObtainKey">
+                <span class="typcn typcn-arrow-sorted-down"></span>How to obtain a key
+            </a>
+        </h4>
+
+        <div class="collapse" id="HowToObtainKey">
+            <ol>
+                <li>Visit <a href="https://developers.google.com/">https://developers.google.com/</a>, log in or create an account, if necessary.</li>
+                <li>Go to <a href="https://console.developers.google.com/project"></a>, and click on the <strong>Create project</strong> button.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_create_project.png' %}">
+                </li>
+                <li>Give a name to the project, and then click on <strong>Create</strong>. Wait for a few seconds, until Google finishes creating the project.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_project_name.png' %}">
+                </li>
+                <li>Make sure the newly created project is selected in the top bar and then, in the left sidebar,
+                    go to <strong>APIs & Services</strong> - <strong>Library</strong>.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_goto_apis.png' %}">
+                </li>
+                <li>Find and click on the <strong>YouTube Data API v3</strong> from the list.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_select_ytapi.png' %}">
+                </li>
+                <li>Click <strong>Enable</strong> to enable the YouTube API for your account.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_enable_ytapi.png' %}">
+                </li>
+                <li>In the navigation sidebar, go to the <strong>Credentials</strong> page.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_goto_credentials.png' %}">
+                </li>
+                <li>Click on <strong>Create credentials</strong>.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_create_credential.png' %}">
+                </li>
+                <li>Fill the requested information; we will need access to the <strong>YouTube Data v3</strong>,
+                    we will be calling the API from a <strong>Web server</strong>, and we will access the <strong>Public data</strong>.
+                    After filling the information, click on the <strong>What credentials do I need?</strong> button.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_create_credential_options.png' %}">
+                </li>
+                <li>Copy the created key in the box below, and then hit <strong>Done</strong>.
+                    <img class="d-block" src="{% static 'YtManagerApp/img/first_time/ytapi_done.png' %}">
+                </li>
+            </ol>
+        </div>
+
+        {% crispy form %}
+
+        <a href="{% url 'first_time_2' %}">Skip</a>
+
+    </div>
+
+{% endblock body %}

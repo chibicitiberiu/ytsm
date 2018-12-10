@@ -149,7 +149,7 @@ def synchronize_subscription(subscription: Subscription):
 
 
 def schedule_synchronize_global():
-    trigger = CronTrigger.from_crontab(global_prefs['synchronization_schedule'])
+    trigger = CronTrigger.from_crontab(global_prefs['scheduler__synchronization_schedule'])
     job = scheduler.scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
     log.info('Scheduled synchronize job job=%s', job.id)
 

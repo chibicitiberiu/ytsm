@@ -7,7 +7,7 @@ from django.conf import settings as dj_settings
 from .management.appconfig import global_prefs
 from .management.jobs.synchronize import schedule_synchronize_global
 from .scheduler import initialize_scheduler
-
+from django.db.utils import OperationalError
 
 def __initialize_logger():
     log_dir = os.path.join(dj_settings.DATA_DIR, 'logs')
@@ -29,8 +29,12 @@ def __initialize_logger():
 def main():
     __initialize_logger()
 
-    if global_prefs['hidden__initialized']:
-        initialize_scheduler()
-        schedule_synchronize_global()
+    try:
+        if global_prefs['hidden__initialized']:
+            initialize_scheduler()
+            schedule_synchronize_global()
+    except OperationalError:
+        # Settings table is not created when running migrate or makemigrations, so just don't do anything in this case.
+        pass
 
     logging.info('Initialization complete.')

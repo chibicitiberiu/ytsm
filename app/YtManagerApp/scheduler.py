@@ -1,7 +1,8 @@
 import logging
-import sys
+
 from apscheduler.schedulers.background import BackgroundScheduler
-from django.conf import settings
+
+from YtManagerApp.management.appconfig import global_prefs
 
 scheduler: BackgroundScheduler = None
 
@@ -13,7 +14,7 @@ def initialize_scheduler():
     executors = {
         'default': {
             'type': 'threadpool',
-            'max_workers': settings.SCHEDULER_CONCURRENCY
+            'max_workers': global_prefs['scheduler__concurrency']
         }
     }
     job_defaults = {

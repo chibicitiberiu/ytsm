@@ -5,11 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.edit import FormMixin
 from django.conf import settings
 from YtManagerApp.management.videos import get_videos
+from YtManagerApp.management.appconfig import global_prefs
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
 from YtManagerApp.utils import youtube, subscription_file_parser
 from YtManagerApp.views.controls.modal import ModalMixin
@@ -94,6 +95,10 @@ def __tree_sub_id(sub_id):
 
 
 def index(request: HttpRequest):
+
+    if not global_prefs['hidden__initialized']:
+        return redirect('first_time_0')
+
     context = {
         'config_errors': settings.CONFIG_ERRORS,
         'config_warnings': settings.CONFIG_WARNINGS,
