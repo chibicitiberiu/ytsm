@@ -1,26 +1,35 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, HTML, Submit
+from crispy_forms.layout import Layout, HTML, Submit, Column
 from django import forms
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, FormView
 from django.shortcuts import render, redirect
-from YtManagerApp.views.auth import RegisterView
+from YtManagerApp.views.auth import RegisterView, ExtendedUserCreationForm, ExtendedAuthenticationForm
 from YtManagerApp.models import UserSettings
 
 from YtManagerApp.management.appconfig import global_prefs
 from django.http import HttpResponseForbidden
+
+import logging
+
+
+logger = logging.getLogger("FirstTimeWizard")
 
 
 class ProtectInitializedMixin(object):
 
     def get(self, request, *args, **kwargs):
         if global_prefs['hidden__initialized']:
+            logger.debug(f"Attempted to access {request.path}, but first time setup already run. Redirected to home page.")
             return redirect('home')
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if global_prefs['hidden__initialized']:
+            logger.debug(f"Attempted to post {request.path}, but first time setup already run.")
             return HttpResponseForbidden()
         return super().post(request, *args, **kwargs)
 
@@ -54,7 +63,10 @@ class Step1ApiKeyForm(forms.Form):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             'api_key',
-            Submit('submit', value='Continue'),
+            Column(
+                Submit('submit', value='Continue'),
+                HTML('<a href="{% url \'first_time_2\' %}" class="btn">Skip</a>')
+            )
         )
 
 
@@ -73,9 +85,50 @@ class Step1ApiKeyView(ProtectInitializedMixin, FormView):
 #
 # Step 2: create admin user
 #
-class Step2CreateAdminUserView(ProtectInitializedMixin, RegisterView):
+class Step2CreateAdminUserView(ProtectInitializedMixin, FormView):
     template_name = 'YtManagerApp/first_time_setup/step2_admin.html'
     success_url = reverse_lazy('first_time_3')
+    form_class = ExtendedUserCreationForm
+
+    def get(self, request, *args, **kwargs):
+
+        # Skip if admin is already logged in
+        if request.user.is_authenticated and request.user.is_superuser:
+            logger.debug("Admin user already exists and is logged in!")
+            return redirect(self.success_url)
+
+        # Check if an admin user already exists
+        if User.objects.filter(is_superuser=True).count() > 0:
+            logger.warn("Admin user already exists! Will redirect to login page!")
+            return redirect('first_time_2_login')
+
+        return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        user = form.save()
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+
+        return super().form_valid(form)
+
+
+#
+# Step 2: create admin user
+#
+class Step2LoginAdminUserView(ProtectInitializedMixin, FormView):
+    template_name = 'YtManagerApp/first_time_setup/step2_admin.html'
+    success_url = reverse_lazy('first_time_3')
+    form_class = ExtendedAuthenticationForm
+
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        return super().form_valid(form)
 
 
 #

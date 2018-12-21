@@ -8,10 +8,10 @@
 
         <h1>Step 1: Set up YouTube API key (optional)</h1>
         <p>This program uses the YouTube API in order to obtain information about videos, channels and playlists.
-        In order to access this API, YouTube requires that we register on their site and request an API key. YouTube
-        uses this key in order to limit the number of requests made to their platform, in order to prevent abuses.</p>
+        To access this API, YouTube requires users to register on their site and request an API key. YouTube
+        uses this key to control access and limit the number of requests made to their platform, in order to prevent abuses.</p>
 
-        <p>To use this program, it is <em>recommended</em> that you create an API key for your own account. While a key
+        <p>To use this program, it is <em>recommended</em>, but not required, that you create an API key for your own account. While a key
         is already provided the developer, there is a chance that the quota limits will be reached, which will prevent
         this program from reaching YouTube. Follow the steps below, or press <strong>Skip</strong> to use the provided key.</p>
 
@@ -58,8 +58,6 @@
         </div>
 
         {% crispy form %}
-
-        <a href="{% url 'first_time_2' %}">Skip</a>
 
     </div>
 

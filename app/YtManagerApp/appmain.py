@@ -1,6 +1,7 @@
 import logging
 import logging.handlers
 import os
+import sys
 
 from django.conf import settings as dj_settings
 
@@ -9,20 +10,29 @@ from .management.jobs.synchronize import schedule_synchronize_global
 from .scheduler import initialize_scheduler
 from django.db.utils import OperationalError
 
+
 def __initialize_logger():
     log_dir = os.path.join(dj_settings.DATA_DIR, 'logs')
     os.makedirs(log_dir, exist_ok=True)
+
+    handlers = []
 
     file_handler = logging.handlers.RotatingFileHandler(
         os.path.join(log_dir, "log.log"),
         maxBytes=1024 * 1024,
         backupCount=5
     )
+    handlers.append(file_handler)
+
+    if dj_settings.DEBUG:
+        console_handler = logging.StreamHandler(stream=sys.stdout)
+        console_handler.setLevel(logging.DEBUG)
+        handlers.append(console_handler)
 
     logging.basicConfig(
         level=dj_settings.LOG_LEVEL,
         format=dj_settings.LOG_FORMAT,
-        handlers=[file_handler]
+        handlers=handlers
     )
 
 

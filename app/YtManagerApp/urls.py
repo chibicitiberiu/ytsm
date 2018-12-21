@@ -64,6 +64,7 @@ urlpatterns = [
     path('first_time/step0_welcome', first_time.Step0WelcomeView.as_view(), name='first_time_0'),
     path('first_time/step1_apikey', first_time.Step1ApiKeyView.as_view(), name='first_time_1'),
     path('first_time/step2_admin', first_time.Step2CreateAdminUserView.as_view(), name='first_time_2'),
+    path('first_time/step2_login', first_time.Step2LoginAdminUserView.as_view(), name='first_time_2_login'),
     path('first_time/step3_config', first_time.Step3ConfigureView.as_view(), name='first_time_3'),
     path('first_time/done', first_time.DoneView.as_view(), name='first_time_done'),
 

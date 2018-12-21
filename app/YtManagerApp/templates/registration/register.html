@@ -24,12 +24,6 @@
             {% endif %}
         {% endif %}
 
-        {% if is_first_user %}
-            <div class="alert alert-info" role="alert">
-                Since this is the first user to register, it will be the system administrator.
-            </div>
-        {% endif %}
-
         <h5>Register</h5>
 
         {% crispy form %}

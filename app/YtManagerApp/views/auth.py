@@ -58,13 +58,8 @@ class RegisterView(FormView):
     success_url = reverse_lazy('register_done')
 
     def form_valid(self, form):
-        is_first_user = (User.objects.count() == 0)
 
-        user = form.save()
-        if is_first_user:
-            user.is_staff = True
-            user.is_superuser = True
-            user.save()
+        form.save()
 
         username = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password1')
