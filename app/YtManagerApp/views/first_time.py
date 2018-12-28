@@ -1,30 +1,28 @@
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, HTML, Submit, Column
-from django import forms
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.urls import reverse_lazy
-from django.views.generic import UpdateView, FormView
-from django.shortcuts import render, redirect
-from YtManagerApp.views.auth import RegisterView, ExtendedUserCreationForm, ExtendedAuthenticationForm
-from YtManagerApp.models import UserSettings
-
-from YtManagerApp.management.appconfig import global_prefs
-from django.http import HttpResponseForbidden
-
 import logging
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+
+from YtManagerApp.management.appconfig import global_prefs
+from YtManagerApp.views.forms.auth import ExtendedAuthenticationForm
+from YtManagerApp.views.forms.first_time import WelcomeForm, ApiKeyForm, PickAdminUserForm, ServerConfigForm, DoneForm, UserCreationForm
 
 logger = logging.getLogger("FirstTimeWizard")
 
 
-class ProtectInitializedMixin(object):
-
+class WizardStepMixin(object):
     def get(self, request, *args, **kwargs):
+
+        # Prevent access if application is already initialized
         if global_prefs['hidden__initialized']:
-            logger.debug(f"Attempted to access {request.path}, but first time setup already run. Redirected to home page.")
+            logger.debug(f"Attempted to access {request.path}, but first time setup already run. Redirected to home "
+                         f"page.")
             return redirect('home')
+
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -37,43 +35,24 @@ class ProtectInitializedMixin(object):
 #
 # Step 0: welcome screen
 #
-class Step0WelcomeForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Submit('submit', value='Continue')
-        )
-
-
-class Step0WelcomeView(ProtectInitializedMixin, FormView):
+class Step0WelcomeView(WizardStepMixin, FormView):
     template_name = 'YtManagerApp/first_time_setup/step0_welcome.html'
-    form_class = Step0WelcomeForm
+    form_class = WelcomeForm
     success_url = reverse_lazy('first_time_1')
 
 
 #
 # Step 1: setup API key
 #
-class Step1ApiKeyForm(forms.Form):
-    api_key = forms.CharField(label="YouTube API Key:")
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            'api_key',
-            Column(
-                Submit('submit', value='Continue'),
-                HTML('<a href="{% url \'first_time_2\' %}" class="btn">Skip</a>')
-            )
-        )
-
-
-class Step1ApiKeyView(ProtectInitializedMixin, FormView):
+class Step1ApiKeyView(WizardStepMixin, FormView):
     template_name = 'YtManagerApp/first_time_setup/step1_apikey.html'
-    form_class = Step1ApiKeyForm
+    form_class = ApiKeyForm
     success_url = reverse_lazy('first_time_2')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['api_key'] = global_prefs['general__youtube_api_key']
+        return initial
 
     def form_valid(self, form):
         key = form.cleaned_data['api_key']
@@ -85,12 +64,21 @@ class Step1ApiKeyView(ProtectInitializedMixin, FormView):
 #
 # Step 2: create admin user
 #
-class Step2CreateAdminUserView(ProtectInitializedMixin, FormView):
+class Step2SetupAdminUserView(WizardStepMixin, FormView):
     template_name = 'YtManagerApp/first_time_setup/step2_admin.html'
     success_url = reverse_lazy('first_time_3')
-    form_class = ExtendedUserCreationForm
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__form_class = UserCreationForm
+
+    def get_form_class(self):
+        return self.__form_class
 
     def get(self, request, *args, **kwargs):
+
+        have_users = User.objects.count() > 0
+        have_admin = User.objects.filter(is_superuser=True).count() > 0
 
         # Skip if admin is already logged in
         if request.user.is_authenticated and request.user.is_superuser:
@@ -98,87 +86,64 @@ class Step2CreateAdminUserView(ProtectInitializedMixin, FormView):
             return redirect(self.success_url)
 
         # Check if an admin user already exists
-        if User.objects.filter(is_superuser=True).count() > 0:
-            logger.warn("Admin user already exists! Will redirect to login page!")
-            return redirect('first_time_2_login')
+        elif have_admin:
+            logger.debug("Admin user already exists and is not logged in!")
+            self.__form_class = ExtendedAuthenticationForm
+
+        elif have_users and 'register' not in kwargs:
+            logger.debug("There are users but no admin!")
+            self.__form_class = PickAdminUserForm
+
+        else:
+            logger.debug("No admin user exists, will register a new account!")
+            self.__form_class = UserCreationForm
 
         return super().get(request, *args, **kwargs)
 
-    def form_valid(self, form):
-        user = form.save()
-        user.is_staff = True
-        user.is_superuser = True
-        user.save()
-
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(self.request, user)
-
-        return super().form_valid(form)
-
-
-#
-# Step 2: create admin user
-#
-class Step2LoginAdminUserView(ProtectInitializedMixin, FormView):
-    template_name = 'YtManagerApp/first_time_setup/step2_admin.html'
-    success_url = reverse_lazy('first_time_3')
-    form_class = ExtendedAuthenticationForm
+    def form_invalid(self, form):
+        print("FORM INVALID!")
 
     def form_valid(self, form):
-        login(self.request, form.get_user())
+        if isinstance(form, ExtendedAuthenticationForm):
+            login(self.request, form.get_user())
+
+        elif isinstance(form, UserCreationForm):
+            user = form.save()
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(self.request, user)
+
+        elif isinstance(form, PickAdminUserForm):
+            user = form.cleaned_data['admin_user']
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
+
+            return redirect('first_time_2', assigned_success='1')
+
         return super().form_valid(form)
 
 
 #
 # Step 3: configure server
 #
-class Step3ConfigureForm(forms.Form):
-
-    allow_registrations = forms.BooleanField(
-        label="Allow user registrations",
-        help_text="Disabling this option will prevent anyone from registering to the site.",
-        initial=True,
-        required=False
-    )
-
-    sync_schedule = forms.CharField(
-        label="Synchronization schedule",
-        help_text="How often should the application look for new videos.",
-        initial="5 * * * *",
-        required=True
-    )
-
-    auto_download = forms.BooleanField(
-        label="Download videos automatically",
-        required=False
-    )
-
-    download_location = forms.CharField(
-        label="Download location",
-        help_text="Location on the server where videos are downloaded.",
-        required=True
-    )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            HTML('<h3>Server settings</h3>'),
-            'sync_schedule',
-            'allow_registrations',
-            HTML('<h3>User settings</h3>'),
-            'auto_download',
-            'download_location',
-            Submit('submit', value='Continue'),
-        )
-
-
-class Step3ConfigureView(ProtectInitializedMixin, FormView):
+class Step3ConfigureView(WizardStepMixin, FormView):
     template_name = 'YtManagerApp/first_time_setup/step3_configure.html'
-    form_class = Step3ConfigureForm
+    form_class = ServerConfigForm
     success_url = reverse_lazy('first_time_done')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['allow_registrations'] = global_prefs['general__allow_registrations']
+        initial['sync_schedule'] =  global_prefs['scheduler__synchronization_schedule']
+        initial['auto_download'] = self.request.user.preferences['downloader__auto_enabled']
+        initial['download_location'] = self.request.user.preferences['downloader__download_path']
+        return initial
 
     def form_valid(self, form):
         allow_registrations = form.cleaned_data['allow_registrations']
@@ -202,18 +167,10 @@ class Step3ConfigureView(ProtectInitializedMixin, FormView):
         
         return super().form_valid(form)
 
+
 #
 # Done screen
 #
-class DoneForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Submit('submit', value='Finish')
-        )
-
-
 class DoneView(FormView):
     template_name = 'YtManagerApp/first_time_setup/done.html'
     form_class = DoneForm

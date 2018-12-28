@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 import logging
 from os.path import dirname as up
 
@@ -128,7 +129,6 @@ BASE_DIR = up(os.path.dirname(__file__))                    # Base dir of the ap
 
 CONFIG_DIR = os.getenv("YTSM_CONFIG_DIR", os.path.join(PROJECT_ROOT, "config"))
 DATA_DIR = os.getenv("YTSM_DATA_DIR", os.path.join(PROJECT_ROOT, "data"))
-os.chdir(DATA_DIR)
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
 MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
@@ -153,6 +153,16 @@ _DEFAULT_DATABASE = {
 CONFIG_ERRORS = []
 CONFIG_WARNINGS = []
 
+
+#
+# Config parser options
+#
+CFG_PARSER_OPTS = {
+    'PROJECT_ROOT' : PROJECT_ROOT,
+    'BASE_DIR' : BASE_DIR,
+    'CONFIG_DIR' : CONFIG_DIR,
+    'DATA_DIR' : DATA_DIR,
+}
 
 #
 # Load globals from config.ini
@@ -189,7 +199,7 @@ def get_global_opt(name, cfgparser, env_variable=None, fallback=None, boolean=Fa
     # Get from config parser
     if boolean:
         try:
-            return cfgparser.getboolean('global', name, fallback=fallback)
+            return cfgparser.getboolean('global', name, fallback=fallback, vars=CFG_PARSER_OPTS)
         except ValueError:
             CONFIG_WARNINGS.append(f'config.ini file: Value set for option global.{name} is not valid! '
                                    f'Valid options: true, false, on, off.')
@@ -197,18 +207,25 @@ def get_global_opt(name, cfgparser, env_variable=None, fallback=None, boolean=Fa
 
     if integer:
         try:
-            return cfgparser.getint('global', name, fallback=fallback)
+            return cfgparser.getint('global', name, fallback=fallback, vars=CFG_PARSER_OPTS)
         except ValueError:
             CONFIG_WARNINGS.append(f'config.ini file: Value set for option global.{name} must be an integer number! ')
             return fallback
 
-    return cfgparser.get('global', name, fallback=fallback)
+    return cfgparser.get('global', name, fallback=fallback, vars=CFG_PARSER_OPTS)
 
 
 def load_config_ini():
     from configparser import ConfigParser
     from YtManagerApp.utils.extended_interpolation_with_env import ExtendedInterpolatorWithEnv
     import dj_database_url
+
+    try:
+        os.makedirs(DATA_DIR, exist_ok=True)
+        logging.info(f"Using data directory {DATA_DIR}")
+    except OSError as e:
+        print(f'CRITICAL ERROR! Cannot create data directory {DATA_DIR}! {e}', file=sys.stderr)
+        return;
 
     cfg = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolatorWithEnv())
 
@@ -235,7 +252,7 @@ def load_config_ini():
     }
 
     if cfg.has_option('global', 'DatabaseURL'):
-        DATABASES['default'] = dj_database_url.parse(cfg.get('global', 'DatabaseURL'), conn_max_age=600)
+        DATABASES['default'] = dj_database_url.parse(cfg.get('global', 'DatabaseURL', vars=CFG_PARSER_OPTS), conn_max_age=600)
 
     else:
         DATABASES['default'] = {
