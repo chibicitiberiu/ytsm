@@ -227,6 +227,10 @@ class DeleteFolderModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteView):
     model = SubscriptionFolder
     form_class = DeleteFolderForm
 
+    def __init__(self, *args, **kwargs):
+        self.object = None
+        super().__init__(*args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -246,7 +250,7 @@ class CreateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['parent_folder', 'auto_download',
-                  'download_limit', 'download_order', 'delete_after_watched']
+                  'download_limit', 'download_order', "automatically_delete_watched"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -313,7 +317,7 @@ class UpdateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['name', 'parent_folder', 'auto_download',
-                  'download_limit', 'download_order', 'delete_after_watched']
+                  'download_limit', 'download_order', "automatically_delete_watched"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -345,6 +349,10 @@ class DeleteSubscriptionModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteV
     template_name = 'YtManagerApp/controls/subscription_delete_modal.html'
     model = Subscription
     form_class = DeleteSubscriptionForm
+
+    def __init__(self, *args, **kwargs):
+        self.object = None
+        super().__init__(*args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -445,7 +453,7 @@ class ImportSubscriptionsModal(LoginRequiredMixin, ModalMixin, FormView):
             sub.auto_download = form.cleaned_data['auto_download']
             sub.download_limit = form.cleaned_data['download_limit']
             sub.download_order = form.cleaned_data['download_order']
-            sub.delete_after_watched = form.cleaned_data['delete_after_watched']
+            sub.automatically_delete_watched = form.cleaned_data["automatically_delete_watched"]
             try:
                 sub.fetch_from_url(url, api)
             except Exception as e:

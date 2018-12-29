@@ -39,8 +39,8 @@ class ModalMixin(ContextMixin):
         result = {'success': success}
         if not success:
             result['errors'] = form.errors.get_json_data(escape_html=True)
-        if error_msg is not None:
-            result['errors']['__all__'] = [{'message': error_msg}]
+            if error_msg is not None:
+                result['errors']['__all__'] = [{'message': error_msg}]
 
         return JsonResponse(result)
 

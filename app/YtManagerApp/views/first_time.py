@@ -14,7 +14,11 @@ from YtManagerApp.views.forms.first_time import WelcomeForm, ApiKeyForm, PickAdm
 logger = logging.getLogger("FirstTimeWizard")
 
 
-class WizardStepMixin(object):
+class WizardStepMixin:
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
     def get(self, request, *args, **kwargs):
 
         # Prevent access if application is already initialized

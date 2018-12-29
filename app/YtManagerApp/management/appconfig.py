@@ -29,6 +29,13 @@ class AppConfig(object):
         else:
             super().__setattr__(key, value)
 
+    def for_sub(self, subscription, pref: str):
+        value = getattr(subscription, pref)
+        if value is None:
+            value = subscription.user.preferences[pref]
+
+        return value
+
 
 global_prefs = global_preferences_registry.manager()
 appconfig = AppConfig(global_prefs)

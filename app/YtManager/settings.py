@@ -153,16 +153,22 @@ _DEFAULT_DATABASE = {
 CONFIG_ERRORS = []
 CONFIG_WARNINGS = []
 
+# These are just to make inspector happy, they will be set in the load_config_ini() method
+DEBUG = None
+SECRET_KEY = None
+DATABASES = None
+LOG_LEVEL = None
 
 #
 # Config parser options
 #
 CFG_PARSER_OPTS = {
-    'PROJECT_ROOT' : PROJECT_ROOT,
-    'BASE_DIR' : BASE_DIR,
-    'CONFIG_DIR' : CONFIG_DIR,
-    'DATA_DIR' : DATA_DIR,
+    'PROJECT_ROOT': PROJECT_ROOT,
+    'BASE_DIR': BASE_DIR,
+    'CONFIG_DIR': CONFIG_DIR,
+    'DATA_DIR': DATA_DIR,
 }
+
 
 #
 # Load globals from config.ini
@@ -225,7 +231,7 @@ def load_config_ini():
         logging.info(f"Using data directory {DATA_DIR}")
     except OSError as e:
         print(f'CRITICAL ERROR! Cannot create data directory {DATA_DIR}! {e}', file=sys.stderr)
-        return;
+        return
 
     cfg = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolatorWithEnv())
 
@@ -252,7 +258,8 @@ def load_config_ini():
     }
 
     if cfg.has_option('global', 'DatabaseURL'):
-        DATABASES['default'] = dj_database_url.parse(cfg.get('global', 'DatabaseURL', vars=CFG_PARSER_OPTS), conn_max_age=600)
+        DATABASES['default'] = dj_database_url.parse(cfg.get('global', 'DatabaseURL', vars=CFG_PARSER_OPTS),
+                                                     conn_max_age=600)
 
     else:
         DATABASES['default'] = {

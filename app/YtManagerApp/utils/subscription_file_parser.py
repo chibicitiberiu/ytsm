@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterable, Optional
 from xml.etree import ElementTree
 import re
 
@@ -12,7 +12,7 @@ class SubFileParser(object):
     def probe(self, file_handle) -> bool:
         """
         Tests if file matches file format.
-        :param file: File path
+        :param file_handle: File handle
         :return: True if file matches, false otherwise
         """
         return False
@@ -20,7 +20,7 @@ class SubFileParser(object):
     def parse(self, file_handle) -> Iterable[str]:
         """
         Parses file and returns a list of subscription URLs.
-        :param file:
+        :param file_handle:
         :return:
         """
         return []
@@ -63,7 +63,7 @@ class OPMLParser(SubFileParser):
     """
     def __init__(self):
         self.__cached_file = None
-        self.__cached_tree: ElementTree.ElementTree = None
+        self.__cached_tree: Optional[ElementTree.ElementTree] = None
 
     def __parse(self, file_handle):
         if file_handle == self.__cached_file:

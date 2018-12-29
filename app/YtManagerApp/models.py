@@ -116,7 +116,7 @@ class Subscription(models.Model):
         null=True, blank=True,
         max_length=128,
         choices=VIDEO_ORDER_CHOICES)
-    delete_after_watched = models.BooleanField(null=True, blank=True)
+    automatically_delete_watched = models.BooleanField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -161,18 +161,6 @@ class Subscription(models.Model):
     def delete_subscription(self, keep_downloaded_videos: bool):
         self.delete()
 
-    def get_overloads_dict(self) -> dict:
-        d = {}
-        if self.auto_download is not None:
-            d['AutoDownload'] = self.auto_download
-        if self.download_limit is not None:
-            d['DownloadSubscriptionLimit'] = self.download_limit
-        if self.download_order is not None:
-            d['DownloadOrder'] = self.download_order
-        if self.delete_after_watched is not None:
-            d['DeleteWatched'] = self.delete_after_watched
-        return d
-
 
 class Video(models.Model):
     video_id = models.TextField(null=False)
@@ -209,11 +197,11 @@ class Video(models.Model):
         self.watched = True
         self.save()
         if self.downloaded_path is not None:
-            from YtManagerApp.appconfig import settings
+            from YtManagerApp.management.appconfig import appconfig
             from YtManagerApp.management.jobs.delete_video import schedule_delete_video
             from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
 
-            if settings.getboolean_sub(self.subscription, 'user', 'DeleteWatched'):
+            if appconfig.for_sub(self.subscription, 'automatically_delete_watched'):
                 schedule_delete_video(self)
                 schedule_synchronize_now_subscription(self.subscription)
 
@@ -233,13 +221,13 @@ class Video(models.Model):
     def delete_files(self):
         if self.downloaded_path is not None:
             from YtManagerApp.management.jobs.delete_video import schedule_delete_video
-            from YtManagerApp.appconfig import settings
+            from YtManagerApp.management.appconfig import appconfig
             from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
 
             schedule_delete_video(self)
 
             # Mark watched?
-            if settings.getboolean_sub(self, 'user', 'MarkDeletedAsWatched'):
+            if appconfig.mark_deleted_as_watched:
                 self.watched = True
                 schedule_synchronize_now_subscription(self.subscription)
 
