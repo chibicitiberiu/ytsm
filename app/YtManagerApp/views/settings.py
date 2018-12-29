@@ -24,12 +24,6 @@ class AdminSettingsView(LoginRequiredMixin, FormView):
     template_name = 'YtManagerApp/settings_admin.html'
     success_url = reverse_lazy('home')
 
-    def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.user.is_superuser:
-            return HttpResponseForbidden()
-
-        return super().get(request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_superuser:
             return HttpResponseForbidden()
