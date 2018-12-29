@@ -18,6 +18,5 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./config:/usr/src/ytsm/config
       - ./data:/usr/src/ytsm/data
       - ./downloads:/usr/src/ytsm/downloads
