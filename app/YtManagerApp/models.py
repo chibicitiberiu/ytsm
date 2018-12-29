@@ -1,11 +1,11 @@
 import logging
-from typing import Callable, Union, Any, Optional
 import os
+from typing import Callable, Union, Any, Optional
 
-from django.contrib.auth.models import User
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.functions import Lower
+
 from YtManagerApp.utils import youtube
 
 # help_text = user shown text

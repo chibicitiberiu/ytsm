@@ -34,14 +34,6 @@ class YouTubeAPIKey(StringPreference):
 
 
 @global_preferences_registry.register
-class AllowCDN(BooleanPreference):
-    section = general
-    name = 'allow_cdn'
-    default = True
-    required = True
-
-
-@global_preferences_registry.register
 class AllowRegistrations(BooleanPreference):
     section = general
     name = 'allow_registrations'

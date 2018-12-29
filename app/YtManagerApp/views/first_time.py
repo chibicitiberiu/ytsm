@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
-from YtManagerApp.management.appconfig import global_prefs
+from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.views.forms.auth import ExtendedAuthenticationForm
 from YtManagerApp.views.forms.first_time import WelcomeForm, ApiKeyForm, PickAdminUserForm, ServerConfigForm, DoneForm, UserCreationForm
 
@@ -18,7 +18,7 @@ class WizardStepMixin(object):
     def get(self, request, *args, **kwargs):
 
         # Prevent access if application is already initialized
-        if global_prefs['hidden__initialized']:
+        if appconfig.initialized:
             logger.debug(f"Attempted to access {request.path}, but first time setup already run. Redirected to home "
                          f"page.")
             return redirect('home')
@@ -26,7 +26,7 @@ class WizardStepMixin(object):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if global_prefs['hidden__initialized']:
+        if appconfig.initialized:
             logger.debug(f"Attempted to post {request.path}, but first time setup already run.")
             return HttpResponseForbidden()
         return super().post(request, *args, **kwargs)
@@ -51,14 +51,14 @@ class Step1ApiKeyView(WizardStepMixin, FormView):
 
     def get_initial(self):
         initial = super().get_initial()
-        initial['api_key'] = global_prefs['general__youtube_api_key']
+        initial['api_key'] = appconfig.youtube_api_key
         return initial
 
     def form_valid(self, form):
         key = form.cleaned_data['api_key']
         # TODO: validate key
         if key is not None and len(key) > 0:
-            global_prefs['general__youtube_api_key'] = key
+            appconfig.youtube_api_key = key
 
 
 #
@@ -100,9 +100,6 @@ class Step2SetupAdminUserView(WizardStepMixin, FormView):
 
         return super().get(request, *args, **kwargs)
 
-    def form_invalid(self, form):
-        print("FORM INVALID!")
-
     def form_valid(self, form):
         if isinstance(form, ExtendedAuthenticationForm):
             login(self.request, form.get_user())
@@ -139,8 +136,8 @@ class Step3ConfigureView(WizardStepMixin, FormView):
 
     def get_initial(self):
         initial = super().get_initial()
-        initial['allow_registrations'] = global_prefs['general__allow_registrations']
-        initial['sync_schedule'] =  global_prefs['scheduler__synchronization_schedule']
+        initial['allow_registrations'] = appconfig.allow_registrations
+        initial['sync_schedule'] = appconfig.sync_schedule
         initial['auto_download'] = self.request.user.preferences['downloader__auto_enabled']
         initial['download_location'] = self.request.user.preferences['downloader__download_path']
         return initial
@@ -148,11 +145,11 @@ class Step3ConfigureView(WizardStepMixin, FormView):
     def form_valid(self, form):
         allow_registrations = form.cleaned_data['allow_registrations']
         if allow_registrations is not None:
-            global_prefs['general__allow_registrations'] = allow_registrations
+            appconfig.allow_registrations = allow_registrations
 
         sync_schedule = form.cleaned_data['sync_schedule']
         if sync_schedule is not None and len(sync_schedule) > 0:
-            global_prefs['scheduler__synchronization_schedule'] = sync_schedule
+            appconfig.sync_schedule = sync_schedule
 
         auto_download = form.cleaned_data['auto_download']
         if auto_download is not None:
@@ -163,7 +160,7 @@ class Step3ConfigureView(WizardStepMixin, FormView):
             self.request.user.preferences['downloader__download_path'] = download_location
 
         # Set initialized to true
-        global_prefs['hidden__initialized'] = True
+        appconfig.initialized = True
         
         return super().form_valid(form)
 

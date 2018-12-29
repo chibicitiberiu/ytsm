@@ -5,7 +5,7 @@ import sys
 
 from django.conf import settings as dj_settings
 
-from .management.appconfig import global_prefs
+from .management.appconfig import appconfig
 from .management.jobs.synchronize import schedule_synchronize_global
 from .scheduler import initialize_scheduler
 from django.db.utils import OperationalError
@@ -40,7 +40,7 @@ def main():
     __initialize_logger()
 
     try:
-        if global_prefs['hidden__initialized']:
+        if appconfig.initialized:
             initialize_scheduler()
             schedule_synchronize_global()
     except OperationalError:

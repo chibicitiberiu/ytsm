@@ -24,9 +24,17 @@
             {% endif %}
         {% endif %}
 
-        <h5>Register</h5>
+        {% if not global_preferences.general__allow_registrations %}
+            <div class="alert alert-danger" role="alert">
+                Registrations are disabled by the administrator!
+            </div>
 
-        {% crispy form %}
+        {% else %}
+
+            <h5>Register</h5>
+            {% crispy form %}
+
+        {% endif %}
     </div>
 
 {% endblock %}

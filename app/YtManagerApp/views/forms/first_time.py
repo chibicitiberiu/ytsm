@@ -3,11 +3,10 @@ import logging
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, HTML, Submit, Column
 from django import forms
-from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from YtManagerApp.views.forms.auth import ExtendedUserCreationForm
 from django.urls import reverse_lazy
-from YtManagerApp.management.appconfig import global_prefs
+
+from YtManagerApp.views.forms.auth import ExtendedUserCreationForm
 
 logger = logging.getLogger("FirstTimeWizard")
 

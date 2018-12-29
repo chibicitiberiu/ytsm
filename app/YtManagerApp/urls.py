@@ -23,7 +23,7 @@ from .views.actions import SyncNowView, DeleteVideoFilesView, DownloadVideoFiles
 from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
 from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
     CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal, ImportSubscriptionsModal
-from .views.settings import SettingsView
+from .views.settings import SettingsView, AdminSettingsView
 from .views import first_time
 
 urlpatterns = [
@@ -59,8 +59,9 @@ urlpatterns = [
     # Pages
     path('', index, name='home'),
     path('settings/', SettingsView.as_view(), name='settings'),
+    path('admin_settings/', AdminSettingsView.as_view(), name='admin_settings'),
 
-    # First time setup
+                  # First time setup
     path('first_time/step0_welcome', first_time.Step0WelcomeView.as_view(), name='first_time_0'),
     path('first_time/step1_apikey', first_time.Step1ApiKeyView.as_view(), name='first_time_1'),
     path('first_time/step2_admin', first_time.Step2SetupAdminUserView.as_view(), name='first_time_2'),

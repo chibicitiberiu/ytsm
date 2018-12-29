@@ -2,10 +2,12 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
 
-from .forms.auth import ExtendedAuthenticationForm, ExtendedUserCreationForm
+from YtManagerApp.management.appconfig import appconfig
+from YtManagerApp.views.forms.auth import ExtendedAuthenticationForm, ExtendedUserCreationForm
 
 
 class ExtendedLoginView(LoginView):
@@ -32,6 +34,12 @@ class RegisterView(FormView):
         context = super().get_context_data(**kwargs)
         context['is_first_user'] = (User.objects.count() == 0)
         return context
+
+    def post(self, request, *args, **kwargs):
+        if not appconfig.allow_registrations:
+            return HttpResponseForbidden("Registrations are disabled!")
+
+        return super().post(request, *args, **kwargs)
 
 
 class RegisterDoneView(LoginRequiredMixin, TemplateView):
