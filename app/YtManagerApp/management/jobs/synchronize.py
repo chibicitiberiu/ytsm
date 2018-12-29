@@ -73,7 +73,7 @@ def __detect_deleted(subscription: Subscription):
             video.downloaded_path = None
 
             # Mark watched?
-            if user.preferences['MarkDeletedAsWatched']:
+            if user.preferences['mark_deleted_as_watched']:
                 video.watched = True
 
             video.save()

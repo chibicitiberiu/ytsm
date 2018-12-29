@@ -138,8 +138,8 @@ class Step3ConfigureView(WizardStepMixin, FormView):
         initial = super().get_initial()
         initial['allow_registrations'] = appconfig.allow_registrations
         initial['sync_schedule'] = appconfig.sync_schedule
-        initial['auto_download'] = self.request.user.preferences['downloader__auto_enabled']
-        initial['download_location'] = self.request.user.preferences['downloader__download_path']
+        initial['auto_download'] = self.request.user.preferences['auto_download']
+        initial['download_location'] = self.request.user.preferences['download_path']
         return initial
 
     def form_valid(self, form):
@@ -153,11 +153,11 @@ class Step3ConfigureView(WizardStepMixin, FormView):
 
         auto_download = form.cleaned_data['auto_download']
         if auto_download is not None:
-            self.request.user.preferences['downloader__auto_enabled'] = auto_download
+            self.request.user.preferences['auto_download'] = auto_download
 
         download_location = form.cleaned_data['download_location']
         if download_location is not None and len(download_location) > 0:
-            self.request.user.preferences['downloader__download_path'] = download_location
+            self.request.user.preferences['download_path'] = download_location
 
         # Set initialized to true
         appconfig.initialized = True

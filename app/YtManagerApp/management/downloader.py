@@ -14,9 +14,9 @@ log = logging.getLogger('downloader')
 def __get_subscription_config(sub: Subscription):
     user = sub.user
 
-    enabled = first_non_null(sub.auto_download, user.preferences['download_enabled'])
+    enabled = first_non_null(sub.auto_download, user.preferences['auto_download'])
     global_limit = user.preferences['download_global_limit']
-    limit = first_non_null(sub.download_limit, user.preferences['download_limit_per_subscription'])
+    limit = first_non_null(sub.download_limit, user.preferences['download_subscription_limit'])
     order = first_non_null(sub.download_order, user.preferences['download_order'])
     order = VIDEO_ORDER_MAPPING[order]
 
