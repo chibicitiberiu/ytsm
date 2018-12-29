@@ -22,18 +22,17 @@ def __initialize_logger():
         maxBytes=1024 * 1024,
         backupCount=5
     )
-    handlers.append(file_handler)
+    file_handler.setLevel(dj_settings.LOG_LEVEL)
+    file_handler.setFormatter(logging.Formatter(dj_settings.LOG_FORMAT))
+    logging.root.addHandler(file_handler)
+    logging.root.setLevel(dj_settings.LOG_LEVEL)
 
     if dj_settings.DEBUG:
         console_handler = logging.StreamHandler(stream=sys.stdout)
         console_handler.setLevel(logging.DEBUG)
-        handlers.append(console_handler)
+        console_handler.setFormatter(logging.Formatter(dj_settings.CONSOLE_LOG_FORMAT))
+        logging.root.addHandler(console_handler)
 
-    logging.basicConfig(
-        level=dj_settings.LOG_LEVEL,
-        format=dj_settings.LOG_FORMAT,
-        handlers=handlers
-    )
 
 
 def main():
