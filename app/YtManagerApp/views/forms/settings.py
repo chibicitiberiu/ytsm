@@ -154,8 +154,8 @@ class SettingsForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-lg-6'
-        self.helper.field_class = 'col-lg-6'
+        self.helper.label_class = 'col-lg-3'
+        self.helper.field_class = 'col-lg-9'
         self.helper.layout = Layout(
             'mark_deleted_as_watched',
             'automatically_delete_watched',
