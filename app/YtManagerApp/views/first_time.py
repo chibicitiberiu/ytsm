@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
@@ -43,6 +44,14 @@ class Step0WelcomeView(WizardStepMixin, FormView):
     template_name = 'YtManagerApp/first_time_setup/step0_welcome.html'
     form_class = WelcomeForm
     success_url = reverse_lazy('first_time_1')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'config_errors': settings.CONFIG_ERRORS,
+            'config_warnings': settings.CONFIG_WARNINGS,
+        })
+        return context
 
 
 #

@@ -4,6 +4,9 @@
 {% block body %}
 
     <div class="container">
+
+        {% include "YtManagerApp/controls/setup_errors_banner.html" %}
+
         <h1>Welcome</h1>
         <p>This wizard will guide you through setting up the application.</p>
         {% crispy form %}
