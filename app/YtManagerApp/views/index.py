@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.edit import FormMixin
 from django.conf import settings
+from django.core.paginator import Paginator
 from YtManagerApp.management.videos import get_videos
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
@@ -37,6 +38,13 @@ class VideoFilterForm(forms.Form):
         'all': None
     }
 
+    CHOICES_RESULT_COUNT = (
+        (25, 25),
+        (50, 50),
+        (100, 100),
+        (200, 200)
+    )
+
     query = forms.CharField(label='', required=False)
     sort = forms.ChoiceField(label='Sort:', choices=VIDEO_ORDER_CHOICES, initial='newest')
     show_watched = forms.ChoiceField(label='Show only: ', choices=CHOICES_SHOW_WATCHED, initial='all')
@@ -49,6 +57,11 @@ class VideoFilterForm(forms.Form):
         required=False,
         widget=forms.HiddenInput()
     )
+    page = forms.IntegerField(
+        required=False,
+        widget=forms.HiddenInput()
+    )
+    results_per_page = forms.ChoiceField(label='Results per page: ', choices=CHOICES_RESULT_COUNT, initial=50)
 
     def __init__(self, data=None):
         super().__init__(data, auto_id='form_video_filter_%s')
@@ -66,7 +79,9 @@ class VideoFilterForm(forms.Form):
             'show_watched',
             'show_downloaded',
             'subscription_id',
-            'folder_id'
+            'folder_id',
+            'page',
+            'results_per_page'
         )
 
     def clean_sort(self):
@@ -151,6 +166,9 @@ def ajax_get_videos(request: HttpRequest):
                 only_watched=form.cleaned_data['show_watched'],
                 only_downloaded=form.cleaned_data['show_downloaded']
             )
+
+            paginator = Paginator(videos, form.cleaned_data['results_per_page'])
+            videos = paginator.get_page(form.cleaned_data['page'])
 
             context = {
                 'videos': videos

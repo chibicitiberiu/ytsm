@@ -58,4 +58,38 @@
             </div>
         {% endfor %}
     </div>
+
+    <div class="pagination row">
+        <div class="btn-toolbar mx-auto">
+            <div class="btn-group mr-2" role="group">
+                <button id="btn_page_first" type="button" class="btn btn-light btn-paging"
+                        data-toggle="tooltip" title="First page"
+                        {% if videos.has_previous %} data-navigation-page="1" {% else %} disabled {% endif %}>
+                    <span class="typcn typcn-chevron-left-outline" aria-hidden="true"></span>
+                </button>
+                <button id="btn_page_prev" type="button" class="btn btn-light btn-paging"
+                        data-toggle="tooltip" title="Previous"
+                        {% if videos.has_previous %} data-navigation-page="{{ videos.previous_page_number }}" {% else %} disabled {% endif %} >
+                    <span class="typcn typcn-chevron-left" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <small class="my-auto mx-2">
+                Page {{ videos.number }} of {{ videos.paginator.num_pages }}
+            </small>
+
+            <div class="btn-group mx-2" role="group">
+                <button id="btn_page_next" type="button" class="btn btn-light btn-paging"
+                        data-toggle="tooltip" title="Next"
+                        {% if videos.has_next %} data-navigation-page="{{ videos.next_page_number }}" {% else %} disabled {% endif %} >
+                    <span class="typcn typcn-chevron-right" aria-hidden="true"></span>
+                </button>
+                <button id="btn_page_last" type="button" class="btn btn-light btn-paging"
+                        data-toggle="tooltip" title="Last"
+                        {% if videos.has_next %} data-navigation-page="{{ videos.paginator.num_pages }}" {% else %} disabled {% endif %} >
+                    <span class="typcn typcn-chevron-right-outline" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

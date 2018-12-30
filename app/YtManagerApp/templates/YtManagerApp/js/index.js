@@ -123,14 +123,31 @@ function videos_Reload()
 
 let videos_timeout = null;
 
-function videos_ReloadWithTimer()
+function videos_ResetPageAndReloadWithTimer()
 {
+    let filters_form = $("#form_video_filter");
+    filters_form.find('input[name=page]').val("1");
+
     clearTimeout(videos_timeout);
     videos_timeout = setTimeout(function()
     {
-        videos_Submit.call($('#form_video_filter'));
+        videos_Reload();
         videos_timeout = null;
     }, 200);
+}
+
+function videos_PageClicked()
+{
+    // Obtain page from button
+    let page = $(this).data('navigation-page');
+
+    // Set page
+    let filters_form = $("#form_video_filter");
+    filters_form.find('input[name=page]').val(page);
+
+    // Reload
+    videos_Reload();
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 
 function videos_Submit(e)
@@ -145,6 +162,7 @@ function videos_Submit(e)
         .done(function(result) {
             $("#videos-wrapper").html(result);
             $(".ajax-link").on("click", ajaxLink_Clicked);
+            $(".btn-paging").on("click", videos_PageClicked);
         })
         .fail(function() {
             $("#videos-wrapper").html('<div class="alert alert-danger">An error occurred while retrieving the video list!</div>');
@@ -189,9 +207,11 @@ $(document).ready(function ()
     // Videos filters
     let filters_form = $("#form_video_filter");
     filters_form.submit(videos_Submit);
-    filters_form.find('input[name=query]').on('change', videos_ReloadWithTimer);
-    filters_form.find('select[name=sort]').on('change', videos_ReloadWithTimer);
-    filters_form.find('select[name=show_watched]').on('change', videos_ReloadWithTimer);
-    filters_form.find('select[name=show_downloaded]').on('change', videos_ReloadWithTimer);
+    filters_form.find('input[name=query]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=sort]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=show_watched]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=show_downloaded]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=results_per_page]').on('change', videos_ResetPageAndReloadWithTimer);
+
     videos_Reload();
 });
