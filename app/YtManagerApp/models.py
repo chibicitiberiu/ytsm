@@ -227,7 +227,7 @@ class Video(models.Model):
             schedule_delete_video(self)
 
             # Mark watched?
-            if appconfig.mark_deleted_as_watched:
+            if self.subscription.user.preferences['mark_deleted_as_watched']:
                 self.watched = True
                 schedule_synchronize_now_subscription(self.subscription)
 

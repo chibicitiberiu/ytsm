@@ -4,11 +4,10 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from YtManagerApp.management.appconfig import appconfig
 
-scheduler: BackgroundScheduler = None
+scheduler = BackgroundScheduler()
 
 
 def initialize_scheduler():
-    global scheduler
 
     logger = logging.getLogger('scheduler')
     executors = {
@@ -21,5 +20,5 @@ def initialize_scheduler():
         'misfire_grace_time': 60 * 60 * 24 * 365        # 1 year
     }
 
-    scheduler = BackgroundScheduler(logger=logger, executors=executors, job_defaults=job_defaults)
+    scheduler.configure(logger=logger, executors=executors, job_defaults=job_defaults)
     scheduler.start()

@@ -4,7 +4,7 @@ from threading import Lock
 
 from apscheduler.triggers.cron import CronTrigger
 
-from YtManagerApp import scheduler
+from YtManagerApp.scheduler import scheduler
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all, downloader_process_subscription
 from YtManagerApp.models import *
@@ -150,15 +150,15 @@ def synchronize_subscription(subscription: Subscription):
 
 def schedule_synchronize_global():
     trigger = CronTrigger.from_crontab(appconfig.sync_schedule)
-    job = scheduler.scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
+    job = scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
     log.info('Scheduled synchronize job job=%s', job.id)
 
 
 def schedule_synchronize_now():
-    job = scheduler.scheduler.add_job(synchronize, max_instances=1, coalesce=True)
+    job = scheduler.add_job(synchronize, max_instances=1, coalesce=True)
     log.info('Scheduled synchronize now job job=%s', job.id)
 
 
 def schedule_synchronize_now_subscription(subscription: Subscription):
-    job = scheduler.scheduler.add_job(synchronize_subscription, args=[subscription])
+    job = scheduler.add_job(synchronize_subscription, args=[subscription])
     log.info('Scheduled synchronize subscription job subscription=(%s), job=%s', subscription, job.id)
