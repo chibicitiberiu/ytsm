@@ -9,6 +9,9 @@ scheduler = BackgroundScheduler()
 
 def initialize_scheduler():
 
+    if scheduler.running:
+        return
+
     logger = logging.getLogger('scheduler')
     executors = {
         'default': {

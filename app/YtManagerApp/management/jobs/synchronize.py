@@ -148,10 +148,22 @@ def synchronize_subscription(subscription: Subscription):
         __lock.release()
 
 
+__global_sync_job = None
+
+
 def schedule_synchronize_global():
+    global __global_sync_job
+
     trigger = CronTrigger.from_crontab(appconfig.sync_schedule)
-    job = scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
-    log.info('Scheduled synchronize job job=%s', job.id)
+
+    if __global_sync_job is None:
+        trigger = CronTrigger.from_crontab(appconfig.sync_schedule)
+        __global_sync_job = scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
+
+    else:
+        __global_sync_job.reschedule(trigger, max_instances=1, coalesce=True)
+
+    log.info('Scheduled synchronize job job=%s', __global_sync_job.id)
 
 
 def schedule_synchronize_now():
