@@ -1,0 +1,19 @@
+{% extends "YtManagerApp/master_default.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>Admin settings</h1>
+
+        {% if not request.user.is_authenticated or not request.user.is_superuser %}
+            <div class="alert alert-danger" role="alert">
+                You must be an administrator to access this page!
+            </div>
+        {% else %}
+            {% crispy form %}
+        {% endif %}
+    </div>
+
+{% endblock body %}

@@ -1,0 +1,15 @@
+{% extends "YtManagerApp/master_default.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+    <div class="container">
+
+        {% include "YtManagerApp/controls/setup_errors_banner.html" %}
+
+        <h1>Welcome</h1>
+        <p>This wizard will guide you through setting up the application.</p>
+        {% crispy form %}
+    </div>
+
+{% endblock body %}

@@ -5,12 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.edit import FormMixin
 from django.conf import settings
 from django.core.paginator import Paginator
 from YtManagerApp.management.videos import get_videos
+from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
 from YtManagerApp.utils import youtube, subscription_file_parser
 from YtManagerApp.views.controls.modal import ModalMixin
@@ -109,6 +110,10 @@ def __tree_sub_id(sub_id):
 
 
 def index(request: HttpRequest):
+
+    if not appconfig.initialized:
+        return redirect('first_time_0')
+
     context = {
         'config_errors': settings.CONFIG_ERRORS,
         'config_warnings': settings.CONFIG_WARNINGS,
@@ -240,6 +245,10 @@ class DeleteFolderModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteView):
     model = SubscriptionFolder
     form_class = DeleteFolderForm
 
+    def __init__(self, *args, **kwargs):
+        self.object = None
+        super().__init__(*args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -259,7 +268,7 @@ class CreateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['parent_folder', 'auto_download',
-                  'download_limit', 'download_order', 'delete_after_watched']
+                  'download_limit', 'download_order', "automatically_delete_watched"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -326,7 +335,7 @@ class UpdateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['name', 'parent_folder', 'auto_download',
-                  'download_limit', 'download_order', 'delete_after_watched']
+                  'download_limit', 'download_order', "automatically_delete_watched"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -358,6 +367,10 @@ class DeleteSubscriptionModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteV
     template_name = 'YtManagerApp/controls/subscription_delete_modal.html'
     model = Subscription
     form_class = DeleteSubscriptionForm
+
+    def __init__(self, *args, **kwargs):
+        self.object = None
+        super().__init__(*args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -458,7 +471,7 @@ class ImportSubscriptionsModal(LoginRequiredMixin, ModalMixin, FormView):
             sub.auto_download = form.cleaned_data['auto_download']
             sub.download_limit = form.cleaned_data['download_limit']
             sub.download_order = form.cleaned_data['download_order']
-            sub.delete_after_watched = form.cleaned_data['delete_after_watched']
+            sub.automatically_delete_watched = form.cleaned_data["automatically_delete_watched"]
             try:
                 sub.fetch_from_url(url, api)
             except Exception as e:

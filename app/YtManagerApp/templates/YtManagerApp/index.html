@@ -3,11 +3,11 @@
 {% load crispy_forms_tags %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <link rel="stylesheet" href="{% static 'YtManagerApp/import/jstree/dist/themes/default/style.min.css' %}" />
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script src="{% static 'YtManagerApp/import/jstree/dist/jstree.min.js' %}"></script>
     <script>
         {% include 'YtManagerApp/js/index.js' %}
     </script>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    {% include 'YtManagerApp/index_errors_banner.html' %}
+    {% include 'YtManagerApp/controls/setup_errors_banner.html' %}
 
     <div class="row">
 

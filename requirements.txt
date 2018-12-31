@@ -1,7 +1,9 @@
-apscheduler 
+requests
+apscheduler
 gunicorn
 django 
 django-crispy-forms 
+django-dynamic-preferences
 dj_database_url
 youtube-dl 
 google-api-python-client 

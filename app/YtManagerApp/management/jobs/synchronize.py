@@ -4,8 +4,8 @@ from threading import Lock
 
 from apscheduler.triggers.cron import CronTrigger
 
-from YtManagerApp import scheduler
-from YtManagerApp.appconfig import settings
+from YtManagerApp.scheduler import scheduler
+from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all, downloader_process_subscription
 from YtManagerApp.models import *
 from YtManagerApp.utils import youtube
@@ -43,6 +43,8 @@ def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAP
 
 def __detect_deleted(subscription: Subscription):
 
+    user = subscription.user
+
     for video in Video.objects.filter(subscription=subscription, downloaded_path__isnull=False):
         found_video = False
         files = []
@@ -71,7 +73,7 @@ def __detect_deleted(subscription: Subscription):
             video.downloaded_path = None
 
             # Mark watched?
-            if settings.getboolean_sub(subscription, 'user', 'MarkDeletedAsWatched'):
+            if user.preferences['mark_deleted_as_watched']:
                 video.watched = True
 
             video.save()
@@ -146,17 +148,29 @@ def synchronize_subscription(subscription: Subscription):
         __lock.release()
 
 
+__global_sync_job = None
+
+
 def schedule_synchronize_global():
-    trigger = CronTrigger.from_crontab(settings.get('global', 'SynchronizationSchedule'))
-    job = scheduler.scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
-    log.info('Scheduled synchronize job job=%s', job.id)
+    global __global_sync_job
+
+    trigger = CronTrigger.from_crontab(appconfig.sync_schedule)
+
+    if __global_sync_job is None:
+        trigger = CronTrigger.from_crontab(appconfig.sync_schedule)
+        __global_sync_job = scheduler.add_job(synchronize, trigger, max_instances=1, coalesce=True)
+
+    else:
+        __global_sync_job.reschedule(trigger, max_instances=1, coalesce=True)
+
+    log.info('Scheduled synchronize job job=%s', __global_sync_job.id)
 
 
 def schedule_synchronize_now():
-    job = scheduler.scheduler.add_job(synchronize, max_instances=1, coalesce=True)
+    job = scheduler.add_job(synchronize, max_instances=1, coalesce=True)
     log.info('Scheduled synchronize now job job=%s', job.id)
 
 
 def schedule_synchronize_now_subscription(subscription: Subscription):
-    job = scheduler.scheduler.add_job(synchronize_subscription, args=[subscription])
+    job = scheduler.add_job(synchronize_subscription, args=[subscription])
     log.info('Scheduled synchronize subscription job subscription=(%s), job=%s', subscription, job.id)
