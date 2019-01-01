@@ -42,24 +42,38 @@
 
             <div class="col-4">
                 <h5>Manage video</h5>
+                <p>
+                    <a class="btn btn-secondary" href="https://youtube.com/watch?v={{ object.video_id }}">
+                        Watch on YouTube <span class="typcn typcn-social-youtube"></span>
+                    </a>
+                </p>
+
                 {% if object.watched %}
-                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_unwatched' object.id %}">
-                        Mark not watched
-                    </a>
+                    <p>
+                        <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_unwatched' object.id %}">
+                            Mark not watched
+                        </a>
+                    </p>
                 {% else %}
-                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_watched' object.id %}">
-                        Mark watched
-                    </a>
+                    <p>
+                        <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_watched' object.id %}">
+                            Mark watched
+                        </a>
+                    </p>
                 {% endif %}
 
                 {% if object.downloaded_path %}
+                    <p>
                     <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_delete_video_files' object.id %}">
                         Delete downloaded
                     </a>
+                    </p>
                 {% else %}
+                    <p>
                     <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_download_video_files' object.id %}" >
                         Download
                     </a>
+                    </p>
                 {% endif %}
             </div>
         </div>
