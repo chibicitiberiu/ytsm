@@ -6,13 +6,17 @@
         {% for video in videos %}
             <div class="card-wrapper col-12 col-sm-6 col-lg-4 col-xl-3 d-flex align-items-stretch">
                 <div class="card mx-auto">
-                    <img class="card-img-top" src="{{ video.icon_best }}" alt="Thumbnail">
+                    <a href="{% url 'video' video.id %}">
+                        <img class="card-img-top" src="{{ video.icon_best }}" alt="Thumbnail">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title">
                             {% if not video.watched %}
                             <sup class="badge badge-primary">New</sup>
                             {% endif %}
-                            {{ video.name }}
+                            <a href="{% url 'video' video.id %}">
+                                {{ video.name }}
+                            </a>
                         </h5>
                         <p class="card-text small text-muted">
                             <span>{{ video.views | intcomma }} views</span>

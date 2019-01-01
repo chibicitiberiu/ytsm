@@ -1,4 +1,5 @@
 import logging
+import mimetypes
 import os
 from typing import Callable, Union, Any, Optional
 
@@ -217,6 +218,19 @@ class Video(models.Model):
             for file in os.listdir(directory):
                 if file.startswith(file_pattern):
                     yield os.path.join(directory, file)
+
+    def find_video(self):
+        """
+        Finds the video file from the downloaded files, and
+        returns
+        :return: Tuple containing file path and mime type
+        """
+        for file in self.get_files():
+            mime, _ = mimetypes.guess_type(file)
+            if mime is not None and mime.startswith('video/'):
+                return (file, mime)
+
+        return None, None
 
     def delete_files(self):
         if self.downloaded_path is not None:

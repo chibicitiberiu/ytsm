@@ -1,0 +1,69 @@
+{% extends "YtManagerApp/master_default.html" %}
+{% load static %}
+{% load humanize %}
+{% load ratings %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h2>{{ object.name }}</h2>
+
+        <div class="row">
+
+            <div class="col-8">
+                {% if video_mime != None %}
+                    <video width="100%" controls autoplay>
+                        <source src="{% url 'video-src' object.id %}" type="{{ video_mime }}">
+                    </video>
+                {% else %}
+                    <iframe id="ytplayer" type="text/html" width="100%" height="400"
+                          src="https://www.youtube.com/embed/{{ object.video_id }}?autoplay=1"
+                          frameborder="0"></iframe>
+                {% endif %}
+
+                <div class="row mx-0 mt-2">
+                    <p class="text-muted mb-1">
+                        <span>{{ object.views | intcomma }} views</span>
+                        <span>&#x2022;</span>
+                        <span>{{ object.publish_date | naturaltime }}</span>
+                    </p>
+                    <div class="ml-auto">
+                        {% starrating object.rating %}
+                    </div>
+                </div>
+
+                <div class="video-description">
+                    {{ object.description | linebreaks | urlize }}
+                </div>
+
+                </p>
+            </div>
+
+            <div class="col-4">
+                <h5>Manage video</h5>
+                {% if object.watched %}
+                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_unwatched' object.id %}">
+                        Mark not watched
+                    </a>
+                {% else %}
+                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_watched' object.id %}">
+                        Mark watched
+                    </a>
+                {% endif %}
+
+                {% if object.downloaded_path %}
+                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_delete_video_files' object.id %}">
+                        Delete downloaded
+                    </a>
+                {% else %}
+                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_download_video_files' object.id %}" >
+                        Download
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
