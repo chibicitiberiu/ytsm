@@ -1,0 +1,17 @@
+{% extends "YtManagerApp/master_default.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>Step 3: Configure the server</h1>
+
+        <p>Here you can customize some basic options for the application. There are many more options which can be changed in the settings page.</p>
+
+        {% crispy form %}
+
+    </div>
+
+{% endblock body %}

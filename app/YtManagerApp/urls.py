@@ -18,13 +18,14 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.urls import path
 
+from .views import first_time
 from .views.actions import SyncNowView, DeleteVideoFilesView, DownloadVideoFilesView, MarkVideoWatchedView, \
     MarkVideoUnwatchedView
 from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
 from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
-    CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal
-from .views.settings import SettingsView
+    CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal, ImportSubscriptionsModal
 from .views.notifications import ajax_get_notifications
+from .views.settings import SettingsView, AdminSettingsView
 
 urlpatterns = [
     # Authentication URLs
@@ -53,11 +54,21 @@ urlpatterns = [
 
     path('modal/create_subscription/', CreateSubscriptionModal.as_view(), name='modal_create_subscription'),
     path('modal/create_subscription/<int:parent_folder_id>/', CreateSubscriptionModal.as_view(), name='modal_create_subscription'),
+    path('modal/import_subscriptions/', ImportSubscriptionsModal.as_view(), name='modal_import_subscriptions'),
+    path('modal/import_subscriptions/<int:parent_folder_id>/', ImportSubscriptionsModal.as_view(), name='modal_import_subscriptions'),
     path('modal/update_subscription/<int:pk>/', UpdateSubscriptionModal.as_view(), name='modal_update_subscription'),
     path('modal/delete_subscription/<int:pk>/', DeleteSubscriptionModal.as_view(), name='modal_delete_subscription'),
 
     # Pages
     path('', index, name='home'),
     path('settings/', SettingsView.as_view(), name='settings'),
+    path('admin_settings/', AdminSettingsView.as_view(), name='admin_settings'),
+
+                  # First time setup
+    path('first_time/step0_welcome', first_time.Step0WelcomeView.as_view(), name='first_time_0'),
+    path('first_time/step1_apikey', first_time.Step1ApiKeyView.as_view(), name='first_time_1'),
+    path('first_time/step2_admin', first_time.Step2SetupAdminUserView.as_view(), name='first_time_2'),
+    path('first_time/step3_config', first_time.Step3ConfigureView.as_view(), name='first_time_3'),
+    path('first_time/done', first_time.DoneView.as_view(), name='first_time_done'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

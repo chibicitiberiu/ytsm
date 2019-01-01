@@ -1,5 +1,6 @@
 #main_body {
-  margin-bottom: 4rem; }
+  margin-bottom: 4rem;
+  margin-top: 0; }
 
 #main_footer {
   position: fixed;
@@ -8,7 +9,7 @@
   bottom: 0;
   height: 2rem;
   line-height: 2rem;
-  padding: 0rem 1rem;
+  padding: 0 1rem;
   display: flex;
   align-content: center;
   font-size: 10pt; }
@@ -118,5 +119,11 @@
 .star-rating {
   display: inline-block;
   margin-bottom: 0.5rem; }
+
+.btn-toolbar {
+  margin: .5rem 0; }
+  .btn-toolbar .btn {
+    padding: 0.15rem 0.4rem;
+    font-size: 14pt; }
 
 /*# sourceMappingURL=style.css.map */

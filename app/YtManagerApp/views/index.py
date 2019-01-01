@@ -5,15 +5,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
-from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.edit import FormMixin
-
+from django.conf import settings
+from django.core.paginator import Paginator
 from YtManagerApp.management.videos import get_videos
+from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
-from YtManagerApp.utils import youtube
+from YtManagerApp.utils import youtube, subscription_file_parser
 from YtManagerApp.views.controls.modal import ModalMixin
 from YtManagerApp.management.notification_manager import get_current_notification_id
+
+import logging
 
 
 class VideoFilterForm(forms.Form):
@@ -35,6 +39,13 @@ class VideoFilterForm(forms.Form):
         'all': None
     }
 
+    CHOICES_RESULT_COUNT = (
+        (25, 25),
+        (50, 50),
+        (100, 100),
+        (200, 200)
+    )
+
     query = forms.CharField(label='', required=False)
     sort = forms.ChoiceField(label='Sort:', choices=VIDEO_ORDER_CHOICES, initial='newest')
     show_watched = forms.ChoiceField(label='Show only: ', choices=CHOICES_SHOW_WATCHED, initial='all')
@@ -47,6 +58,11 @@ class VideoFilterForm(forms.Form):
         required=False,
         widget=forms.HiddenInput()
     )
+    page = forms.IntegerField(
+        required=False,
+        widget=forms.HiddenInput()
+    )
+    results_per_page = forms.ChoiceField(label='Results per page: ', choices=CHOICES_RESULT_COUNT, initial=50)
 
     def __init__(self, data=None):
         super().__init__(data, auto_id='form_video_filter_%s')
@@ -64,7 +80,9 @@ class VideoFilterForm(forms.Form):
             'show_watched',
             'show_downloaded',
             'subscription_id',
-            'folder_id'
+            'folder_id',
+            'page',
+            'results_per_page'
         )
 
     def clean_sort(self):
@@ -93,14 +111,22 @@ def __tree_sub_id(sub_id):
 
 
 def index(request: HttpRequest):
+
+    if not appconfig.initialized:
+        return redirect('first_time_0')
+
+    context = {
+        'config_errors': settings.CONFIG_ERRORS,
+        'config_warnings': settings.CONFIG_WARNINGS,
+    }
     if request.user.is_authenticated:
-        context = {
+        context.update({
             'filter_form': VideoFilterForm(),
             'current_notification_id': get_current_notification_id(),
-        }
+        })
         return render(request, 'YtManagerApp/index.html', context)
     else:
-        return render(request, 'YtManagerApp/index_unauthenticated.html')
+        return render(request, 'YtManagerApp/index_unauthenticated.html', context)
 
 
 @login_required
@@ -142,6 +168,9 @@ def ajax_get_videos(request: HttpRequest):
                 only_watched=form.cleaned_data['show_watched'],
                 only_downloaded=form.cleaned_data['show_downloaded']
             )
+
+            paginator = Paginator(videos, form.cleaned_data['results_per_page'])
+            videos = paginator.get_page(form.cleaned_data['page'])
 
             context = {
                 'videos': videos
@@ -218,6 +247,10 @@ class DeleteFolderModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteView):
     model = SubscriptionFolder
     form_class = DeleteFolderForm
 
+    def __init__(self, *args, **kwargs):
+        self.object = None
+        super().__init__(*args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -237,7 +270,7 @@ class CreateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['parent_folder', 'auto_download',
-                  'download_limit', 'download_order', 'delete_after_watched']
+                  'download_limit', 'download_order', "automatically_delete_watched"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -304,7 +337,7 @@ class UpdateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['name', 'parent_folder', 'auto_download',
-                  'download_limit', 'download_order', 'delete_after_watched']
+                  'download_limit', 'download_order', "automatically_delete_watched"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -337,6 +370,10 @@ class DeleteSubscriptionModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteV
     model = Subscription
     form_class = DeleteSubscriptionForm
 
+    def __init__(self, *args, **kwargs):
+        self.object = None
+        super().__init__(*args, **kwargs)
+
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -347,4 +384,102 @@ class DeleteSubscriptionModal(LoginRequiredMixin, ModalMixin, FormMixin, DeleteV
 
     def form_valid(self, form):
         self.object.delete_subscription(keep_downloaded_videos=form.cleaned_data['keep_downloaded_videos'])
+        return super().form_valid(form)
+
+
+class ImportSubscriptionsForm(forms.Form):
+    TRUE_FALSE_CHOICES = (
+        (None, '(default)'),
+        (True, 'Yes'),
+        (False, 'No')
+    )
+
+    VIDEO_ORDER_CHOICES_WITH_EMPTY = (
+        ('', '(default)'),
+        *VIDEO_ORDER_CHOICES,
+    )
+
+    file = forms.FileField(label='File to import',
+                           help_text='Supported file types: OPML, subscription list')
+    parent_folder = forms.ModelChoiceField(SubscriptionFolder.objects, required=False)
+    auto_download = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, required=False)
+    download_limit = forms.IntegerField(required=False)
+    download_order = forms.ChoiceField(choices=VIDEO_ORDER_CHOICES_WITH_EMPTY, required=False)
+    delete_after_watched = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.yt_api = youtube.YoutubeAPI.build_public()
+        self.helper = FormHelper()
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'file',
+            'parent_folder',
+            HTML('<hr>'),
+            HTML('<h5>Download configuration overloads</h5>'),
+            'auto_download',
+            'download_limit',
+            'download_order',
+            'delete_after_watched'
+        )
+
+    def __clean_empty_none(self, name: str):
+        data = self.cleaned_data[name]
+        if isinstance(data, str) and len(data) == 0:
+            return None
+        return data
+
+    def __clean_boolean(self, name: str):
+        data = self.cleaned_data[name]
+        if isinstance(data, str) and len(data) == 0:
+            return None
+        if isinstance(data, str):
+            return data == 'True'
+        return data
+
+    def clean_auto_download(self):
+        return self.__clean_boolean('auto_download')
+
+    def clean_delete_after_watched(self):
+        return self.__clean_boolean('delete_after_watched')
+
+    def clean_download_order(self):
+        return self.__clean_empty_none('download_order')
+
+
+class ImportSubscriptionsModal(LoginRequiredMixin, ModalMixin, FormView):
+    template_name = 'YtManagerApp/controls/subscriptions_import_modal.html'
+    form_class = ImportSubscriptionsForm
+
+    def form_valid(self, form):
+        file = form.cleaned_data['file']
+
+        # Parse file
+        try:
+            url_list = list(subscription_file_parser.parse(file))
+        except subscription_file_parser.FormatNotSupportedError:
+            return super().modal_response(form, success=False,
+                                          error_msg="The file could not be parsed! "
+                                                    "Possible problems: format not supported, file is malformed.")
+
+        print(form.cleaned_data)
+
+        # Create subscriptions
+        api = youtube.YoutubeAPI.build_public()
+        for url in url_list:
+            sub = Subscription()
+            sub.user = self.request.user
+            sub.parent_folder = form.cleaned_data['parent_folder']
+            sub.auto_download = form.cleaned_data['auto_download']
+            sub.download_limit = form.cleaned_data['download_limit']
+            sub.download_order = form.cleaned_data['download_order']
+            sub.automatically_delete_watched = form.cleaned_data["automatically_delete_watched"]
+            try:
+                sub.fetch_from_url(url, api)
+            except Exception as e:
+                logging.error("Import subscription error - error processing URL %s: %s", url, e)
+                continue
+
+            sub.save()
+
         return super().form_valid(form)

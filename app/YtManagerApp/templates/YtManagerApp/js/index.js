@@ -123,14 +123,31 @@ function videos_Reload()
 
 let videos_timeout = null;
 
-function videos_ReloadWithTimer()
+function videos_ResetPageAndReloadWithTimer()
 {
+    let filters_form = $("#form_video_filter");
+    filters_form.find('input[name=page]').val("1");
+
     clearTimeout(videos_timeout);
     videos_timeout = setTimeout(function()
     {
-        videos_Submit.call($('#form_video_filter'));
+        videos_Reload();
         videos_timeout = null;
     }, 200);
+}
+
+function videos_PageClicked()
+{
+    // Obtain page from button
+    let page = $(this).data('navigation-page');
+
+    // Set page
+    let filters_form = $("#form_video_filter");
+    filters_form.find('input[name=page]').val(page);
+
+    // Reload
+    videos_Reload();
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }
 
 function videos_Submit(e)
@@ -145,6 +162,7 @@ function videos_Submit(e)
         .done(function(result) {
             $("#videos-wrapper").html(result);
             $(".ajax-link").on("click", ajaxLink_Clicked);
+            $(".btn-paging").on("click", videos_PageClicked);
         })
         .fail(function() {
             $("#videos-wrapper").html('<div class="alert alert-danger">An error occurred while retrieving the video list!</div>');
@@ -186,6 +204,9 @@ function get_and_process_notifications()
 ///
 $(document).ready(function ()
 {
+    // Initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     tree_Initialize();
 
     // Subscription toolbar
@@ -199,16 +220,23 @@ $(document).ready(function ()
         modal.setSubmitCallback(tree_Refresh);
         modal.loadAndShow();
     });
+    $("#btn_import").on("click", function () {
+        let modal = new AjaxModal("{% url 'modal_import_subscriptions' %}");
+        modal.setSubmitCallback(tree_Refresh);
+        modal.loadAndShow();
+    });
     $("#btn_edit_node").on("click", treeNode_Edit);
     $("#btn_delete_node").on("click", treeNode_Delete);
 
     // Videos filters
     let filters_form = $("#form_video_filter");
     filters_form.submit(videos_Submit);
-    filters_form.find('input[name=query]').on('change', videos_ReloadWithTimer);
-    filters_form.find('select[name=sort]').on('change', videos_ReloadWithTimer);
-    filters_form.find('select[name=show_watched]').on('change', videos_ReloadWithTimer);
-    filters_form.find('select[name=show_downloaded]').on('change', videos_ReloadWithTimer);
+    filters_form.find('input[name=query]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=sort]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=show_watched]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=show_downloaded]').on('change', videos_ResetPageAndReloadWithTimer);
+    filters_form.find('select[name=results_per_page]').on('change', videos_ResetPageAndReloadWithTimer);
+
     videos_Reload();
 
     // Notification manager

@@ -7,7 +7,8 @@ class YoutubeAPI(YouTube):
 
     @staticmethod
     def build_public() -> 'YoutubeAPI':
-        return YoutubeAPI(key=settings.YOUTUBE_API_KEY)
+        from YtManagerApp.management.appconfig import appconfig
+        return YoutubeAPI(key=appconfig.youtube_api_key)
 
     # @staticmethod
     # def build_oauth() -> 'YoutubeAPI':
