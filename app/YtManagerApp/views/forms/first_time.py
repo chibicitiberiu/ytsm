@@ -6,7 +6,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 
-from YtManagerApp.views.forms.auth import ExtendedUserCreationForm
+from YtManagerApp.views.forms.auth import ExtendedUserCreationForm, ExtendedAuthenticationForm
 
 logger = logging.getLogger("FirstTimeWizard")
 
@@ -30,13 +30,29 @@ class ApiKeyForm(forms.Form):
             'api_key',
             Column(
                 Submit('submit', value='Continue'),
-                HTML('<a href="{% url \'first_time_2\' %}" class="btn">Skip</a>')
+                HTML('<a href="{% url \'first_time_2\' %}" class="btn btn-secondary">Skip</a>')
             )
         )
 
 
 class UserCreationForm(ExtendedUserCreationForm):
     form_action = reverse_lazy('first_time_2')
+
+
+class LoginForm(ExtendedAuthenticationForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'username',
+            'password',
+            'remember_me',
+            Column(
+                Submit('submit', value='Continue'),
+                HTML('<a href="{% url \'first_time_2\' %}?register=1" class="btn">Register new admin account</a>')
+            )
+        )
 
 
 class PickAdminUserForm(forms.Form):

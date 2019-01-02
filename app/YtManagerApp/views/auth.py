@@ -20,7 +20,7 @@ class RegisterView(FormView):
     success_url = reverse_lazy('register_done')
 
     def form_valid(self, form):
-
+        form.apply_session_expiry(self.request)
         form.save()
 
         username = form.cleaned_data.get('username')
