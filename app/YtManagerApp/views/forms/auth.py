@@ -8,15 +8,14 @@ from django.urls import reverse_lazy
 class ExtendedAuthenticationForm(AuthenticationForm):
     remember_me = forms.BooleanField(label='Remember me', required=False, initial=False)
 
-    def clean(self):
+    def apply_session_expiry(self, request):
         remember_me = self.cleaned_data.get('remember_me')
         if remember_me:
             expiry = 3600 * 24 * 30
         else:
             expiry = 0
-        self.request.session.set_expiry(expiry)
 
-        return super().clean()
+        request.session.set_expiry(expiry)
 
 
 class ExtendedUserCreationForm(UserCreationForm):
