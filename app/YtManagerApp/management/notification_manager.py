@@ -14,6 +14,8 @@ __NEXT_ID = 0
 __LOCK = Lock()
 
 
+OPERATION_ID_SYNCHRONIZE = 1
+
 # Messages enum
 class Messages:
     STATUS_UPDATE = 'st-up'

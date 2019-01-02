@@ -4,6 +4,7 @@ from threading import Lock
 
 from apscheduler.triggers.cron import CronTrigger
 
+from YtManagerApp.management.notification_manager import OPERATION_ID_SYNCHRONIZE
 from YtManagerApp.scheduler import scheduler
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_all, downloader_process_subscription
@@ -18,7 +19,7 @@ __lock = Lock()
 _ENABLE_UPDATE_STATS = True
 
 
-def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAPI):
+def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAPI, progress_callback):
     # Get list of videos
     for item in yt_api.playlist_items(subscription.playlist_id):
         results = Video.objects.filter(video_id=item.resource_video_id, subscription=subscription)
@@ -100,6 +101,10 @@ def __fetch_thumbnails():
     __fetch_thumbnails_obj(Video.objects.filter(icon_best__istartswith='http'), 'video', 'video_id')
 
 
+def __compute_progress(stage, stage_count, items, total_items):
+    stage_percent = float(stage) / stage_count
+
+
 def synchronize():
     if not __lock.acquire(blocking=False):
         # Synchronize already running in another thread
@@ -108,7 +113,12 @@ def synchronize():
 
     try:
         log.info("Running scheduled synchronization... ")
-        notification_manager.notify_status_update(f'Synchronization started for all subscriptions.')
+        notification_manager.notify_status_operation_progress(
+            OPERATION_ID_SYNCHRONIZE,
+            'Running scheduled synchronization: checking for new videos...',
+            0.1,
+            None
+        )
 
         # Sync subscribed playlists/channels
         log.info("Sync - checking videos")
@@ -117,14 +127,32 @@ def synchronize():
             __check_new_videos_sub(subscription, yt_api)
             __detect_deleted(subscription)
 
+        notification_manager.notify_status_operation_progress(
+            OPERATION_ID_SYNCHRONIZE,
+            'Running scheduled synchronization: enqueueing videos to download...',
+            0.5,
+            None
+        )
+
         log.info("Sync - checking for videos to download")
         downloader_process_all()
+
+        notification_manager.notify_status_operation_progress(
+            OPERATION_ID_SYNCHRONIZE,
+            'Running scheduled synchronization: fetching thumbnails...',
+            0.7,
+            None
+        )
 
         log.info("Sync - fetching missing thumbnails")
         __fetch_thumbnails()
 
         log.info("Synchronization finished.")
-        notification_manager.notify_status_update(f'Synchronization finished for all subscriptions.')
+        notification_manager.notify_status_operation_ended(
+            OPERATION_ID_SYNCHRONIZE,
+            'Synchronization finished.',
+            None
+        )
 
     finally:
         __lock.release()

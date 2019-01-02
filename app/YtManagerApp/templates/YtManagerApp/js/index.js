@@ -179,6 +179,32 @@ function videos_Submit(e)
 /// Notifications
 ///
 const NOTIFICATION_INTERVAL = 1000;
+const STATUS_UPDATE = 'st-up';
+const STATUS_OPERATION_PROGRESS = 'st-op-prog';
+const STATUS_OPERATION_END = 'st-op-end';
+const OPERATION_LIST = {};
+
+function notifications_update_progress_bar() {
+
+    var count = 0;
+    var percent = 0;
+
+    for(op in OPERATION_LIST) {
+        count++;
+        percent += OPERATION_LIST[op];
+    }
+
+    let progress = $('#status-progress');
+    if (count > 0) {
+        progress.removeClass('invisible');
+        let bar = progress.find('.progress-bar');
+        bar.width(percent * 100 + '%');
+        bar.text(count + ' operations in progress');
+    }
+    else {
+        progress.addClass('invisible');
+    }
+}
 
 function get_and_process_notifications()
 {
@@ -190,9 +216,23 @@ function get_and_process_notifications()
                 let dt = new Date(entry.time);
 
                 // Status update
-                if (entry.msg === 'st-up') {
+                if (entry.msg === STATUS_UPDATE) {
+                    let txt = `<span class="status-timestamp">${dt.getHours()}:${zeroFill(dt.getMinutes(), 2)}</span>${entry.status}`;
+                    $('#status-message').html(txt);
+                }
+                else if (entry.msg === STATUS_OPERATION_PROGRESS) {
+                    let txt = `<span class="status-timestamp">${dt.getHours()}:${zeroFill(dt.getMinutes(), 2)}</span>${entry.status}`;
+                    $('#status-message').html(txt);
+
+                    OPERATION_LIST[entry.operation] = entry.progress;
+                    notifications_update_progress_bar();
+                }
+                else if (entry.msg === STATUS_OPERATION_END) {
                     let txt = `<span class="status-timestamp">${dt.getHours()}:${dt.getMinutes()}</span>${entry.status}`;
                     $('#status-message').html(txt);
+
+                    delete OPERATION_LIST[entry.operation];
+                    notifications_update_progress_bar();
                 }
 
             }
