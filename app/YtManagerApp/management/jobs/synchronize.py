@@ -19,7 +19,7 @@ __lock = Lock()
 _ENABLE_UPDATE_STATS = True
 
 
-def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAPI, progress_callback):
+def __check_new_videos_sub(subscription: Subscription, yt_api: youtube.YoutubeAPI, progress_callback=None):
     # Get list of videos
     for item in yt_api.playlist_items(subscription.playlist_id):
         results = Video.objects.filter(video_id=item.resource_video_id, subscription=subscription)
