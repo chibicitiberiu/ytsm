@@ -14,7 +14,7 @@
                             {% if not video.watched %}
                             <sup class="badge badge-primary">New</sup>
                             {% endif %}
-                            <a href="{% url 'video' video.id %}">
+                            <a href="{% url 'video' video.id %}" target="_blank">
                                 {{ video.name }}
                             </a>
                         </h5>
