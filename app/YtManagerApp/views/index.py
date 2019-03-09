@@ -15,6 +15,7 @@ from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
 from YtManagerApp.utils import youtube, subscription_file_parser
 from YtManagerApp.views.controls.modal import ModalMixin
+from YtManagerApp.management.notification_manager import get_current_notification_id
 
 import logging
 
@@ -121,6 +122,7 @@ def index(request: HttpRequest):
     if request.user.is_authenticated:
         context.update({
             'filter_form': VideoFilterForm(),
+            'current_notification_id': get_current_notification_id(),
         })
         return render(request, 'YtManagerApp/index.html', context)
     else:

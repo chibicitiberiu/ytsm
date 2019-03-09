@@ -9,6 +9,8 @@
 {% block scripts %}
     <script src="{% static 'YtManagerApp/import/jstree/dist/jstree.min.js' %}"></script>
     <script>
+        let LAST_NOTIFICATION_ID = {{ current_notification_id }};
+
         {% include 'YtManagerApp/js/index.js' %}
     </script>
 {% endblock %}
