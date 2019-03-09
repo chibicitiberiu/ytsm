@@ -11,8 +11,8 @@ from django.views.generic import FormView
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.jobs.synchronize import schedule_synchronize_global
 from YtManagerApp.scheduler import initialize_scheduler
-from YtManagerApp.views.forms.auth import ExtendedAuthenticationForm
-from YtManagerApp.views.forms.first_time import WelcomeForm, ApiKeyForm, PickAdminUserForm, ServerConfigForm, DoneForm, UserCreationForm
+from YtManagerApp.views.forms.first_time import WelcomeForm, ApiKeyForm, PickAdminUserForm, ServerConfigForm, DoneForm, \
+    UserCreationForm, LoginForm
 
 logger = logging.getLogger("FirstTimeWizard")
 
@@ -85,38 +85,35 @@ class Step2SetupAdminUserView(WizardStepMixin, FormView):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__form_class = UserCreationForm
 
     def get_form_class(self):
-        return self.__form_class
-
-    def get(self, request, *args, **kwargs):
-
         have_users = User.objects.count() > 0
         have_admin = User.objects.filter(is_superuser=True).count() > 0
+
+        # Check if an admin user already exists
+        if have_admin:
+            logger.debug("Admin user already exists and is not logged in!")
+            return LoginForm
+
+        elif have_users and 'register' not in self.kwargs:
+            logger.debug("There are users but no admin!")
+            return PickAdminUserForm
+
+        logger.debug("No admin user exists, will register a new account!")
+        return UserCreationForm
+
+    def get(self, request, *args, **kwargs):
 
         # Skip if admin is already logged in
         if request.user.is_authenticated and request.user.is_superuser:
             logger.debug("Admin user already exists and is logged in!")
             return redirect(self.success_url)
 
-        # Check if an admin user already exists
-        elif have_admin:
-            logger.debug("Admin user already exists and is not logged in!")
-            self.__form_class = ExtendedAuthenticationForm
-
-        elif have_users and 'register' not in kwargs:
-            logger.debug("There are users but no admin!")
-            self.__form_class = PickAdminUserForm
-
-        else:
-            logger.debug("No admin user exists, will register a new account!")
-            self.__form_class = UserCreationForm
-
         return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        if isinstance(form, ExtendedAuthenticationForm):
+        if isinstance(form, LoginForm):
+            form.apply_session_expiry(self.request)
             login(self.request, form.get_user())
 
         elif isinstance(form, UserCreationForm):
