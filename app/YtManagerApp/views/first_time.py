@@ -75,6 +75,8 @@ class Step1ApiKeyView(WizardStepMixin, FormView):
         if key is not None and len(key) > 0:
             appconfig.youtube_api_key = key
 
+        return super().form_valid(form)
+
 
 #
 # Step 2: create admin user
