@@ -9,8 +9,8 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 
 from YtManagerApp.management.appconfig import appconfig
-from YtManagerApp.management.jobs.synchronize import schedule_synchronize_global
-from YtManagerApp.scheduler import initialize_scheduler
+from YtManagerApp.management.jobs.synchronize import SynchronizeJob
+from YtManagerApp.scheduler import scheduler
 from YtManagerApp.views.forms.first_time import WelcomeForm, ApiKeyForm, PickAdminUserForm, ServerConfigForm, DoneForm, \
     UserCreationForm, LoginForm
 
@@ -177,8 +177,8 @@ class Step3ConfigureView(WizardStepMixin, FormView):
         appconfig.initialized = True
 
         # Start scheduler if not started
-        initialize_scheduler()
-        schedule_synchronize_global()
+        scheduler.initialize()
+        SynchronizeJob.schedule_global_job()
 
         return super().form_valid(form)
 

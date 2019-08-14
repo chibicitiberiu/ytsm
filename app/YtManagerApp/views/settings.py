@@ -3,7 +3,7 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
-from YtManagerApp.management.jobs.synchronize import schedule_synchronize_global
+from YtManagerApp.management.jobs.synchronize import SynchronizeJob
 from YtManagerApp.views.forms.settings import SettingsForm, AdminSettingsForm
 
 
@@ -45,5 +45,5 @@ class AdminSettingsView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         form.save()
-        schedule_synchronize_global()
+        SynchronizeJob.schedule_global_job()
         return super().form_valid(form)

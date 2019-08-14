@@ -1,4 +1,4 @@
-from YtManagerApp.management.jobs.download_video import schedule_download_video
+from YtManagerApp.management.jobs.download_video import DownloadVideoJob
 from YtManagerApp.models import Video, Subscription, VIDEO_ORDER_MAPPING
 from YtManagerApp.utils import first_non_null
 from django.conf import settings as srv_settings
@@ -51,7 +51,7 @@ def downloader_process_subscription(sub: Subscription):
         # enqueue download
         for video in videos_to_download:
             log.info('Enqueuing video %d [%s %s] index=%d', video.id, video.video_id, video.name, video.playlist_index)
-            schedule_download_video(video)
+            DownloadVideoJob.schedule(video)
 
     log.info('Finished processing subscription %d [%s %s]', sub.id, sub.playlist_id, sub.id)
 
