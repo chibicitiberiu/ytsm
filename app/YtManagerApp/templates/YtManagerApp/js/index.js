@@ -181,24 +181,28 @@ function videos_Submit(e)
 const JOB_QUERY_INTERVAL = 1500;
 
 
-function get_and_process_notifications()
+function get_and_process_running_jobs()
 {
     $.get("{% url 'ajax_get_running_jobs' %}")
         .done(function(data) {
 
             let progress = $('#status-progress');
+            let jobPanel = $('#job_panel');
+            let jobTitle = jobPanel.find('#job_panel_title');
+            let jobTitleNoJobs = jobPanel.find('#job_panel_no_jobs_title');
+            let jobTemplate = jobPanel.find('#job_panel_item_template');
 
             if (data.length > 0) {
 
-                let statusTxt = "";
+                // Update status bar
                 if (data.length > 1) {
-                    statusTxt = `Running ${data.length} jobs...`;
+                    $('#status-message').text(`Running ${data.length} jobs...`);
                 }
-
                 else {
-                    statusTxt = `${data[0].description} | ${data[0].message}`;
+                    $('#status-message').text(`${data[0].description} | ${data[0].message}`);
                 }
 
+                // Update global progress bar
                 let combinedProgress = 0;
                 for (let entry of data) {
                     combinedProgress += entry.progress;
@@ -210,11 +214,41 @@ function get_and_process_notifications()
                 let bar = progress.find('.progress-bar');
                 bar.width(percent + '%');
                 bar.text(`${percent.toFixed(0)}%`);
-                $('#status-message').text(statusTxt);
+
+                // Update entries in job list
+                jobTitle.removeClass('collapse');
+                jobTitleNoJobs.addClass('collapse');
+
+                data.sort(function (a, b) { return a.id - b.id });
+                jobPanel.find('.job_entry').remove();
+
+                for (let entry of data) {
+                    let jobEntry = jobTemplate.clone();
+                    jobEntry.attr('id', `job_${entry.id}`);
+                    jobEntry.addClass('job_entry');
+                    jobEntry.removeClass('collapse');
+                    jobEntry.find('#job_panel_item_title').text(entry.description);
+                    jobEntry.find('#job_panel_item_subtitle').text(entry.message);
+
+                    let entryPercent = 100 * entry.progress;
+                    let jobEntryProgress = jobEntry.find('#job_panel_item_progress');
+                    jobEntryProgress.width(entryPercent + '%');
+                    jobEntryProgress.text(`${entryPercent.toFixed(0)}%`);
+
+                    jobEntry.appendTo(jobPanel);
+                }
+
+                $('#btn_toggle_job_panel').dropdown('update');
             }
             else {
                 progress.addClass('invisible');
                 $('#status-message').text("");
+
+                jobTitle.addClass('collapse');
+                jobTitleNoJobs.removeClass('collapse');
+                jobPanel.find('.job_entry').remove();
+
+                $('#btn_toggle_job_panel').dropdown('update');
             }
         });
 }
@@ -259,6 +293,7 @@ $(document).ready(function ()
 
     videos_Reload();
 
-    // Notification manager
-    setInterval(get_and_process_notifications, JOB_QUERY_INTERVAL);
+    // Notifications
+    get_and_process_running_jobs();
+    setInterval(get_and_process_running_jobs, JOB_QUERY_INTERVAL);
 });

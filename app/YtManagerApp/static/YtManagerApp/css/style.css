@@ -129,4 +129,10 @@
 .status-timestamp {
   margin-right: 0.25rem; }
 
+.dropdown-jobs {
+  min-width: 25rem; }
+  .dropdown-jobs .dropdown-item p {
+    margin: 0;
+    line-height: normal; }
+
 /*# sourceMappingURL=style.css.map */
