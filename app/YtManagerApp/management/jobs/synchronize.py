@@ -69,7 +69,7 @@ class SynchronizeJob(Job):
                     batch_ids = [video.video_id for video in batch]
                     video_stats = {v.id: v for v in self.__api.videos(batch_ids, part='id,statistics')}
 
-                for video in itertools.chain(work_vids, self.__new_vids):
+                for video in batch:
                     self.progress_advance(1, "Updating video " + video.name)
                     self.check_video_deleted(video)
                     self.fetch_missing_thumbnails(video)

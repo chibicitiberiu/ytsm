@@ -228,27 +228,27 @@ class Video(models.Model):
         for file in self.get_files():
             mime, _ = mimetypes.guess_type(file)
             if mime is not None and mime.startswith('video/'):
-                return (file, mime)
+                return file, mime
 
         return None, None
 
     def delete_files(self):
         if self.downloaded_path is not None:
-            from YtManagerApp.management.jobs.delete_video import schedule_delete_video
+            from YtManagerApp.management.jobs.delete_video import DeleteVideoJob
             from YtManagerApp.management.appconfig import appconfig
-            from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
+            from YtManagerApp.management.jobs.synchronize import SynchronizeJob
 
-            schedule_delete_video(self)
+            DeleteVideoJob.schedule(self)
 
             # Mark watched?
             if self.subscription.user.preferences['mark_deleted_as_watched']:
                 self.watched = True
-                schedule_synchronize_now_subscription(self.subscription)
+                SynchronizeJob.schedule_now_for_subscription(self.subscription)
 
     def download(self):
         if not self.downloaded_path:
-            from YtManagerApp.management.jobs.download_video import schedule_download_video
-            schedule_download_video(self)
+            from YtManagerApp.management.jobs.download_video import DownloadVideoJob
+            DownloadVideoJob.schedule(self)
 
     def __str__(self):
         return self.name
@@ -298,4 +298,3 @@ class JobMessage(models.Model):
     message = models.CharField(max_length=1024, null=False, default="")
     level = models.IntegerField(choices=JOB_MESSAGE_LEVELS, null=False, default=0)
     suppress_notification = models.BooleanField(null=False, default=False)
-
