@@ -3,6 +3,7 @@ import logging
 import traceback
 from typing import Type, Union, Optional, Callable, List, Any
 
+import pytz
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.base import BaseTrigger
 from django.contrib.auth.models import User
@@ -250,7 +251,7 @@ class YtsmScheduler(object):
             job_execution.status = JOB_STATES_MAP['failed']
 
         finally:
-            job_execution.end_date = datetime.datetime.now()
+            job_execution.end_date = datetime.datetime.now(tz=pytz.UTC)
             job_execution.save()
 
     def add_job(self, job_class: Type[Job], trigger: Union[str, BaseTrigger] = None,

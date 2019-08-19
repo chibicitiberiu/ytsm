@@ -109,6 +109,8 @@ class Subscription(models.Model):
     icon_default = models.CharField(max_length=1024)
     icon_best = models.CharField(max_length=1024)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # youtube adds videos to the 'Uploads' playlist at the top instead of the bottom
+    rewrite_playlist_indices = models.BooleanField(null=False, default=False)
 
     # overrides
     auto_download = models.BooleanField(null=True, blank=True)
@@ -143,6 +145,7 @@ class Subscription(models.Model):
         self.channel_name = info_channel.title
         self.icon_default = youtube.default_thumbnail(info_channel).url
         self.icon_best = youtube.best_thumbnail(info_channel).url
+        self.rewrite_playlist_indices = True
 
     def fetch_from_url(self, url, yt_api: youtube.YoutubeAPI):
         url_parsed = yt_api.parse_url(url)
@@ -168,6 +171,7 @@ class Video(models.Model):
     name = models.TextField(null=False)
     description = models.TextField()
     watched = models.BooleanField(default=False, null=False)
+    new = models.BooleanField(default=True, null=False)
     downloaded_path = models.TextField(null=True, blank=True)
     subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
     playlist_index = models.IntegerField(null=False)
@@ -185,6 +189,7 @@ class Video(models.Model):
         video.name = playlist_item.title
         video.description = playlist_item.description
         video.watched = False
+        video.new = True
         video.downloaded_path = None
         video.subscription = subscription
         video.playlist_index = playlist_item.position
