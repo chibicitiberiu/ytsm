@@ -6,6 +6,8 @@ import logging
 import requests
 import mimetypes
 import os
+import PIL.Image
+import PIL.ImageOps
 from urllib.parse import urljoin
 
 log = logging.getLogger('downloader')
@@ -61,9 +63,9 @@ def downloader_process_all():
         downloader_process_subscription(subscription)
 
 
-def fetch_thumbnail(url, object_type, identifier, quality):
+def fetch_thumbnail(url, object_type, identifier, thumb_size):
 
-    log.info('Fetching thumbnail url=%s object_type=%s identifier=%s quality=%s', url, object_type, identifier, quality)
+    log.info('Fetching thumbnail url=%s object_type=%s identifier=%s', url, object_type, identifier)
 
     # Make request to obtain mime type
     try:
@@ -75,17 +77,28 @@ def fetch_thumbnail(url, object_type, identifier, quality):
     ext = mimetypes.guess_extension(response.headers['Content-Type'])
 
     # Build file path
-    file_name = f"{identifier}-{quality}{ext}"
+    file_name = f"{identifier}{ext}"
     abs_path_dir = os.path.join(srv_settings.MEDIA_ROOT, "thumbs", object_type)
     abs_path = os.path.join(abs_path_dir, file_name)
+    abs_path_tmp = file_name + '.tmp'
 
     # Store image
     try:
         os.makedirs(abs_path_dir, exist_ok=True)
-        with open(abs_path, "wb") as f:
+        with open(abs_path_tmp, "wb") as f:
             for chunk in response.iter_content(chunk_size=1024):
                 if chunk:
                     f.write(chunk)
+
+        # Resize and crop to thumbnail size
+        image = PIL.Image.open(abs_path_tmp)
+        image = PIL.ImageOps.fit(image, thumb_size)
+        image.save(abs_path)
+        image.close()
+
+        # Delete temp file
+        os.unlink(abs_path_tmp)
+
     except requests.exceptions.RequestException as e:
         log.error('Error while downloading stream for thumbnail %s. Error: %s', url, e)
         return url

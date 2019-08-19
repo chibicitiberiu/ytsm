@@ -106,8 +106,7 @@ class Subscription(models.Model):
     description = models.TextField()
     channel_id = models.CharField(max_length=128)
     channel_name = models.CharField(max_length=1024)
-    icon_default = models.CharField(max_length=1024)
-    icon_best = models.CharField(max_length=1024)
+    thumbnail = models.CharField(max_length=1024)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # youtube adds videos to the 'Uploads' playlist at the top instead of the bottom
     rewrite_playlist_indices = models.BooleanField(null=False, default=False)
@@ -133,8 +132,7 @@ class Subscription(models.Model):
         self.description = info_playlist.description
         self.channel_id = info_playlist.channel_id
         self.channel_name = info_playlist.channel_title
-        self.icon_default = youtube.default_thumbnail(info_playlist).url
-        self.icon_best = youtube.best_thumbnail(info_playlist).url
+        self.thumbnail = youtube.best_thumbnail(info_playlist).url
 
     def copy_from_channel(self, info_channel: youtube.Channel):
         # No point in storing info about the 'uploads from X' playlist
@@ -143,8 +141,7 @@ class Subscription(models.Model):
         self.description = info_channel.description
         self.channel_id = info_channel.id
         self.channel_name = info_channel.title
-        self.icon_default = youtube.default_thumbnail(info_channel).url
-        self.icon_best = youtube.best_thumbnail(info_channel).url
+        self.thumbnail = youtube.best_thumbnail(info_channel).url
         self.rewrite_playlist_indices = True
 
     def fetch_from_url(self, url, yt_api: youtube.YoutubeAPI):
@@ -176,8 +173,7 @@ class Video(models.Model):
     subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
     playlist_index = models.IntegerField(null=False)
     publish_date = models.DateTimeField(null=False)
-    icon_default = models.TextField()
-    icon_best = models.TextField()
+    thumbnail = models.TextField()
     uploader_name = models.TextField(null=False)
     views = models.IntegerField(null=False, default=0)
     rating = models.FloatField(null=False, default=0.5)
@@ -194,8 +190,7 @@ class Video(models.Model):
         video.subscription = subscription
         video.playlist_index = playlist_item.position
         video.publish_date = playlist_item.published_at
-        video.icon_default = youtube.default_thumbnail(playlist_item).url
-        video.icon_best = youtube.best_thumbnail(playlist_item).url
+        video.thumbnail = youtube.best_thumbnail(playlist_item).url
         video.save()
         return video
 

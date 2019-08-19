@@ -1,3 +1,4 @@
+pytz
 requests
 apscheduler
 gunicorn
@@ -11,3 +12,4 @@ google_auth_oauthlib
 oauth2client
 psycopg2-binary
 python-dateutil
+Pillow

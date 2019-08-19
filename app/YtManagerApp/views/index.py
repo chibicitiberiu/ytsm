@@ -144,7 +144,7 @@ def ajax_get_tree(request: HttpRequest):
                 "id": __tree_sub_id(node.id),
                 "type": "sub",
                 "text": node.name,
-                "icon": node.icon_default,
+                "icon": node.thumbnail,
                 "parent": __tree_folder_id(node.parent_folder_id)
             }
 

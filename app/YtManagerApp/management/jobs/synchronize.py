@@ -4,6 +4,7 @@ from threading import Lock
 
 from apscheduler.triggers.cron import CronTrigger
 from django.db.models import Max
+from django.conf import settings
 
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_subscription
@@ -110,21 +111,13 @@ class SynchronizeJob(Job):
 
                 self.__new_vids.append(Video.create(item, sub))
 
-    def fetch_missing_thumbnails(self, object: Union[Subscription, Video]):
-        if isinstance(object, Subscription):
-            object_type = "sub"
-            object_id = object.playlist_id
-        else:
-            object_type = "video"
-            object_id = object.video_id
-
-        if object.icon_default.startswith("http"):
-            object.icon_default = fetch_thumbnail(object.icon_default, object_type, object_id, 'default')
-            object.save()
-
-        if object.icon_best.startswith("http"):
-            object.icon_best = fetch_thumbnail(object.icon_best, object_type, object_id, 'best')
-            object.save()
+    def fetch_missing_thumbnails(self, obj: Union[Subscription, Video]):
+        if obj.thumbnail.startswith("http"):
+            if isinstance(obj, Subscription):
+                obj.thumbnail = fetch_thumbnail(obj.thumbnail, 'sub', obj.playlist_id, settings.THUMBNAIL_SIZE_SUBSCRIPTION)
+            elif isinstance(obj, Video):
+                obj.thumbnail = fetch_thumbnail(obj.thumbnail, 'video', obj.video_id, settings.THUMBNAIL_SIZE_VIDEO)
+            obj.save()
 
     def check_video_deleted(self, video: Video):
         if video.downloaded_path is not None:

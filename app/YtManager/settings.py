@@ -105,6 +105,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Thumbnails
+THUMBNAIL_SIZE_VIDEO = (410, 230)
+THUMBNAIL_SIZE_SUBSCRIPTION = (250, 250)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
