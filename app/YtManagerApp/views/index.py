@@ -283,7 +283,7 @@ class CreateSubscriptionForm(forms.ModelForm):
             'auto_download',
             'download_limit',
             'download_order',
-            'delete_after_watched'
+            'automatically_delete_watched'
         )
 
     def clean_playlist_url(self):
@@ -349,7 +349,7 @@ class UpdateSubscriptionForm(forms.ModelForm):
             'auto_download',
             'download_limit',
             'download_order',
-            'delete_after_watched'
+            'automatically_delete_watched'
         )
 
 
@@ -403,7 +403,7 @@ class ImportSubscriptionsForm(forms.Form):
     auto_download = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, required=False)
     download_limit = forms.IntegerField(required=False)
     download_order = forms.ChoiceField(choices=VIDEO_ORDER_CHOICES_WITH_EMPTY, required=False)
-    delete_after_watched = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, required=False)
+    automatically_delete_watched = forms.ChoiceField(choices=TRUE_FALSE_CHOICES, required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -418,7 +418,7 @@ class ImportSubscriptionsForm(forms.Form):
             'auto_download',
             'download_limit',
             'download_order',
-            'delete_after_watched'
+            'automatically_delete_watched'
         )
 
     def __clean_empty_none(self, name: str):
@@ -438,8 +438,8 @@ class ImportSubscriptionsForm(forms.Form):
     def clean_auto_download(self):
         return self.__clean_boolean('auto_download')
 
-    def clean_delete_after_watched(self):
-        return self.__clean_boolean('delete_after_watched')
+    def clean_automatically_delete_watched(self):
+        return self.__clean_boolean('automatically_delete_watched')
 
     def clean_download_order(self):
         return self.__clean_empty_none('download_order')
