@@ -11,7 +11,7 @@
                     </a>
                     <div class="card-body">
                         <h5 class="card-title">
-                            {% if not video.watched %}
+                            {% if video.new and not video.watched %}
                             <sup class="badge badge-primary">New</sup>
                             {% endif %}
                             <a href="{% url 'video' video.id %}" target="_blank">

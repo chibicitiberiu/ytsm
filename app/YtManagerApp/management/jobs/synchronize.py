@@ -3,6 +3,7 @@ import itertools
 from threading import Lock
 
 from apscheduler.triggers.cron import CronTrigger
+from django.db.models import Max
 
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_subscription
@@ -51,6 +52,9 @@ class SynchronizeJob(Job):
 
             self.set_total_steps(len(work_subs) + len(work_vids))
 
+            # Remove the 'new' flag
+            work_vids.update(new=False)
+
             # Process subscriptions
             for sub in work_subs:
                 self.progress_advance(1, "Synchronizing subscription " + sub.name)
@@ -69,13 +73,14 @@ class SynchronizeJob(Job):
                     batch_ids = [video.video_id for video in batch]
                     video_stats = {v.id: v for v in self.__api.videos(batch_ids, part='id,statistics')}
 
-                for video in itertools.chain(work_vids, self.__new_vids):
+                for video in batch:
                     self.progress_advance(1, "Updating video " + video.name)
                     self.check_video_deleted(video)
                     self.fetch_missing_thumbnails(video)
 
                     if video.video_id in video_stats:
                         self.update_video_stats(video, video_stats[video.video_id])
+
 
             # Start downloading videos
             for sub in work_subs:
@@ -87,12 +92,22 @@ class SynchronizeJob(Job):
 
     def check_new_videos(self, sub: Subscription):
         playlist_items = self.__api.playlist_items(sub.playlist_id)
+        if sub.rewrite_playlist_indices:
+            playlist_items = sorted(playlist_items, key=lambda x: x.published_at)
+        else:
+            playlist_items = sorted(playlist_items, key=lambda x: x.position)
 
         for item in playlist_items:
             results = Video.objects.filter(video_id=item.resource_video_id, subscription=sub)
 
-            if len(results) == 0:
+            if not results.exists():
                 self.log.info('New video for subscription %s: %s %s"', sub, item.resource_video_id, item.title)
+
+                # fix playlist index if necessary
+                if sub.rewrite_playlist_indices or Video.objects.filter(subscription=sub, playlist_index=item.position).exists():
+                    highest = Video.objects.filter(subscription=sub).aggregate(Max('playlist_index'))['playlist_index__max']
+                    item.position = 1 + (highest or 0)
+
                 self.__new_vids.append(Video.create(item, sub))
 
     def fetch_missing_thumbnails(self, object: Union[Subscription, Video]):

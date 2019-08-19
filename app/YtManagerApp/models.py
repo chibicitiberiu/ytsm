@@ -109,6 +109,8 @@ class Subscription(models.Model):
     icon_default = models.CharField(max_length=1024)
     icon_best = models.CharField(max_length=1024)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # youtube adds videos to the 'Uploads' playlist at the top instead of the bottom
+    rewrite_playlist_indices = models.BooleanField(null=False, default=False)
 
     # overrides
     auto_download = models.BooleanField(null=True, blank=True)
@@ -143,6 +145,7 @@ class Subscription(models.Model):
         self.channel_name = info_channel.title
         self.icon_default = youtube.default_thumbnail(info_channel).url
         self.icon_best = youtube.best_thumbnail(info_channel).url
+        self.rewrite_playlist_indices = True
 
     def fetch_from_url(self, url, yt_api: youtube.YoutubeAPI):
         url_parsed = yt_api.parse_url(url)
@@ -168,6 +171,7 @@ class Video(models.Model):
     name = models.TextField(null=False)
     description = models.TextField()
     watched = models.BooleanField(default=False, null=False)
+    new = models.BooleanField(default=True, null=False)
     downloaded_path = models.TextField(null=True, blank=True)
     subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
     playlist_index = models.IntegerField(null=False)
@@ -185,6 +189,7 @@ class Video(models.Model):
         video.name = playlist_item.title
         video.description = playlist_item.description
         video.watched = False
+        video.new = True
         video.downloaded_path = None
         video.subscription = subscription
         video.playlist_index = playlist_item.position
@@ -228,27 +233,27 @@ class Video(models.Model):
         for file in self.get_files():
             mime, _ = mimetypes.guess_type(file)
             if mime is not None and mime.startswith('video/'):
-                return (file, mime)
+                return file, mime
 
         return None, None
 
     def delete_files(self):
         if self.downloaded_path is not None:
-            from YtManagerApp.management.jobs.delete_video import schedule_delete_video
+            from YtManagerApp.management.jobs.delete_video import DeleteVideoJob
             from YtManagerApp.management.appconfig import appconfig
-            from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now_subscription
+            from YtManagerApp.management.jobs.synchronize import SynchronizeJob
 
-            schedule_delete_video(self)
+            DeleteVideoJob.schedule(self)
 
             # Mark watched?
             if self.subscription.user.preferences['mark_deleted_as_watched']:
                 self.watched = True
-                schedule_synchronize_now_subscription(self.subscription)
+                SynchronizeJob.schedule_now_for_subscription(self.subscription)
 
     def download(self):
         if not self.downloaded_path:
-            from YtManagerApp.management.jobs.download_video import schedule_download_video
-            schedule_download_video(self)
+            from YtManagerApp.management.jobs.download_video import DownloadVideoJob
+            DownloadVideoJob.schedule(self)
 
     def __str__(self):
         return self.name
@@ -298,4 +303,3 @@ class JobMessage(models.Model):
     message = models.CharField(max_length=1024, null=False, default="")
     level = models.IntegerField(choices=JOB_MESSAGE_LEVELS, null=False, default=0)
     suppress_notification = models.BooleanField(null=False, default=False)
-
