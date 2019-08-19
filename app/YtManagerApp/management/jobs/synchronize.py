@@ -106,7 +106,7 @@ class SynchronizeJob(Job):
                 # fix playlist index if necessary
                 if sub.rewrite_playlist_indices or Video.objects.filter(subscription=sub, playlist_index=item.position).exists():
                     highest = Video.objects.filter(subscription=sub).aggregate(Max('playlist_index'))['playlist_index__max']
-                    item.position = 1 + (highest or 0)
+                    item.position = 1 + (highest or -1)
 
                 self.__new_vids.append(Video.create(item, sub))
 
