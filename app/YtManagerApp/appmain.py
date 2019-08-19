@@ -6,16 +6,14 @@ import sys
 from django.conf import settings as dj_settings
 
 from .management.appconfig import appconfig
-from .management.jobs.synchronize import schedule_synchronize_global
-from .scheduler import initialize_scheduler
+from .management.jobs.synchronize import SynchronizeJob
+from .scheduler import scheduler
 from django.db.utils import OperationalError
 
 
 def __initialize_logger():
     log_dir = os.path.join(dj_settings.DATA_DIR, 'logs')
     os.makedirs(log_dir, exist_ok=True)
-
-    handlers = []
 
     file_handler = logging.handlers.RotatingFileHandler(
         os.path.join(log_dir, "log.log"),
@@ -34,16 +32,16 @@ def __initialize_logger():
         logging.root.addHandler(console_handler)
 
 
-
 def main():
     __initialize_logger()
 
     try:
         if appconfig.initialized:
-            initialize_scheduler()
-            schedule_synchronize_global()
+            scheduler.initialize()
+            SynchronizeJob.schedule_global_job()
     except OperationalError:
-        # Settings table is not created when running migrate or makemigrations, so just don't do anything in this case.
+        # Settings table is not created when running migrate or makemigrations;
+        # Just don't do anything in this case.
         pass
 
     logging.info('Initialization complete.')

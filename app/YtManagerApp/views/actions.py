@@ -2,13 +2,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views.generic import View
 
-from YtManagerApp.management.jobs.synchronize import schedule_synchronize_now
+from YtManagerApp.management.jobs.synchronize import SynchronizeJob
 from YtManagerApp.models import Video
 
 
 class SyncNowView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
-        schedule_synchronize_now()
+        SynchronizeJob.schedule_now()
         return JsonResponse({
             'success': True
         })

@@ -24,7 +24,7 @@ from .views.actions import SyncNowView, DeleteVideoFilesView, DownloadVideoFiles
 from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
 from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
     CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal, ImportSubscriptionsModal
-from .views.notifications import ajax_get_notifications
+from .views.notifications import ajax_get_running_jobs
 from .views.settings import SettingsView, AdminSettingsView
 from .views.video import VideoDetailView, video_detail_view
 
@@ -45,7 +45,7 @@ urlpatterns = [
     path('ajax/get_tree/', ajax_get_tree, name='ajax_get_tree'),
     path('ajax/get_videos/', ajax_get_videos, name='ajax_get_videos'),
 
-    path('ajax/get_notifications/<int:last_id>', ajax_get_notifications, name='ajax_get_notifications'),
+    path('ajax/get_running_jobs/', ajax_get_running_jobs, name='ajax_get_running_jobs'),
 
     # Modals
     path('modal/create_folder/', CreateFolderModal.as_view(), name='modal_create_folder'),

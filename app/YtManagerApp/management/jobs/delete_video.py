@@ -1,39 +1,46 @@
-import logging
 import os
 
-from YtManagerApp import scheduler
 from YtManagerApp.models import Video
-
-log = logging.getLogger('video_downloader')
-
-
-def delete_video(video: Video):
-    log.info('Deleting video %d [%s %s]', video.id, video.video_id, video.name)
-    count = 0
-
-    try:
-        for file in video.get_files():
-            log.info("Deleting file %s", file)
-            count += 1
-            try:
-                os.unlink(file)
-            except OSError as e:
-                log.error("Failed to delete file %s: Error: %s", file, e)
-
-    except OSError as e:
-        log.error("Failed to delete video %d [%s %s]. Error: %s", video.id, video.video_id, video.name, e)
-
-    video.downloaded_path = None
-    video.save()
-
-    log.info('Deleted video %d successfully! (%d files) [%s %s]', video.id, count, video.video_id, video.name)
+from YtManagerApp.scheduler import Job, scheduler
 
 
-def schedule_delete_video(video: Video):
-    """
-    Schedules a download video job to run immediately.
-    :param video:
-    :return:
-    """
-    job = scheduler.scheduler.add_job(delete_video, args=[video])
-    log.info('Scheduled delete video job video=(%s), job=%s', video, job.id)
+class DeleteVideoJob(Job):
+    name = "DeleteVideoJob"
+
+    def __init__(self, job_execution, video: Video):
+        super().__init__(job_execution)
+        self._video = video
+
+    def get_description(self):
+        return f"Deleting video {self._video}"
+
+    def run(self):
+        count = 0
+
+        try:
+            for file in self._video.get_files():
+                self.log.info("Deleting file %s", file)
+                count += 1
+                try:
+                    os.unlink(file)
+                except OSError as e:
+                    self.log.error("Failed to delete file %s: Error: %s", file, e)
+
+        except OSError as e:
+            self.log.error("Failed to delete video %d [%s %s]. Error: %s", self._video.id,
+                           self._video.video_id, self._video.name, e)
+
+        self._video.downloaded_path = None
+        self._video.save()
+
+        self.log.info('Deleted video %d successfully! (%d files) [%s %s]', self._video.id, count,
+                      self._video.video_id, self._video.name)
+
+    @staticmethod
+    def schedule(video: Video):
+        """
+        Schedules a delete video job to run immediately.
+        :param video:
+        :return:
+        """
+        scheduler.add_job(DeleteVideoJob, args=[video])

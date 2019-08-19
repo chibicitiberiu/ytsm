@@ -161,3 +161,12 @@ $accent-color: #007bff;
 .status-timestamp {
     margin-right: 0.25rem;
 }
+
+.dropdown-jobs {
+    min-width: 25rem;
+
+    .dropdown-item p {
+        margin: 0;
+        line-height: normal;
+    }
+}
