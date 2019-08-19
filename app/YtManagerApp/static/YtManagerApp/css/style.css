@@ -78,30 +78,60 @@
   /* Add a pointer on hover */ }
 
 .video-gallery .card-wrapper {
-  padding: 0.4rem;
+  padding: 1rem;
   margin-bottom: .5rem; }
-.video-gallery .card .card-body {
-  padding: .75rem; }
-.video-gallery .card .card-text {
-  font-size: 10pt;
-  margin-bottom: .5rem; }
-.video-gallery .card .card-title {
-  font-size: 11pt;
-  margin-bottom: .5rem; }
-  .video-gallery .card .card-title .badge {
-    font-size: 8pt; }
-.video-gallery .card .card-footer {
-  padding: .5rem .75rem; }
-.video-gallery .card .card-more {
-  margin-right: -0.25rem; }
-  .video-gallery .card .card-more:hover {
-    text-decoration: none; }
-.video-gallery .card .progress {
-  width: 100px; }
-.video-gallery .video-icon-yes {
-  color: #007bff; }
-.video-gallery .video-icon-no {
-  color: #dddddd; }
+  .video-gallery .card-wrapper:hover {
+    background-color: #fafafa; }
+.video-gallery .card {
+  border: none;
+  background: none; }
+  .video-gallery .card .card-body {
+    margin-top: .5em;
+    padding: 0; }
+  .video-gallery .card .card-text {
+    font-size: 10pt;
+    margin-bottom: .5rem; }
+  .video-gallery .card .card-title {
+    font-size: 11pt;
+    margin-bottom: .5rem;
+    line-height: 1.2rem; }
+    .video-gallery .card .card-title .badge {
+      font-size: 8pt; }
+  .video-gallery .card .card-footer {
+    padding: .5rem .75rem; }
+  .video-gallery .card .card-more {
+    margin-right: -0.25rem;
+    margin-top: -0.27rem; }
+    .video-gallery .card .card-more:hover {
+      text-decoration: none; }
+  .video-gallery .card .progress {
+    width: 100px; }
+
+.video-badges {
+  position: absolute;
+  top: .6em;
+  left: 0;
+  width: 6.2em; }
+  .video-badges .video-badge {
+    width: 100%;
+    margin: 0 0 .6em 0;
+    padding: 0 0 0 .5em;
+    line-height: 1.65em;
+    background-color: #9af;
+    box-shadow: 0.2em 0 0.6em 0 rgba(0, 0, 0, 0.4);
+    border-radius: 0 3px 3px 0;
+    color: white;
+    text-align: center;
+    font-family: Noto Sans, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 8pt;
+    text-transform: uppercase; }
+    .video-badges .video-badge.video-badge-new {
+      background-color: #007bff; }
+    .video-badges .video-badge.video-badge-downloaded {
+      background-color: #59b352; }
+    .video-badges .video-badge.video-badge-watched {
+      background-color: #444; }
 
 .alert-card {
   max-width: 35rem;
@@ -134,5 +164,8 @@
   .dropdown-jobs .dropdown-item p {
     margin: 0;
     line-height: normal; }
+
+img.muted {
+  opacity: .5; }
 
 /*# sourceMappingURL=style.css.map */

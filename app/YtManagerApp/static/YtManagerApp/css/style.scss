@@ -78,12 +78,20 @@ $accent-color: #007bff;
 
 .video-gallery {
     .card-wrapper {
-        padding: 0.4rem;
+        padding: 1rem;
         margin-bottom: .5rem;
+
+        &:hover {
+            background-color: #fafafa;
+        }
     }
     .card {
+        border: none;
+        background: none;
+
         .card-body {
-            padding: .75rem;
+            margin-top: .5em;
+            padding: 0;
         }
         .card-text {
             font-size: 10pt;
@@ -92,6 +100,7 @@ $accent-color: #007bff;
         .card-title {
             font-size: 11pt;
             margin-bottom: .5rem;
+            line-height: 1.2rem;
 
             .badge {
                 font-size: 8pt;
@@ -103,6 +112,7 @@ $accent-color: #007bff;
 
         .card-more {
             margin-right: -0.25rem;
+            margin-top: -0.27rem;
             &:hover {
                 text-decoration: none;
             }
@@ -116,14 +126,43 @@ $accent-color: #007bff;
         }
 
     }
+}
 
-    .video-icon-yes {
-        color: $accent-color;
-    }
-    .video-icon-no {
-        color: #dddddd;
+.video-badges {
+    position: absolute;
+    top: .6em;
+    left: 0;
+    width: 6.2em;
+
+    .video-badge {
+        width: 100%;
+        margin: 0 0 .6em 0;
+        padding: 0 0 0 .5em;
+        line-height: 1.65em;
+
+        background-color: #9af;
+        box-shadow: .2em 0 .6em 0 rgba(0,0,0,0.4);
+        border-radius: 0 3px 3px 0;
+
+        color: white;
+        text-align: center;
+        font-family: Noto Sans, Helvetica, Arial, sans-serif;
+        font-weight: 500;
+        font-size: 8pt;
+        text-transform: uppercase;
+
+        &.video-badge-new {
+            background-color: $accent-color;
+        }
+        &.video-badge-downloaded {
+            background-color: #59b352;
+        }
+        &.video-badge-watched {
+            background-color: #444;
+        }
     }
 }
+
 
 .alert-card {
     max-width: 35rem;
@@ -169,4 +208,8 @@ $accent-color: #007bff;
         margin: 0;
         line-height: normal;
     }
+}
+
+img.muted {
+    opacity: .5;
 }
