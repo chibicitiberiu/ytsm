@@ -57,10 +57,10 @@ individual user.
 4. Obtain an YouTube API developer key from [https://console.developers.google.com/apis/dashboard](https://console.developers.google.com/apis/dashboard).
 You can find a detailed guide on [this page](https://www.slickremix.com/docs/get-api-key-for-youtube/).
 
-    The `defaults.ini` file already has an API key, but if the quotas are reached, you won't be able to use this program 
+    The program already has a default API key, but if the quotas are reached, you won't be able to use this program 
     any more. Also, I might decide to delete that key, which will break your installation.
     
-    After obtaining the key, set it in `config.ini`.
+    You will be prompted for this key during the initial setup.
 
 5. Set up the database:
 
@@ -109,10 +109,10 @@ individual user.
 4. Obtain an YouTube API developer key from [https://console.developers.google.com/apis/dashboard](https://console.developers.google.com/apis/dashboard).
 You can find a detailed guide on [this page](https://www.slickremix.com/docs/get-api-key-for-youtube/).
 
-    The `defaults.ini` file already has an API key, but if the quotas are reached, you won't be able to use this program 
+    The program already has a default API key, but if the quotas are reached, you won't be able to use this program 
     any more. Also, I might decide to delete that key, which will break your installation.
     
-    After obtaining the key, set it in `config.ini`.
+    You will be prompted for this key during the initial setup.
 
 5. Build and run docker compose image:
 
