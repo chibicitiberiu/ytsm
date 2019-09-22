@@ -195,6 +195,7 @@ function ajaxLink_Clicked() {
             csrfmiddlewaretoken: '{{ csrf_token }}'
         });
     }
+    return false;
 }
 
 ///
