@@ -13,3 +13,4 @@ oauth2client
 psycopg2-binary
 python-dateutil
 Pillow
+dj_database_url
