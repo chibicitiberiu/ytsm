@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='video',
             name='uploader_name',
-            field=models.TextField(default=None),
+            field=models.CharField(default=None, max_length=255),
             preserve_default=False,
         ),
         migrations.AddField(

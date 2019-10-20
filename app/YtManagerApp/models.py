@@ -164,7 +164,7 @@ class Subscription(models.Model):
 
 
 class Video(models.Model):
-    video_id = models.TextField(null=False)
+    video_id = models.CharField(null=False, max_length=12)
     name = models.TextField(null=False)
     description = models.TextField()
     watched = models.BooleanField(default=False, null=False)
@@ -174,7 +174,7 @@ class Video(models.Model):
     playlist_index = models.IntegerField(null=False)
     publish_date = models.DateTimeField(null=False)
     thumbnail = models.TextField()
-    uploader_name = models.TextField(null=False)
+    uploader_name = models.CharField(null=False, max_length=255)
     views = models.IntegerField(null=False, default=0)
     rating = models.FloatField(null=False, default=0.5)
 
