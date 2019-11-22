@@ -72,7 +72,10 @@ class SynchronizeJob(Job):
 
                 if _ENABLE_UPDATE_STATS:
                     batch_ids = [video.video_id for video in batch]
-                    video_stats = {v.id: v for v in self.__api.videos(batch_ids, part='id,statistics')}
+                    video_stats = {v.id: v for v in self.__api.videos(batch_ids, part='id,statistics,contentDetails')}
+                else:
+                    batch_ids = [video.video_id for video in filter(lambda video: video.duration == 0, batch)]
+                    video_stats = {v.id: v for v in self.__api.videos(batch_ids, part='id,statistics,contentDetails')}
 
                 for video in batch:
                     self.progress_advance(1, "Updating video " + video.name)
@@ -163,6 +166,7 @@ class SynchronizeJob(Job):
             video.rating = yt_video.n_likes / (yt_video.n_likes + yt_video.n_dislikes)
 
         video.views = yt_video.n_views
+        video.duration = yt_video.duration.total_seconds()
         video.save()
 
     @staticmethod

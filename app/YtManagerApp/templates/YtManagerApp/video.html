@@ -3,31 +3,102 @@
 {% load humanize %}
 {% load ratings %}
 
+{% block scripts %}
+    <script>
+        function setWatchedStatus(state) {
+            $("#watchButton")[0].innerHTML="<span class='typcn typcn-arrow-sync'></span>";
+            if(state) {
+                $.post("{% url 'ajax_action_mark_video_watched' object.id %}", {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }, function() {
+                    $("#watchButton")[0].innerHTML="<span class='typcn typcn-eye' style='color:lightgreen;'></span>";
+                    $("#watchButton").attr("title", "Mark as not watched");
+                    $("#watchButton").attr("onclick","setWatchedStatus(0)");
+
+                    var urlParams = new URLSearchParams(window.location.search);
+                    if(urlParams.has("next")) {
+                        var videos = urlParams.get("next");
+                        if(videos == "") {return;}
+                        videos = videos.split(",");
+                        var next = videos.shift();
+
+                        //TODO: Don't really like the URL construction here
+                        window.location.href = "{% url 'video' 0 %}".replace("0", next)+"?next="+videos.join(",");
+                    }
+                });
+            } else {
+                $.post("{% url 'ajax_action_mark_video_unwatched' object.id %}", {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }, function() {
+                    $("#watchButton")[0].innerHTML="<span class='typcn typcn-eye-outline'></span>";
+                    $("#watchButton").attr("title", "Mark as watched");
+                    $("#watchButton").attr("onclick","setWatchedStatus(0)");
+                });
+            }
+        }
+    </script>
+
+    {% if video_mime is None %}
+        <script>
+            var player;
+
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('ytplayer', {
+                    height: '100%',
+                    width: '100%',
+                    videoId: '{{ object.video_id }}',
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            }
+
+            function onPlayerReady(event) {
+                event.target.playVideo();
+            }
+
+            function onPlayerStateChange(event) {
+                console.log("State change: ", event);
+                if (event.data == YT.PlayerState.ENDED) {
+                    console.log("Video finished!");
+                    setWatchedStatus(1);
+                }
+            }
+        </script>
+
+        <script src="//www.youtube.com/iframe_api"></script>
+    {% endif %}
+{% endblock scripts%}
+
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-10">
+            <div class="col-9">
                 <h2>{{ object.name }}</h2>
             </div>
-            <div class="col-2">
-                <a class="btn btn-secondary" href="https://youtube.com/watch?v={{ object.video_id }}" title="Watch on YouTube"><span class="typcn typcn-social-youtube"></span></a>
+            <div class="col-3">
+                <a class="btn btn-secondary" data-toggle="tooltip" href="https://youtube.com/watch?v={{ object.video_id }}" title="Watch on YouTube"><span class="typcn typcn-social-youtube"></span></a>
                 {% if object.watched %}
-                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_unwatched' object.id %}" title="Mark not watched">
+                    <a id="watchButton" class="btn btn-secondary" onclick="setWatchedStatus(0)" title="Mark not watched" data-toggle="tooltip" href="#">
                         <span class="typcn typcn-eye" style="color:lightgreen;"></span>
                     </a>
                 {% else %}
-                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_mark_video_watched' object.id %}" title="Mark watched">
+                    <a id="watchButton" class="btn btn-secondary" onclick="setWatchedStatus(1)" title="Mark watched" data-toggle="tooltip" href="#">
                         <span class="typcn typcn-eye-outline"></span>
                     </a>
                 {% endif %}
                 {% if object.downloaded_path %}
-                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_delete_video_files' object.id %}" title="Delete downloaded">
+                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_delete_video_files' object.id %}" title="Delete downloaded" data-toggle="tooltip">
                         <span class="typcn typcn-download" style="color:lightgreen;"></span>
                     </a>
                 {% else %}
-                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_download_video_files' object.id %}" title="Download">
+                    <a class="btn btn-secondary ajax-link" href="#" data-post-url="{% url 'ajax_action_download_video_files' object.id %}" title="Download" data-toggle="tooltip">
                         <span class="typcn typcn-download-outline"></span>
                     </a>
+                {% endif %}
+                {% if up_next_count %}
+                    <span class="btn btn-secondary ajax-link">{{ up_next_count }}, {{ up_next_duration }}</span>
                 {% endif %}
             </div>
         </div>
@@ -38,9 +109,37 @@
                         <source src="{% url 'video-src' object.id %}" type="{{ video_mime }}">
                     </video>
                 {% else %}
-                    <iframe id="ytplayer" type="text/html" width="100%" height="600"
-                          src="https://www.youtube-nocookie.com/embed/{{ object.video_id }}?autoplay=1"
-                          frameborder="0"></iframe>
+                    <div id="ytplayer" style="width: 100%; height: 80vh;"></div>
+
+                    <script>
+                        var player;
+
+                        function onYouTubeIframeAPIReady() {
+                            player = new YT.Player('ytplayer', {
+                                height: '600',
+                                width: '100%',
+                                videoId: '{{ object.video_id }}',
+                                events: {
+                                    'onReady': onPlayerReady,
+                                    'onStateChange': onPlayerStateChange
+                                }
+                            });
+                        }
+
+                        function onPlayerReady(event) {
+                            event.target.playVideo();
+                        }
+
+                        function onPlayerStateChange(event) {
+                            console.log("State change: ", event);
+                            if (event.data == YT.PlayerState.PLAYING && !done) {
+                                setTimeout(stopVideo, 6000);
+                                done = true;
+                            }
+                        }
+
+                        // {% url 'ajax_action_mark_video_unwatched' object.id %}
+                    </script>
                 {% endif %}
             </div>
         </div>

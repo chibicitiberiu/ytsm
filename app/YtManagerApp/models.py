@@ -177,6 +177,7 @@ class Video(models.Model):
     uploader_name = models.CharField(null=False, max_length=255)
     views = models.IntegerField(null=False, default=0)
     rating = models.FloatField(null=False, default=0.5)
+    duration = models.IntegerField(null=False, default=0)
 
     @staticmethod
     def create(playlist_item: youtube.PlaylistItem, subscription: Subscription):
