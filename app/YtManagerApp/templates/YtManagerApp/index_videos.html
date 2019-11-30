@@ -1,6 +1,12 @@
 {% load humanize %}
 {% load ratings %}
 
+{% if videos %}
+<div class="row">
+	<a class="btn" href="{% url 'video' videos.0.id %}?next={% for video in videos|slice:"1:" %}{{video.id}}{% if not forloop.last %},{% endif %}{% endfor %}">Watch All</a>
+</div>
+{% endif %}
+
 <div class="video-gallery container-fluid">
     <div class="row">
         {% for video in videos %}
