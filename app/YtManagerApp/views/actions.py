@@ -3,12 +3,15 @@ from django.http import JsonResponse
 from django.views.generic import View
 
 from YtManagerApp.management.jobs.synchronize import SynchronizeJob
-from YtManagerApp.models import Video
+from YtManagerApp.models import Video, Subscription
 
 
 class SyncNowView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
-        SynchronizeJob.schedule_now()
+        if 'pk' in kwargs:
+            SynchronizeJob.schedule_now_for_subscription(Subscription.objects.get(id=kwargs['pk']))
+        else:
+            SynchronizeJob.schedule_now()
         return JsonResponse({
             'success': True
         })

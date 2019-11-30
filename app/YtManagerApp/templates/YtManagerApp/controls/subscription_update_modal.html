@@ -18,4 +18,17 @@
 {% block modal_footer %}
     <input class="btn btn-primary" type="submit" value="Save" aria-label="Save">
     <input class="btn btn-secondary" type="button" value="Cancel" data-dismiss="modal" aria-label="Cancel">
+    <input class="btn btn-secondary" type="button" value="Synchronize Now" aria-label="Synchronize Now" onclick="synchronizeChannelNow()">
 {% endblock modal_footer %}
+
+{% block modal_scripts %}
+<script>
+    function synchronizeChannelNow() {
+        $.post("{% url 'ajax_action_sync_now' form.instance.pk %}", {
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        }, function() {
+        });
+    }
+</script>
+{% endblock %}
+

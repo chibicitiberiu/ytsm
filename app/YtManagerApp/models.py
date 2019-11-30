@@ -163,6 +163,10 @@ class Subscription(models.Model):
     def delete_subscription(self, keep_downloaded_videos: bool):
         self.delete()
 
+    def synchronize_now(self):
+        from YtManagerApp.management.jobs.synchronize import SynchronizeJob
+        SynchronizeJob.schedule_now_for_subscription(self)
+
 
 class Video(models.Model):
     video_id = models.CharField(null=False, max_length=12)
