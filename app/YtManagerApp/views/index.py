@@ -335,7 +335,7 @@ class UpdateSubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['name', 'parent_folder', 'auto_download',
-                  'download_limit', 'download_order', "automatically_delete_watched"]
+                  'download_limit', 'download_order', "automatically_delete_watched", 'last_synchronised']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -349,7 +349,8 @@ class UpdateSubscriptionForm(forms.ModelForm):
             'auto_download',
             'download_limit',
             'download_order',
-            'automatically_delete_watched'
+            'automatically_delete_watched',
+            Field('last_synchronised', readonly=True)
         )
 
 

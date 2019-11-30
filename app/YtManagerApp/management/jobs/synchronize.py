@@ -1,10 +1,12 @@
 import errno
 import itertools
+import datetime
 from threading import Lock
 
 from apscheduler.triggers.cron import CronTrigger
-from django.db.models import Max
+from django.db.models import Max, F
 from django.conf import settings
+
 
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_subscription
@@ -36,7 +38,7 @@ class SynchronizeJob(Job):
     def get_subscription_list(self):
         if self.__subscription is not None:
             return [self.__subscription]
-        return Subscription.objects.all()
+        return Subscription.objects.all().order_by(F('last_synchronised').desc(nulls_first=True))
 
     def get_videos_list(self, subs):
         return Video.objects.filter(subscription__in=subs)
@@ -110,6 +112,8 @@ class SynchronizeJob(Job):
                     item.position = 1 + (highest or -1)
 
                 self.__new_vids.append(Video.create(item, sub))
+        sub.last_synchronised = datetime.datetime.now()
+        sub.save()
 
     def fetch_missing_thumbnails(self, obj: Union[Subscription, Video]):
         if obj.thumbnail.startswith("http"):
