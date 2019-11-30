@@ -119,7 +119,7 @@ class SynchronizeJob(Job):
                 video = Video()
                 video.video_id = video_id
                 video.name = video_title
-                video.description = entry.find("{http://search.yahoo.com/mrss/}group").find("{http://search.yahoo.com/mrss/}description").text
+                video.description = entry.find("{http://search.yahoo.com/mrss/}group").find("{http://search.yahoo.com/mrss/}description").text or ""
                 video.watched = False
                 video.new = True
                 video.downloaded_path = None
