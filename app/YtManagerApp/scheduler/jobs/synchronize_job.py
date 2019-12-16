@@ -6,10 +6,10 @@ from apscheduler.triggers.cron import CronTrigger
 from django.db.models import Max
 from django.conf import settings
 
-from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_subscription
 from YtManagerApp.models import *
-from YtManagerApp.scheduler import scheduler, Job
+from YtManagerApp.scheduler.job import Job
+from YtManagerApp.services import Services
 from YtManagerApp.utils import youtube
 from external.pytaw.pytaw.utils import iterate_chunks
 
@@ -81,7 +81,6 @@ class SynchronizeJob(Job):
 
                     if video.video_id in video_stats:
                         self.update_video_stats(video, video_stats[video.video_id])
-
 
             # Start downloading videos
             for sub in work_subs:
@@ -167,19 +166,19 @@ class SynchronizeJob(Job):
 
     @staticmethod
     def schedule_global_job():
-        trigger = CronTrigger.from_crontab(appconfig.sync_schedule)
+        trigger = CronTrigger.from_crontab(Services.appConfig.sync_schedule)
 
         if SynchronizeJob.__global_sync_job is None:
-            trigger = CronTrigger.from_crontab(appconfig.sync_schedule)
-            SynchronizeJob.__global_sync_job = scheduler.add_job(SynchronizeJob, trigger, max_instances=1, coalesce=True)
+            trigger = CronTrigger.from_crontab(Services.appConfig.sync_schedule)
+            SynchronizeJob.__global_sync_job = Services.scheduler.add_job(SynchronizeJob, trigger, max_instances=1, coalesce=True)
 
         else:
             SynchronizeJob.__global_sync_job.reschedule(trigger, max_instances=1, coalesce=True)
 
     @staticmethod
     def schedule_now():
-        scheduler.add_job(SynchronizeJob, max_instances=1, coalesce=True)
+        Services.scheduler.add_job(SynchronizeJob, max_instances=1, coalesce=True)
 
     @staticmethod
     def schedule_now_for_subscription(subscription):
-        scheduler.add_job(SynchronizeJob, user=subscription.user, args=[subscription])
+        Services.scheduler.add_job(SynchronizeJob, user=subscription.user, args=[subscription])

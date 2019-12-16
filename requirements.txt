@@ -13,3 +13,4 @@ oauth2client
 psycopg2-binary
 python-dateutil
 Pillow
+dependency-injector

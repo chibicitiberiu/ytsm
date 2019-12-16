@@ -199,17 +199,17 @@ class Video(models.Model):
         self.save()
         if self.downloaded_path is not None:
             from YtManagerApp.management.appconfig import appconfig
-            from YtManagerApp.management.jobs.delete_video import DeleteVideoJob
-            from YtManagerApp.management.jobs.synchronize import SynchronizeJob
+            from YtManagerApp.scheduler.jobs import DeleteVideoJob
+            from YtManagerApp.scheduler.jobs import SynchronizeJob
 
             if appconfig.for_sub(self.subscription, 'automatically_delete_watched'):
                 DeleteVideoJob.schedule(self)
                 SynchronizeJob.schedule_now_for_subscription(self.subscription)
 
     def mark_unwatched(self):
-        from YtManagerApp.management.jobs.synchronize import SynchronizeJob
         self.watched = False
         self.save()
+        from YtManagerApp.scheduler.jobs.synchronize_job import SynchronizeJob
         SynchronizeJob.schedule_now_for_subscription(self.subscription)
 
     def get_files(self):
@@ -234,9 +234,9 @@ class Video(models.Model):
 
     def delete_files(self):
         if self.downloaded_path is not None:
-            from YtManagerApp.management.jobs.delete_video import DeleteVideoJob
+            from YtManagerApp.scheduler.jobs import DeleteVideoJob
             from YtManagerApp.management.appconfig import appconfig
-            from YtManagerApp.management.jobs.synchronize import SynchronizeJob
+            from YtManagerApp.scheduler.jobs import SynchronizeJob
 
             DeleteVideoJob.schedule(self)
 
@@ -247,7 +247,7 @@ class Video(models.Model):
 
     def download(self):
         if not self.downloaded_path:
-            from YtManagerApp.management.jobs.download_video import DownloadVideoJob
+            from YtManagerApp.scheduler.jobs.download_video_job import DownloadVideoJob
             DownloadVideoJob.schedule(self)
 
     def __str__(self):

@@ -6,7 +6,7 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import FormView, TemplateView
 
-from YtManagerApp.management.appconfig import appconfig
+from YtManagerApp.services import Services
 from YtManagerApp.views.forms.auth import ExtendedAuthenticationForm, ExtendedUserCreationForm
 
 
@@ -36,7 +36,7 @@ class RegisterView(FormView):
         return context
 
     def post(self, request, *args, **kwargs):
-        if not appconfig.allow_registrations:
+        if not Services.appConfig.allow_registrations:
             return HttpResponseForbidden("Registrations are disabled!")
 
         return super().post(request, *args, **kwargs)

@@ -3,7 +3,7 @@ from django.http import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
-from YtManagerApp.management.jobs.synchronize import SynchronizeJob
+from YtManagerApp.scheduler.jobs.synchronize_job import SynchronizeJob
 from YtManagerApp.views.forms.settings import SettingsForm, AdminSettingsForm
 
 

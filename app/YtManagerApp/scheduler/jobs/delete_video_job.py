@@ -1,7 +1,7 @@
 import os
 
 from YtManagerApp.models import Video
-from YtManagerApp.scheduler import Job, scheduler
+from YtManagerApp.scheduler.job import Job
 
 
 class DeleteVideoJob(Job):
@@ -43,4 +43,5 @@ class DeleteVideoJob(Job):
         :param video:
         :return:
         """
-        scheduler.add_job(DeleteVideoJob, args=[video])
+        from YtManagerApp.services import Services
+        Services.scheduler.add_job(DeleteVideoJob, args=[video])

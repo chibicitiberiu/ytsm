@@ -11,8 +11,8 @@ from django.views.generic.edit import FormMixin
 from django.conf import settings
 from django.core.paginator import Paginator
 from YtManagerApp.management.videos import get_videos
-from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
+from YtManagerApp.services import Services
 from YtManagerApp.utils import youtube, subscription_file_parser
 from YtManagerApp.views.controls.modal import ModalMixin
 
@@ -111,7 +111,7 @@ def __tree_sub_id(sub_id):
 
 def index(request: HttpRequest):
 
-    if not appconfig.initialized:
+    if not Services.appConfig.initialized:
         return redirect('first_time_0')
 
     context = {

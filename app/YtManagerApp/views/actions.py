@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.views.generic import View
 
-from YtManagerApp.management.jobs.synchronize import SynchronizeJob
 from YtManagerApp.models import Video
+from YtManagerApp.scheduler.jobs.synchronize_job import SynchronizeJob
 
 
 class SyncNowView(LoginRequiredMixin, View):

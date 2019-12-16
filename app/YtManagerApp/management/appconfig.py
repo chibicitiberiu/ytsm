@@ -1,4 +1,3 @@
-from dynamic_preferences.registries import global_preferences_registry
 from YtManagerApp.dynamic_preferences_registry import Initialized, YouTubeAPIKey, AllowRegistrations, SyncSchedule, SchedulerConcurrency
 
 
@@ -35,7 +34,3 @@ class AppConfig(object):
             value = subscription.user.preferences[pref]
 
         return value
-
-
-global_prefs = global_preferences_registry.manager()
-appconfig = AppConfig(global_prefs)

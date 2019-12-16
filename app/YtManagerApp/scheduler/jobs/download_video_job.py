@@ -6,7 +6,7 @@ from threading import Lock
 import youtube_dl
 
 from YtManagerApp.models import Video
-from YtManagerApp.scheduler import Job, scheduler
+from YtManagerApp.scheduler.job import Job
 
 
 class DownloadVideoJob(Job):
@@ -15,14 +15,14 @@ class DownloadVideoJob(Job):
 
     def __init__(self, job_execution, video: Video, attempt: int = 1):
         super().__init__(job_execution)
-        self.__video = video
-        self.__attempt = attempt
-        self.__log_youtube_dl = self.log.getChild('youtube_dl')
+        self._video = video
+        self._attempt = attempt
+        self._log_youtube_dl = self.log.getChild('youtube_dl')
 
     def get_description(self):
-        ret = "Downloading video " + self.__video.name
-        if self.__attempt > 1:
-            ret += f" (attempt {self.__attempt})"
+        ret = "Downloading video " + self._video.name
+        if self._attempt > 1:
+            ret += f" (attempt {self._attempt})"
         return ret
 
     def run(self):
@@ -32,29 +32,30 @@ class DownloadVideoJob(Job):
         self.__lock.acquire()
 
         try:
-            user = self.__video.subscription.user
+            user = self._video.subscription.user
             max_attempts = user.preferences['max_download_attempts']
 
-            youtube_dl_params, output_path = self.__build_youtube_dl_params(self.__video)
+            youtube_dl_params, output_path = self.__build_youtube_dl_params(self._video)
             with youtube_dl.YoutubeDL(youtube_dl_params) as yt:
-                ret = yt.download(["https://www.youtube.com/watch?v=" + self.__video.video_id])
+                ret = yt.download(["https://www.youtube.com/watch?v=" + self._video.video_id])
 
             self.log.info('Download finished with code %d', ret)
 
             if ret == 0:
-                self.__video.downloaded_path = output_path
-                self.__video.save()
-                self.log.info('Video %d [%s %s] downloaded successfully!', self.__video.id, self.__video.video_id, self.__video.name)
+                self._video.downloaded_path = output_path
+                self._video.save()
+                self.log.info('Video %d [%s %s] downloaded successfully!', self._video.id, self._video.video_id,
+                              self._video.name)
 
-            elif self.__attempt <= max_attempts:
-                self.log.warning('Re-enqueueing video (attempt %d/%d)', self.__attempt, max_attempts)
-                DownloadVideoJob.schedule(self.__video, self.__attempt + 1)
+            elif self._attempt <= max_attempts:
+                self.log.warning('Re-enqueueing video (attempt %d/%d)', self._attempt, max_attempts)
+                DownloadVideoJob.schedule(self._video, self._attempt + 1)
 
             else:
-                self.log.error('Multiple attempts to download video %d [%s %s] failed!', self.__video.id, self.__video.video_id,
-                          self.__video.name)
-                self.__video.downloaded_path = ''
-                self.__video.save()
+                self.log.error('Multiple attempts to download video %d [%s %s] failed!', self._video.id,
+                               self._video.video_id, self._video.name)
+                self._video.downloaded_path = ''
+                self._video.save()
 
         finally:
             self.__lock.release()
@@ -74,7 +75,7 @@ class DownloadVideoJob(Job):
         output_path = os.path.normpath(output_path)
 
         youtube_dl_params = {
-            'logger': self.__log_youtube_dl,
+            'logger': self._log_youtube_dl,
             'format': user.preferences['download_format'],
             'outtmpl': output_path,
             'writethumbnail': True,
@@ -131,4 +132,5 @@ class DownloadVideoJob(Job):
         :param attempt:
         :return:
         """
-        scheduler.add_job(DownloadVideoJob, args=[video, attempt])
+        from YtManagerApp.services import Services
+        Services.scheduler.add_job(DownloadVideoJob, args=[video, attempt])
