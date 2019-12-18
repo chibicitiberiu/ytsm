@@ -1,7 +1,7 @@
 import os
 
 from YtManagerApp.models import Video
-from YtManagerApp.scheduler.job import Job
+from YtManagerApp.services.scheduler.job import Job
 
 
 class DeleteVideoJob(Job):
@@ -28,13 +28,13 @@ class DeleteVideoJob(Job):
 
         except OSError as e:
             self.log.error("Failed to delete video %d [%s %s]. Error: %s", self._video.id,
-                           self._video.video_id, self._video.name, e)
+                           self._video.provider_id, self._video.name, e)
 
         self._video.downloaded_path = None
         self._video.save()
 
         self.log.info('Deleted video %d successfully! (%d files) [%s %s]', self._video.id, count,
-                      self._video.video_id, self._video.name)
+                      self._video.provider_id, self._video.name)
 
     @staticmethod
     def schedule(video: Video):
@@ -44,4 +44,4 @@ class DeleteVideoJob(Job):
         :return:
         """
         from YtManagerApp.services import Services
-        Services.scheduler.add_job(DeleteVideoJob, args=[video])
+        Services.scheduler().add_job(DeleteVideoJob, args=[video])

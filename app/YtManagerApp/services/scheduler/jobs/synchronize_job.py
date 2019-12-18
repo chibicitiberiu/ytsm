@@ -6,11 +6,10 @@ from apscheduler.triggers.cron import CronTrigger
 from django.db.models import Max
 from django.conf import settings
 
-from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_subscription
+from YtManagerApp.services.downloader import fetch_thumbnail, downloader_process_subscription
 from YtManagerApp.models import *
-from YtManagerApp.scheduler.job import Job
+from YtManagerApp.services.scheduler.job import Job
 from YtManagerApp.services import Services
-from YtManagerApp.utils import youtube
 from external.pytaw.pytaw.utils import iterate_chunks
 
 _ENABLE_UPDATE_STATS = True
@@ -115,7 +114,7 @@ class SynchronizeJob(Job):
             if isinstance(obj, Subscription):
                 obj.thumbnail = fetch_thumbnail(obj.thumbnail, 'sub', obj.playlist_id, settings.THUMBNAIL_SIZE_SUBSCRIPTION)
             elif isinstance(obj, Video):
-                obj.thumbnail = fetch_thumbnail(obj.thumbnail, 'video', obj.video_id, settings.THUMBNAIL_SIZE_VIDEO)
+                obj.thumbnail = fetch_thumbnail(obj.thumbnail, 'video', obj.provider_id, settings.THUMBNAIL_SIZE_VIDEO)
             obj.save()
 
     def check_video_deleted(self, video: Video):
@@ -138,7 +137,7 @@ class SynchronizeJob(Job):
 
             # Video not found, we can safely assume that the video was deleted.
             if not found_video:
-                self.log.info("Video %d was deleted! [%s %s]", video.id, video.video_id, video.name)
+                self.log.info("Video %d was deleted! [%s %s]", video.id, video.provider_id, video.name)
                 # Clean up
                 for file in files:
                     try:
@@ -166,11 +165,11 @@ class SynchronizeJob(Job):
 
     @staticmethod
     def schedule_global_job():
-        trigger = CronTrigger.from_crontab(Services.appConfig.sync_schedule)
+        trigger = CronTrigger.from_crontab(Services.appConfig().sync_schedule)
 
         if SynchronizeJob.__global_sync_job is None:
-            trigger = CronTrigger.from_crontab(Services.appConfig.sync_schedule)
-            SynchronizeJob.__global_sync_job = Services.scheduler.add_job(SynchronizeJob, trigger, max_instances=1, coalesce=True)
+            trigger = CronTrigger.from_crontab(Services.appConfig().sync_schedule)
+            SynchronizeJob.__global_sync_job = Services.scheduler().add_job(SynchronizeJob, trigger, max_instances=1, coalesce=True)
 
         else:
             SynchronizeJob.__global_sync_job.reschedule(trigger, max_instances=1, coalesce=True)
