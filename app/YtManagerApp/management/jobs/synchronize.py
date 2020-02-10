@@ -3,10 +3,11 @@ import itertools
 import datetime
 from threading import Lock
 
+import requests
+from xml.etree import ElementTree
 from apscheduler.triggers.cron import CronTrigger
 from django.db.models import Max, F
 from django.conf import settings
-
 
 from YtManagerApp.management.appconfig import appconfig
 from YtManagerApp.management.downloader import fetch_thumbnail, downloader_process_subscription
@@ -28,7 +29,7 @@ class SynchronizeJob(Job):
         super().__init__(job_execution)
         self.__subscription = subscription
         self.__api = youtube.YoutubeAPI.build_public()
-        self.__new_vids = []
+        self.__new_videos = []
 
     def get_description(self):
         if self.__subscription is not None:
@@ -40,9 +41,6 @@ class SynchronizeJob(Job):
             return [self.__subscription]
         return Subscription.objects.all().order_by(F('last_synchronised').desc(nulls_first=True))
 
-    def get_videos_list(self, subs):
-        return Video.objects.filter(subscription__in=subs)
-
     def run(self):
         self.__lock.acquire(blocking=True)
         SynchronizeJob.running = True
@@ -51,27 +49,25 @@ class SynchronizeJob(Job):
 
             # Build list of work items
             work_subs = self.get_subscription_list()
-            work_vids = self.get_videos_list(work_subs)
+            work_videos = Video.objects.filter(subscription__in=work_subs)
 
-            self.set_total_steps(len(work_subs) + len(work_vids))
+            self.set_total_steps(len(work_subs) + len(work_videos))
 
             # Remove the 'new' flag
-            work_vids.update(new=False)
+            work_videos.update(new=False)
 
             # Process subscriptions
             for sub in work_subs:
-                self.progress_advance(1, "Synchronizing subscription " + sub.name)
+                self.progress_advance(progress_msg="Synchronizing subscription " + sub.name)
                 self.check_new_videos(sub)
                 self.fetch_missing_thumbnails(sub)
 
             # Add new videos to progress calculation
-            self.set_total_steps(len(work_subs) + len(work_vids) + len(self.__new_vids))
+            self.set_total_steps(len(work_subs) + len(work_videos) + len(self.__new_videos))
 
             # Process videos
-            all_videos = itertools.chain(work_vids, self.__new_vids)
+            all_videos = itertools.chain(work_videos, self.__new_videos)
             for batch in iterate_chunks(all_videos, 50):
-                video_stats = {}
-
                 if _ENABLE_UPDATE_STATS:
                     batch_ids = [video.video_id for video in batch]
                     video_stats = {v.id: v for v in self.__api.videos(batch_ids, part='id,statistics,contentDetails')}
@@ -80,13 +76,12 @@ class SynchronizeJob(Job):
                     video_stats = {v.id: v for v in self.__api.videos(batch_ids, part='id,statistics,contentDetails')}
 
                 for video in batch:
-                    self.progress_advance(1, "Updating video " + video.name)
+                    self.progress_advance(progress_msg="Updating video " + video.name)
                     self.check_video_deleted(video)
                     self.fetch_missing_thumbnails(video)
 
                     if video.video_id in video_stats:
                         self.update_video_stats(video, video_stats[video.video_id])
-
 
             # Start downloading videos
             for sub in work_subs:
@@ -97,6 +92,51 @@ class SynchronizeJob(Job):
             self.__lock.release()
 
     def check_new_videos(self, sub: Subscription):
+        if sub.last_synchronised is None:
+            self.check_all_videos(sub)
+        else:
+            self.check_rss_videos(sub)
+        sub.last_synchronised = datetime.datetime.now()
+        sub.save()
+
+    def check_rss_videos(self, sub: Subscription):
+        found_existing_video = False
+
+        rss_request = requests.get("https://www.youtube.com/feeds/videos.xml?channel_id="+sub.channel_id)
+        rss_request.raise_for_status()
+
+        rss = ElementTree.fromstring(rss_request.content)
+        for entry in rss.findall("{http://www.w3.org/2005/Atom}entry"):
+            video_id = entry.find("{http://www.youtube.com/xml/schemas/2015}videoId").text
+            results = Video.objects.filter(video_id=video_id, subscription=sub)
+            if results.exists():
+                found_existing_video = True
+            else:
+                video_title = entry.find("{http://www.w3.org/2005/Atom}title").text
+
+                self.log.info('New video for subscription %s: %s %s"', sub, video_id, video_title)
+
+                video = Video()
+                video.video_id = video_id
+                video.name = video_title
+                video.description = entry.find("{http://search.yahoo.com/mrss/}group").find("{http://search.yahoo.com/mrss/}description").text or ""
+                video.watched = False
+                video.new = True
+                video.downloaded_path = None
+                video.subscription = sub
+                video.playlist_index = 0
+                video.publish_date = datetime.datetime.fromisoformat(entry.find("{http://www.w3.org/2005/Atom}published").text)
+                video.thumbnail = entry.find("{http://search.yahoo.com/mrss/}group").find("{http://search.yahoo.com/mrss/}thumbnail").get("url")
+                video.rating = entry.find("{http://search.yahoo.com/mrss/}group").find("{http://search.yahoo.com/mrss/}community").find("{http://search.yahoo.com/mrss/}starRating").get("average")
+                video.views = entry.find("{http://search.yahoo.com/mrss/}group").find("{http://search.yahoo.com/mrss/}community").find("{http://search.yahoo.com/mrss/}statistics").get("views")
+                video.save()
+
+                self.__new_videos.append(video)
+
+        if not found_existing_video:
+            self.check_all_videos(sub)
+
+    def check_all_videos(self, sub: Subscription):
         playlist_items = self.__api.playlist_items(sub.playlist_id)
         if sub.rewrite_playlist_indices:
             playlist_items = sorted(playlist_items, key=lambda x: x.published_at)
@@ -114,11 +154,10 @@ class SynchronizeJob(Job):
                     highest = Video.objects.filter(subscription=sub).aggregate(Max('playlist_index'))['playlist_index__max']
                     item.position = 1 + (highest or -1)
 
-                self.__new_vids.append(Video.create(item, sub))
-        sub.last_synchronised = datetime.datetime.now()
-        sub.save()
+                self.__new_videos.append(Video.create(item, sub))
 
-    def fetch_missing_thumbnails(self, obj: Union[Subscription, Video]):
+    @staticmethod
+    def fetch_missing_thumbnails(obj: Union[Subscription, Video]):
         if obj.thumbnail.startswith("http"):
             if isinstance(obj, Subscription):
                 obj.thumbnail = fetch_thumbnail(obj.thumbnail, 'sub', obj.playlist_id, settings.THUMBNAIL_SIZE_SUBSCRIPTION)
@@ -163,7 +202,8 @@ class SynchronizeJob(Job):
 
                 video.save()
 
-    def update_video_stats(self, video: Video, yt_video):
+    @staticmethod
+    def update_video_stats(video: Video, yt_video):
         if yt_video.n_likes is not None \
                 and yt_video.n_dislikes is not None \
                 and yt_video.n_likes + yt_video.n_dislikes > 0:
