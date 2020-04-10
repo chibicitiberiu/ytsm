@@ -55,3 +55,22 @@ def bisect_left(a, x, lo=0, hi=None, key=None):
 
 # Create aliases
 bisect = bisect_right
+
+
+def group_by(data, key):
+    """
+    Groups the given data into a dictionary matching the structure { key : [values] }
+    :param data: Iterable data to be grouped
+    :param key: Key used to group the data
+    :return: A dictionary containing the grouped data
+    """
+    result = {}
+    for entry in data:
+        entry_key = key(entry)
+        if entry_key not in result:
+            result[entry_key] = [entry]
+        else:
+            result[entry_key].append(entry)
+
+    return result
+

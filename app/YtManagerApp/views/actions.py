@@ -3,12 +3,12 @@ from django.http import JsonResponse
 from django.views.generic import View
 
 from YtManagerApp.models import Video
-from YtManagerApp.scheduler.jobs.synchronize_job import SynchronizeJob
+from YtManagerApp.services import Services
 
 
 class SyncNowView(LoginRequiredMixin, View):
     def post(self, *args, **kwargs):
-        SynchronizeJob.schedule_now()
+        Services.subscriptionManager().synchronize_all()
         return JsonResponse({
             'success': True
         })

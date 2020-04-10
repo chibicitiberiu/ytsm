@@ -1,22 +1,21 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, HTML
 from django import forms
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, FormView
 from django.views.generic.edit import FormMixin
-from django.conf import settings
-from django.core.paginator import Paginator
-from YtManagerApp.management.videos import get_videos
-from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
-from YtManagerApp.services import Services
-from YtManagerApp.utils import youtube, subscription_file_parser
-from YtManagerApp.views.controls.modal import ModalMixin
 
-import logging
+from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
+from YtManagerApp.providers.video_provider import InvalidURLError
+from YtManagerApp.services import Services
+from YtManagerApp.utils import subscription_file_parser
+from YtManagerApp.views.controls.modal import ModalMixin
 
 
 class VideoFilterForm(forms.Form):
@@ -110,8 +109,7 @@ def __tree_sub_id(sub_id):
 
 
 def index(request: HttpRequest):
-
-    if not Services.appConfig.initialized:
+    if not Services.appConfig().initialized:
         return redirect('first_time_0')
 
     context = {
@@ -129,7 +127,6 @@ def index(request: HttpRequest):
 
 @login_required
 def ajax_get_tree(request: HttpRequest):
-
     def visit(node):
         if isinstance(node, SubscriptionFolder):
             return {
@@ -157,7 +154,7 @@ def ajax_get_videos(request: HttpRequest):
     if request.method == 'POST':
         form = VideoFilterForm(request.POST)
         if form.is_valid():
-            videos = get_videos(
+            videos = Services.videoManager().get_videos(
                 user=request.user,
                 sort_order=form.cleaned_data['sort'],
                 query=form.cleaned_data['query'],
@@ -272,7 +269,6 @@ class CreateSubscriptionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.yt_api = youtube.YoutubeAPI.build_public()
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -289,16 +285,9 @@ class CreateSubscriptionForm(forms.ModelForm):
     def clean_playlist_url(self):
         playlist_url: str = self.cleaned_data['playlist_url']
         try:
-            parsed_url = self.yt_api.parse_url(playlist_url)
-        except youtube.InvalidURL as e:
+            Services.videoProviderManager().validate_subscription_url(playlist_url)
+        except InvalidURLError as e:
             raise forms.ValidationError(str(e))
-
-        is_playlist = 'playlist' in parsed_url
-        is_channel = parsed_url['type'] in ('channel', 'user', 'channel_custom')
-
-        if not is_channel and not is_playlist:
-            raise forms.ValidationError('The given URL must link to a channel or a playlist!')
-
         return playlist_url
 
 
@@ -308,10 +297,12 @@ class CreateSubscriptionModal(LoginRequiredMixin, ModalMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        api = youtube.YoutubeAPI.build_public()
         try:
-            form.instance.fetch_from_url(form.cleaned_data['playlist_url'], api)
-        except youtube.InvalidURL as e:
+            subscription: Subscription = Services.videoProviderManager().fetch_subscription(
+                form.cleaned_data['playlist_url'])
+            form.instance.copy_from(subscription)
+            form.instance.user = self.request.user
+        except InvalidURLError as e:
             return self.modal_response(form, False, str(e))
         except ValueError as e:
             return self.modal_response(form, False, str(e))
@@ -327,8 +318,9 @@ class CreateSubscriptionModal(LoginRequiredMixin, ModalMixin, CreateView):
         # except youtube.APIError as e:
         #     return self.modal_response(
         #         form, False, 'An error occurred while communicating with the YouTube API: ' + str(e))
-
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        Services.subscriptionManager().synchronize(form.instance)
+        return response
 
 
 class UpdateSubscriptionForm(forms.ModelForm):
@@ -407,7 +399,6 @@ class ImportSubscriptionsForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.yt_api = youtube.YoutubeAPI.build_public()
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -456,28 +447,18 @@ class ImportSubscriptionsModal(LoginRequiredMixin, ModalMixin, FormView):
         try:
             url_list = list(subscription_file_parser.parse(file))
         except subscription_file_parser.FormatNotSupportedError:
-            return super().modal_response(form, success=False,
+            return super().modal_response(form,
+                                          success=False,
                                           error_msg="The file could not be parsed! "
                                                     "Possible problems: format not supported, file is malformed.")
 
         print(form.cleaned_data)
 
-        # Create subscriptions
-        api = youtube.YoutubeAPI.build_public()
-        for url in url_list:
-            sub = Subscription()
-            sub.user = self.request.user
-            sub.parent_folder = form.cleaned_data['parent_folder']
-            sub.auto_download = form.cleaned_data['auto_download']
-            sub.download_limit = form.cleaned_data['download_limit']
-            sub.download_order = form.cleaned_data['download_order']
-            sub.automatically_delete_watched = form.cleaned_data["automatically_delete_watched"]
-            try:
-                sub.fetch_from_url(url, api)
-            except Exception as e:
-                logging.error("Import subscription error - error processing URL %s: %s", url, e)
-                continue
-
-            sub.save()
+        Services.subscriptionManager().import_multiple(url_list,
+                                                       form.cleaned_data['parent_folder'],
+                                                       form.cleaned_data['auto_download'],
+                                                       form.cleaned_data['download_limit'],
+                                                       form.cleaned_data['download_order'],
+                                                       form.cleaned_data["automatically_delete_watched"])
 
         return super().form_valid(form)

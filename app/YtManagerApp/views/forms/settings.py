@@ -234,25 +234,25 @@ class AdminSettingsForm(forms.Form):
     @staticmethod
     def get_initials():
         return {
-            'api_key': Services.appConfig.youtube_api_key,
-            'allow_registrations': Services.appConfig.allow_registrations,
-            'sync_schedule': Services.appConfig.sync_schedule,
-            'scheduler_concurrency': Services.appConfig.concurrency,
+            'api_key': Services.appConfig().youtube_api_key,
+            'allow_registrations': Services.appConfig().allow_registrations,
+            'sync_schedule': Services.appConfig().sync_schedule,
+            'scheduler_concurrency': Services.appConfig().concurrency,
         }
 
     def save(self):
         api_key = self.cleaned_data['api_key']
         if api_key is not None and len(api_key) > 0:
-            Services.appConfig.youtube_api_key = api_key
+            Services.appConfig().youtube_api_key = api_key
 
         allow_registrations = self.cleaned_data['allow_registrations']
         if allow_registrations is not None:
-            Services.appConfig.allow_registrations = allow_registrations
+            Services.appConfig().allow_registrations = allow_registrations
 
         sync_schedule = self.cleaned_data['sync_schedule']
         if sync_schedule is not None and len(sync_schedule) > 0:
-            Services.appConfig.sync_schedule = sync_schedule
+            Services.appConfig().sync_schedule = sync_schedule
 
         concurrency = self.cleaned_data['scheduler_concurrency']
         if concurrency is not None:
-            Services.appConfig.concurrency = concurrency
+            Services.appConfig().concurrency = concurrency

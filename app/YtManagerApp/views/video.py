@@ -1,8 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, StreamingHttpResponse, FileResponse
-from django.urls import reverse, reverse_lazy
-from django.views import View
+from django.http import HttpRequest, FileResponse
 from django.views.generic import DetailView
 
 from YtManagerApp.models import Video
