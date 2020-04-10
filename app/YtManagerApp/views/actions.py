@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.generic import View
 
 from YtManagerApp.models import Video
-from YtManagerApp.services.scheduler.jobs.synchronize_job import SynchronizeJob
+from YtManagerApp.scheduler.jobs.synchronize_job import SynchronizeJob
 
 
 class SyncNowView(LoginRequiredMixin, View):

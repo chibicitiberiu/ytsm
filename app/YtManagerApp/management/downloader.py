@@ -1,4 +1,4 @@
-from YtManagerApp.services.scheduler.jobs.download_video_job import DownloadVideoJob
+from YtManagerApp.scheduler.jobs.download_video_job import DownloadVideoJob
 from YtManagerApp.models import Video, Subscription, VIDEO_ORDER_MAPPING
 from YtManagerApp.utils import first_non_null
 from django.conf import settings as srv_settings

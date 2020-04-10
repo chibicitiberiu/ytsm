@@ -36,7 +36,7 @@ class RegisterView(FormView):
         return context
 
     def post(self, request, *args, **kwargs):
-        if not Services.appConfig().allow_registrations:
+        if not Services.appConfig.allow_registrations:
             return HttpResponseForbidden("Registrations are disabled!")
 
         return super().post(request, *args, **kwargs)

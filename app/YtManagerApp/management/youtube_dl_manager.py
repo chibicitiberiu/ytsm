@@ -28,10 +28,12 @@ class YoutubeDlManager(object):
     def __init__(self):
         self.verbose = False
         self.progress = False
-        self._install_path = os.path.join(dj_settings.DATA_DIR, 'youtube-dl')
 
-    def _check_installed(self):
-        return os.path.isfile(self._install_path) and os.access(self._install_path, os.X_OK)
+    def _get_path(self):
+        return os.path.join(dj_settings.DATA_DIR, 'youtube-dl')
+
+    def _check_installed(self, path):
+        return os.path.isfile(path) and os.access(path, os.X_OK)
 
     def _get_run_args(self):
         run_args = []
@@ -45,12 +47,13 @@ class YoutubeDlManager(object):
         return run_args
 
     def run(self, *args):
-        if not self._check_installed():
+        path = self._get_path()
+        if not self._check_installed(path):
             log.error("Cannot run youtube-dl, it is not installed!")
             raise YoutubeDlNotInstalledException
 
         run_args = self._get_run_args()
-        ret = subprocess.run([sys.executable, self._install_path, *run_args, *args], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        ret = subprocess.run([sys.executable, path, *run_args, *args], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         stdout = ret.stdout.decode('utf-8')
         if len(stdout) > 0:
@@ -90,14 +93,15 @@ class YoutubeDlManager(object):
         resp = requests.get(LATEST_URL, allow_redirects=True, stream=True)
         resp.raise_for_status()
 
-        with open(self._install_path + ".tmp", "wb") as f:
+        path = self._get_path()
+        with open(path + ".tmp", "wb") as f:
             for chunk in resp.iter_content(10 * 1024):
                 f.write(chunk)
 
         # Replace
-        os.unlink(self._install_path)
-        os.rename(self._install_path + ".tmp", self._install_path)
-        os.chmod(self._install_path, 555)
+        os.unlink(path)
+        os.rename(path + ".tmp", path)
+        os.chmod(path, 555)
 
         # Test run
         newver = self.get_installed_version()

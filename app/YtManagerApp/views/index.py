@@ -12,7 +12,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from YtManagerApp.management.videos import get_videos
 from YtManagerApp.models import Subscription, SubscriptionFolder, VIDEO_ORDER_CHOICES, VIDEO_ORDER_MAPPING
-from YtManagerApp.management.services import Services
+from YtManagerApp.services import Services
 from YtManagerApp.utils import youtube, subscription_file_parser
 from YtManagerApp.views.controls.modal import ModalMixin
 

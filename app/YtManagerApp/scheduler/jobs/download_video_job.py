@@ -6,7 +6,7 @@ from threading import Lock
 import youtube_dl
 
 from YtManagerApp.models import Video
-from YtManagerApp.services.scheduler.job import Job
+from YtManagerApp.scheduler.job import Job
 
 
 class DownloadVideoJob(Job):
@@ -132,5 +132,5 @@ class DownloadVideoJob(Job):
         :param attempt:
         :return:
         """
-        from YtManagerApp.management.services import Services
+        from YtManagerApp.services import Services
         Services.scheduler.add_job(DownloadVideoJob, args=[video, attempt])

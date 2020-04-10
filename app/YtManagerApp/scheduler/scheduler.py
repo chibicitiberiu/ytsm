@@ -6,13 +6,11 @@ from typing import Type, Union, Optional
 import pytz
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.base import BaseTrigger
-from apscheduler.triggers.interval import IntervalTrigger
 from django.contrib.auth.models import User
 
-from YtManagerApp.services.appconfig import AppConfig
+from YtManagerApp.management.appconfig import AppConfig
 from YtManagerApp.models import JobExecution, JOB_STATES_MAP
-from YtManagerApp.services.scheduler.job import Job
-from YtManagerApp.services.scheduler.jobs.youtubedl_update_job import YouTubeDLUpdateJob
+from YtManagerApp.scheduler.job import Job
 
 
 class YtsmScheduler(object):
@@ -29,10 +27,6 @@ class YtsmScheduler(object):
 
         self._configure_scheduler()
         self._ap_scheduler.start()
-        self._schedule_main_jobs()
-
-    def _schedule_main_jobs(self):
-        self.add_job(YouTubeDLUpdateJob, trigger=IntervalTrigger(days=1))
 
     def _configure_scheduler(self):
         logger = logging.getLogger('scheduler')

@@ -1,12 +1,12 @@
 import logging
-from abc import abstractmethod, ABC
+from abc import abstractmethod
 from typing import Optional
 
 from YtManagerApp.models import JOB_MESSAGE_LEVELS_MAP, JobMessage
 from .progress_tracker import ProgressTracker
 
 
-class Job(ABC):
+class Job(object):
     name = 'GenericJob'
 
     """
