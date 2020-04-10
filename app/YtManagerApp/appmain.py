@@ -31,18 +31,13 @@ def __initialize_logger():
         logging.root.addHandler(console_handler)
 
 
-def __load_main_jobs():
-    SynchronizeJob.schedule_global_job()
-
-
 def main():
     __initialize_logger()
 
     try:
         if Services.appConfig().initialized:
             Services.scheduler().initialize()
-            __load_main_jobs()
-
+            SynchronizeJob.schedule_global_job()
     except OperationalError:
         # Settings table is not created when running migrate or makemigrations;
         # Just don't do anything in this case.

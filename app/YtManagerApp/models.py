@@ -29,25 +29,10 @@ VIDEO_ORDER_MAPPING = {
 }
 
 
-class Provider(models.Model):
-
-    class_name = models.CharField(null=False, max_length=64, unique=True,
-                                  help_text='Class name in the "providers" package.')
-
-    config = models.CharField(max_length=1024,
-                              help_text='Provider configuration (stored as JSON)')
-
-
 class SubscriptionFolder(models.Model):
-
-    name = models.CharField(null=False, max_length=250,
-                            help_text='Folder name')
-
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True,
-                               help_text='Parent folder')
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False,
-                             help_text='User who owns the subscription')
+    name = models.CharField(null=False, max_length=250)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
 
     class Meta:
         ordering = [Lower('parent__name'), Lower('name')]
@@ -113,33 +98,17 @@ class SubscriptionFolder(models.Model):
 
 
 class Subscription(models.Model):
-    name = models.CharField(null=False, max_length=1024,
-                            help_text='Name of playlist or channel.')
+    name = models.CharField(null=False, max_length=1024)
+    description = models.TextField()
+    original_url = models.CharField(null=False, max_length=1024)
+    thumbnail = models.CharField(max_length=1024)
 
-    description = models.TextField(help_text='Description of the playlist/channel.')
+    provider = models.CharField(null=False, max_length=64)
+    provider_id = models.CharField(null=False, max_length=64)
+    provider_data = models.CharField(null=True, max_length=1024)
 
-    original_url = models.CharField(null=False, max_length=1024,
-                                    help_text='Original URL added by user.')
-
-    thumbnail = models.CharField(max_length=1024,
-                                 help_text='An URL to the thumbnail.')
-
-    #
-    provider = models.ForeignKey(Provider, null=True, on_delete=models.SET_DEFAULT,
-                                 help_text='Provider who manages this subscription (e.g. YouTube, Vimeo etc)')
-
-    provider_id = models.CharField(null=False, max_length=64,
-                                   help_text='Identifier according to provider (e.g. YouTube video ID)')
-
-    provider_data = models.CharField(null=True, max_length=1024,
-                                     help_text='Extra data stored by the provider serialized as JSON')
-
-    #
-    parent_folder = models.ForeignKey(SubscriptionFolder, on_delete=models.CASCADE, null=True, blank=True,
-                                      help_text='Parent folder')
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             help_text='Owner user')
+    parent_folder = models.ForeignKey(SubscriptionFolder, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # overrides
     auto_download = models.BooleanField(null=True, blank=True)
