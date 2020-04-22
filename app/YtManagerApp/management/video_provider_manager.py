@@ -1,11 +1,14 @@
 import logging
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Iterable
 
 from YtManagerApp.models import VideoProviderConfig, Video, Subscription
 from YtManagerApp.providers.video_provider import VideoProvider, InvalidURLError
 import json
+from collections import namedtuple
 
 log = logging.getLogger("VideoProviderManager")
+
+VideoProviderInfo = namedtuple('VideoProviderInfo', ['id', 'name', 'is_configured', 'description'])
 
 
 class VideoProviderManager(object):
@@ -23,18 +26,18 @@ class VideoProviderManager(object):
         :param provider: Video provider
         """
         # avoid duplicates
-        if provider.name in self._registered_providers:
-            log.error(f"Duplicate video provider {provider.name}")
+        if provider.id in self._registered_providers:
+            log.error(f"Duplicate video provider {provider.id}")
             return
 
         # register
-        self._registered_providers[provider.name] = provider
-        log.info(f"Registered video provider {provider.name}")
+        self._registered_providers[provider.id] = provider
+        log.info(f"Registered video provider {provider.id}")
 
         # load configuration (if any)
-        if provider.name in self._pending_configs:
-            self._configure(provider, self._pending_configs[provider.name])
-            del self._pending_configs[provider.name]
+        if provider.id in self._pending_configs:
+            self._configure(provider, self._pending_configs[provider.id])
+            del self._pending_configs[provider.id]
 
     def _load(self) -> None:
         # Loads configuration from database
@@ -53,8 +56,8 @@ class VideoProviderManager(object):
     def _configure(self, provider, config):
         settings = json.loads(config.settings)
         provider.configure(settings)
-        log.info(f"Configured video provider {provider.name}")
-        self._configured_providers[provider.name] = provider
+        log.info(f"Configured video provider {provider.id}")
+        self._configured_providers[provider.id] = provider
 
     def get(self, item: Union[str, Subscription, Video]):
         """
@@ -100,3 +103,14 @@ class VideoProviderManager(object):
                 pass
 
         raise InvalidURLError("The given URL is not valid for any of the supported sites!")
+
+    def get_available_providers(self) -> Iterable[VideoProviderInfo]:
+        """
+        Gets a list of available providers and some basic information about them.
+        :return: List of dictionary entries
+        """
+        for key, provider in self._registered_providers.items():
+            yield VideoProviderInfo(id=key,
+                                    name=provider.name,
+                                    description=provider.description,
+                                    is_configured=(key in self._configured_providers))

@@ -12,7 +12,9 @@ from YtManagerApp.scheduler.scheduler import YtsmScheduler
 
 class VideoProviders(containers.DeclarativeContainer):
     from YtManagerApp.providers.ytapi_video_provider import YouTubeApiVideoProvider
+    from YtManagerApp.providers.dummy_video_provider import DummyVideoProvider
     ytApiProvider = providers.Factory(YouTubeApiVideoProvider)
+    dummyProvider = providers.Factory(DummyVideoProvider)
 
 
 class Services(containers.DeclarativeContainer):
@@ -21,6 +23,9 @@ class Services(containers.DeclarativeContainer):
     scheduler = providers.Singleton(YtsmScheduler, appConfig)
     youtubeDLManager = providers.Singleton(YoutubeDlManager)
     videoManager = providers.Singleton(VideoManager)
-    videoProviderManager = providers.Singleton(VideoProviderManager, [VideoProviders.ytApiProvider()])
+    videoProviderManager = providers.Singleton(VideoProviderManager, [
+        VideoProviders.ytApiProvider(),
+        VideoProviders.dummyProvider(),
+    ])
     subscriptionManager = providers.Singleton(SubscriptionManager)
     downloadManager = providers.Singleton(DownloadManager)

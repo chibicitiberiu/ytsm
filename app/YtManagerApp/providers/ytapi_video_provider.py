@@ -9,7 +9,9 @@ from YtManagerApp.providers.video_provider import VideoProvider, InvalidURLError
 
 
 class YouTubeApiVideoProvider(VideoProvider):
-    name = "YtAPI"
+    id = "YtAPI"
+    name = "YouTube API"
+    description = "Allows communication with YouTube using the YouTube API."
     settings = {
         "api_key": forms.CharField(label="YouTube API Key:")
     }
@@ -44,7 +46,7 @@ class YouTubeApiVideoProvider(VideoProvider):
 
     def fetch_subscription(self, url: str) -> Subscription:
         sub = Subscription()
-        sub.provider_id = self.name
+        sub.provider_id = self.id
 
         self.validate_subscription_url(url)
         url_parsed = self.__api.parse_url(url)

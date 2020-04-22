@@ -6,7 +6,7 @@ from django.forms import Field
 from YtManagerApp.models import Subscription, Video
 
 
-class ConfigurationValidationError(ValueError):
+class ProviderValidationError(ValueError):
     """
     Exception type thrown when validating configurations.
     """
@@ -27,7 +27,21 @@ class InvalidURLError(ValueError):
 
 
 class VideoProvider(ABC):
+    """
+    Identifier
+    """
+    id: str = ""
+    """
+    Display name, shown to users
+    """
     name: str = ""
+    """
+    Description, shown to users
+    """
+    description: str = ""
+    """
+    Dictionary containing fields necessary for configuring
+    """
     settings: Dict[str, Field] = {}
 
     @abstractmethod

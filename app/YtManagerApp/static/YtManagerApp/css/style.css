@@ -1,18 +1,42 @@
-#main_body {
-  margin-bottom: 4rem;
-  margin-top: 0; }
+:root {
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --white: #fff;
+  --gray: #6c757d;
+  --gray-dark: #343a40;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #f8f9fa;
+  --dark: #343a40;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
-#main_footer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2rem;
-  line-height: 2rem;
-  padding: 0 1rem;
-  display: flex;
-  align-content: center;
-  font-size: 10pt; }
+[data-theme="dark"] {
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --info: #17a2b8;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --light: #343a40;
+  --dark: #f8f9fa; }
 
 /* Loading animation */
 .loading-dual-ring {
@@ -26,8 +50,8 @@
     height: 46px;
     margin: 1px;
     border-radius: 50%;
-    border: 5px solid #007bff;
-    border-color: #007bff transparent #007bff transparent;
+    border: 5px solid var(--primary);
+    border-color: var(--primary) transparent var(--primary) transparent;
     animation: loading-dual-ring 1.2s linear infinite; }
 
 .loading-dual-ring-small {
@@ -41,8 +65,8 @@
     height: 23px;
     margin: 1px;
     border-radius: 50%;
-    border: 2.5px solid #007bff;
-    border-color: #007bff transparent #007bff transparent;
+    border: 2.5px solid var(--primary);
+    border-color: var(--primary) transparent var(--primary) transparent;
     animation: loading-dual-ring 1.2s linear infinite; }
 
 @keyframes loading-dual-ring {
@@ -56,6 +80,84 @@
   left: 50%;
   margin-top: -32px;
   margin-left: -32px; }
+
+#hamburger-button {
+  margin-right: 0.5rem; }
+  #hamburger-button span {
+    position: relative;
+    width: 1.75rem;
+    height: 0.25rem;
+    margin-bottom: 0.25rem;
+    display: block;
+    background: #cdcdcd;
+    border-radius: 0.25rem;
+    transform-origin: 50% 50%;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease; }
+    #hamburger-button span:nth-child(1) {
+      margin-top: 0.25rem; }
+    #hamburger-button span:nth-child(2) {
+      transform-origin: 20% 50%; }
+  #hamburger-button.hamburger-show span {
+    opacity: 1;
+    background: #232323; }
+    #hamburger-button.hamburger-show span:nth-child(1) {
+      transform: rotate(-45deg) translate(-0.1875rem, 0.0625rem) scale(0.625, 1); }
+    #hamburger-button.hamburger-show span:nth-child(2) {
+      opacity: 0;
+      transform: rotate(0deg) scale(0, 1); }
+    #hamburger-button.hamburger-show span:nth-child(3) {
+      transform: rotate(45deg) translate(-0.1875rem, -0.0625rem) scale(0.625, 1); }
+
+#hamburger {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  z-index: 99;
+  padding-top: 5rem;
+  width: 20rem;
+  height: 100%;
+  display: flex;
+  background: white;
+  flex-direction: column;
+  transition: left 0.5s ease; }
+  #hamburger.hamburger-show {
+    left: 0; }
+  @media (max-width: 768px) {
+    #hamburger {
+      width: 100%; } }
+
+#hamburger-footer {
+  width: 100%;
+  flex: 0; }
+  #hamburger-footer a {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem; }
+
+#hamburger-content {
+  overflow-y: auto;
+  flex: 1; }
+
+#main_navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100; }
+
+#main_body {
+  margin-bottom: 4rem;
+  margin-top: 4rem; }
+
+#main_footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2rem;
+  line-height: 2rem;
+  padding: 0 1rem;
+  display: flex;
+  align-content: center;
+  font-size: 10pt; }
 
 .black-overlay {
   position: fixed;
@@ -167,5 +269,21 @@
 
 img.muted {
   opacity: .5; }
+
+.provider-wrapper {
+  padding-left: 5px;
+  padding-right: 5px; }
+  .provider-wrapper button {
+    width: 100%; }
+
+.provider-logo {
+  display: inline-block;
+  width: 8rem;
+  height: 4rem;
+  object-fit: contain;
+  margin: .25em auto;
+  font-size: 3rem;
+  text-align: center;
+  line-height: 4rem; }
 
 /*# sourceMappingURL=style.css.map */

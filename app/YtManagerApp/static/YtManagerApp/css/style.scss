@@ -1,8 +1,20 @@
+@import "lib/theme";
+@import "lib/loading";
+@import "lib/hamburger";
+
 $accent-color: #007bff;
+$success-color: #28a745;
+
+#main_navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
 
 #main_body {
     margin-bottom: 4rem;
-    margin-top: 0;
+    margin-top: 4rem;
 }
 
 #main_footer {
@@ -16,50 +28,6 @@ $accent-color: #007bff;
     display: flex;
     align-content: center;
     font-size: 10pt;
-}
-
-@mixin loading-dual-ring($scale : 1) {
-    display: inline-block;
-    width: $scale * 64px;
-    height: $scale * 64px;
-
-    &:after {
-        content: " ";
-        display: block;
-        width: $scale * 46px;
-        height: $scale * 46px;
-        margin: 1px;
-        border-radius: 50%;
-        border: ($scale * 5px) solid $accent-color;
-        border-color: $accent-color transparent $accent-color transparent;
-        animation: loading-dual-ring 1.2s linear infinite;
-    }
-}
-
-/* Loading animation */
-.loading-dual-ring {
-    @include loading-dual-ring(1.0);
-}
-
-.loading-dual-ring-small {
-    @include loading-dual-ring(0.5);
-}
-
-@keyframes loading-dual-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.loading-dual-ring-center-screen {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    margin-top: -32px;
-    margin-left: -32px;
 }
 
 .black-overlay {
@@ -212,4 +180,24 @@ $accent-color: #007bff;
 
 img.muted {
     opacity: .5;
+}
+
+.provider-wrapper {
+    padding-left: 5px;
+    padding-right: 5px;
+    button {
+        width: 100%;
+    }
+}
+
+.provider-logo {
+    display: inline-block;
+    width: 8rem;
+    height: 4rem;
+    object-fit: contain;
+    margin: .25em auto;
+
+    font-size: 3rem;
+    text-align: center;
+    line-height: 4rem;
 }

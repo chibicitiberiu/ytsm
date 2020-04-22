@@ -18,6 +18,7 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.urls import path
 
+from YtManagerApp.views.settings.providers_view import ProvidersView
 from .views import first_time
 from .views.actions import SyncNowView, DeleteVideoFilesView, DownloadVideoFilesView, MarkVideoWatchedView, \
     MarkVideoUnwatchedView
@@ -25,7 +26,7 @@ from .views.auth import ExtendedLoginView, RegisterView, RegisterDoneView
 from .views.index import index, ajax_get_tree, ajax_get_videos, CreateFolderModal, UpdateFolderModal, DeleteFolderModal, \
     CreateSubscriptionModal, UpdateSubscriptionModal, DeleteSubscriptionModal, ImportSubscriptionsModal
 from .views.notifications import ajax_get_running_jobs
-from .views.settings import SettingsView, AdminSettingsView
+from YtManagerApp.views.settings.settings import SettingsView, AdminSettingsView
 from .views.video import VideoDetailView, video_detail_view
 
 urlpatterns = [
@@ -63,6 +64,7 @@ urlpatterns = [
     # Pages
     path('', index, name='home'),
     path('settings/', SettingsView.as_view(), name='settings'),
+    path('settings/providers/', ProvidersView.as_view(), name='settings_providers'),
     path('admin_settings/', AdminSettingsView.as_view(), name='admin_settings'),
     path('video/<int:pk>/', VideoDetailView.as_view(), name='video'),
     path('video-src/<int:pk>/', video_detail_view, name='video-src'),

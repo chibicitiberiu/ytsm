@@ -33,15 +33,21 @@
             <div class="btn-toolbar" role="toolbar" aria-label="Subscriptions toolbar">
                 <div class="btn-group mr-2" role="group">
                     <button id="btn_create_sub" type="button" class="btn btn-light"
-                            data-toggle="tooltip" title="Add subscription...">
+                            data-toggle="tooltip" title="Add subscription..."
+                            data-modal="modal" data-modal-url="{% url 'modal_create_subscription' %}"
+                            data-modal-callback="tree_Refresh">
                         <span class="typcn typcn-plus" aria-hidden="true"></span>
                     </button>
                     <button id="btn_create_folder" type="button" class="btn btn-light"
-                            data-toggle="tooltip" title="Add folder...">
+                            data-toggle="tooltip" title="Add folder..."
+                            data-modal="modal" data-modal-url="{% url 'modal_create_folder' %}"
+                            data-modal-callback="tree_Refresh">
                         <span class="typcn typcn-folder-add" aria-hidden="true"></span>
                     </button>
                     <button id="btn_import" type="button" class="btn btn-light"
-                            data-toggle="tooltip" title="Import from file...">
+                            data-toggle="tooltip" title="Import from file..."
+                            data-modal="modal" data-modal-url="{% url 'modal_import_subscriptions' %}"
+                            data-modal-callback="tree_Refresh">
                         <span class="typcn typcn-document-add" aria-hidden="true"></span>
                     </button>
                 </div>
