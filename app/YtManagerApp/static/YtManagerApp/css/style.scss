@@ -1,9 +1,8 @@
 @import "lib/theme";
 @import "lib/loading";
 @import "lib/hamburger";
-
-$accent-color: #007bff;
-$success-color: #28a745;
+@import "lib/toast";
+@import "lib/variables";
 
 #main_navbar {
     position: fixed;

@@ -44,6 +44,41 @@
                             <a class="nav-link" href="{% url 'register' %}">Register</a>
                         </li>
                     {% endif %}
+                {% else %}
+                    {# The job panel #}
+                    <li class="nav-item">
+                        <div class="btn-group">
+                            <button id="btn_toggle_job_panel"
+                                    class="btn btn-sm btn-light dropdown-toggle"
+                                    title="Show/hide job details"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <span class="typcn typcn-th-list" aria-hidden="true"></span>
+                            </button>
+                            <div id="job_panel" class="dropdown-menu dropdown-menu-right dropdown-jobs" aria-labelledby="btn_toggle_job_panel">
+
+                                <h6 id="job_panel_title" class="dropdown-header collapse">Running jobs</h6>
+                                <h6 id="job_panel_no_jobs_title" class="dropdown-header">No jobs are currently running</h6>
+
+                                <div id="job_panel_item_template" class="dropdown-item collapse">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <p id="job_panel_item_title">Title</p>
+                                            <p><small id="job_panel_item_subtitle" class="text-muted">Subtitle</small></p>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="progress">
+                                                <div id="job_panel_item_progress"
+                                                     class="progress-bar progress-bar-striped progress-bar-animated"
+                                                     role="progressbar" style="width: 25%" aria-valuenow="25"
+                                                     aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 {% endif %}
             </ul>
 
@@ -72,52 +107,21 @@
             </div>
         {% endif %}
 
+        <div id="toast-wrapper" aria-live="polite" aria-atomic="true"></div>
+
+        <div id="modal-wrapper">
+            <div id="modal-loading" class="black-overlay">
+                <div class="loading-dual-ring loading-dual-ring-center-screen"></div>
+            </div>
+
+            <div id="modal-wrapper">
+            </div>
+        </div>
+
         <div id="main_body" class="container-fluid">
             {% block body %}
             {% endblock %}
         </div>
-
-        <footer id="main_footer" class="footer bg-light row">
-            <button id="btn_sync_now" class="btn btn-sm btn-light" title="Synchronize now!">
-                <span class="typcn typcn-arrow-sync" aria-hidden="true"></span>
-            </button>
-            <span id="status-message" class="text-muted"></span>
-            <div id="status-progress" class="progress my-2 ml-auto invisible" style="width: 15rem">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-
-            <div class="btn-group">
-                <button id="btn_toggle_job_panel"
-                        class="btn btn-sm btn-light dropdown-toggle"
-                        title="Show/hide job details"
-                        data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    <span class="typcn typcn-th-list" aria-hidden="true"></span>
-                </button>
-                <div id="job_panel" class="dropdown-menu dropdown-jobs" aria-labelledby="btn_toggle_job_panel">
-
-                    <h6 id="job_panel_title" class="dropdown-header collapse">Running jobs</h6>
-                    <h6 id="job_panel_no_jobs_title" class="dropdown-header">No jobs are currently running</h6>
-
-                    <div id="job_panel_item_template" class="dropdown-item collapse">
-                        <div class="row">
-                            <div class="col-8">
-                                <p id="job_panel_item_title">Title</p>
-                                <p><small id="job_panel_item_subtitle" class="text-muted">Subtitle</small></p>
-                            </div>
-                            <div class="col-4">
-                                <div class="progress">
-                                    <div id="job_panel_item_progress"
-                                         class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                         style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </footer>
 
         <script src="{% static 'YtManagerApp/import/jquery/jquery-3.3.1.min.js' %}"></script>
         <script src="{% static 'YtManagerApp/import/popper/popper.min.js' %}"></script>

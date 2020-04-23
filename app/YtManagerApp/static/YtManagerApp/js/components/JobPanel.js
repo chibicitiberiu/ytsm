@@ -101,7 +101,6 @@ export class JobPanel
     _updateInternal(data)
     {
         this._updateJobs(data);
-        this._updateStatusBar();
         this._updateProgressBar();
         this._updateTitle();
 
@@ -162,19 +161,6 @@ export class JobPanel
             this.panel_Title.removeClass('collapse');
             this.panel_TitleNoJobs.addClass('collapse');
         }
-    }
-
-    _updateStatusBar()
-    {
-        let text = "";
-
-        if (this.jobs.length === 1) {
-            text = `${this.jobs[0].description} | ${this.jobs[0].message}`;
-        }
-        else if (this.jobs.length > 1) {
-            text = `Running ${this.jobs.length} jobs...`;
-        }
-        $('#status-message').text(text);
     }
 
     _updateProgressBar()

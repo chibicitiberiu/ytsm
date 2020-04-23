@@ -1,5 +1,6 @@
 import {JobPanel} from "./components/JobPanel.js";
 import {AjaxModal} from "./components/AjaxModal.js";
+import {ToastManager} from "./components/ToastManager.js";
 
 // Document loaded
 jQuery(function() {
@@ -24,5 +25,8 @@ jQuery(function() {
         }
         modal.loadAndShow();
     });
+
+    // Initialize toasts
+    window.ytsm_ToastManager = new ToastManager($('#toast-wrapper'));
 });
 

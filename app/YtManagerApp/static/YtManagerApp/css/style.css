@@ -137,6 +137,39 @@
   overflow-y: auto;
   flex: 1; }
 
+#toast-wrapper {
+  position: fixed;
+  right: 2rem;
+  top: 2rem;
+  z-index: 1000; }
+
+.toast {
+  min-width: 15rem;
+  line-height: 1.5rem; }
+  .toast .typcn {
+    font-size: 1.5rem; }
+  .toast.bg-success {
+    background-color: rgba(134, 226, 155, 0.98) !important; }
+    .toast.bg-success .toast-header {
+      background-color: rgba(40, 167, 69, 0.75);
+      color: #f8f9fa; }
+      .toast.bg-success .toast-header > * {
+        color: #f8f9fa; }
+  .toast.bg-warning {
+    background-color: rgba(255, 231, 160, 0.98) !important; }
+    .toast.bg-warning .toast-header {
+      background-color: rgba(211, 158, 0, 0.75);
+      color: #f8f9fa; }
+      .toast.bg-warning .toast-header > * {
+        color: #f8f9fa; }
+  .toast.bg-danger {
+    background-color: rgba(243, 183, 189, 0.98) !important; }
+    .toast.bg-danger .toast-header {
+      background-color: rgba(220, 53, 69, 0.75);
+      color: #f8f9fa; }
+      .toast.bg-danger .toast-header > * {
+        color: #f8f9fa; }
+
 #main_navbar {
   position: fixed;
   top: 0;
