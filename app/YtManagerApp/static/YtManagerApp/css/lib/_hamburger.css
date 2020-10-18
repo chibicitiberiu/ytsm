@@ -1,0 +1,45 @@
+#hamburger-button {
+  margin-right: 0.5rem; }
+  #hamburger-button span {
+    display: block;
+    width: 1.75rem;
+    height: 0.25rem;
+    margin-bottom: 0.25rem;
+    position: relative;
+    background: #cdcdcd;
+    border-radius: 0.25rem;
+    z-index: 100;
+    transform-origin: 50% 50%;
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease; }
+    #hamburger-button span:nth-child(1) {
+      margin-top: 0.25rem; }
+    #hamburger-button span:nth-child(2) {
+      transform-origin: 20% 50%; }
+  #hamburger-button.hamburger-show span {
+    opacity: 1;
+    background: #232323; }
+    #hamburger-button.hamburger-show span:nth-child(1) {
+      transform: rotate(-45deg) translate(-0.1875rem, 0.0625rem) scale(0.625, 1); }
+    #hamburger-button.hamburger-show span:nth-child(2) {
+      opacity: 0;
+      transform: rotate(0deg) scale(0, 1); }
+    #hamburger-button.hamburger-show span:nth-child(3) {
+      transform: rotate(45deg) translate(-0.1875rem, -0.0625rem) scale(0.625, 1); }
+
+#hamburger {
+  position: fixed;
+  background: white;
+  height: 100%;
+  width: 20rem;
+  z-index: 99;
+  top: 0;
+  padding-top: 5rem;
+  left: -100%;
+  transition: left 0.5s ease; }
+  #hamburger.hamburger-show {
+    left: 0; }
+  @media (max-width: 768px) {
+    #hamburger {
+      width: 100%; } }
+
+/*# sourceMappingURL=_hamburger.css.map */

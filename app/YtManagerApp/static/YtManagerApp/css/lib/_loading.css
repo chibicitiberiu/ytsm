@@ -1,0 +1,44 @@
+/* Loading animation */
+.loading-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px; }
+  .loading-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid var(--primary);
+    border-color: var(--primary) transparent var(--primary) transparent;
+    animation: loading-dual-ring 1.2s linear infinite; }
+
+.loading-dual-ring-small {
+  display: inline-block;
+  width: 32px;
+  height: 32px; }
+  .loading-dual-ring-small:after {
+    content: " ";
+    display: block;
+    width: 23px;
+    height: 23px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 2.5px solid var(--primary);
+    border-color: var(--primary) transparent var(--primary) transparent;
+    animation: loading-dual-ring 1.2s linear infinite; }
+
+@keyframes loading-dual-ring {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+.loading-dual-ring-center-screen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -32px;
+  margin-left: -32px; }
+
+/*# sourceMappingURL=_loading.css.map */

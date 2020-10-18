@@ -1,0 +1,44 @@
+
+@mixin loading-dual-ring($scale : 1) {
+    display: inline-block;
+    width: $scale * 64px;
+    height: $scale * 64px;
+
+    &:after {
+        content: " ";
+        display: block;
+        width: $scale * 46px;
+        height: $scale * 46px;
+        margin: 1px;
+        border-radius: 50%;
+        border: ($scale * 5px) solid var(--primary);
+        border-color: var(--primary) transparent var(--primary) transparent;
+        animation: loading-dual-ring 1.2s linear infinite;
+    }
+}
+
+/* Loading animation */
+.loading-dual-ring {
+    @include loading-dual-ring(1.0);
+}
+
+.loading-dual-ring-small {
+    @include loading-dual-ring(0.5);
+}
+
+@keyframes loading-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-dual-ring-center-screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+}

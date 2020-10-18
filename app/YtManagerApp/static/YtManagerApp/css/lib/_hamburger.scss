@@ -1,0 +1,88 @@
+@import "variables";
+
+#hamburger-button {
+    margin-right: 0.5rem;
+
+    span {
+        position: relative;
+
+        width: 1.75rem;
+        height: 0.25rem;
+        margin-bottom: 0.25rem;
+
+        display: block;
+        background: #cdcdcd;
+        border-radius: 0.25rem;
+
+        transform-origin: 50% 50%;
+
+        transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+                    opacity 0.55s ease;
+
+        &:nth-child(1) {
+            margin-top: 0.25rem;
+        }
+        &:nth-child(2) {
+            transform-origin: 20% 50%;
+        }
+    }
+
+    &.hamburger-show {
+        span {
+            opacity: 1;
+            background: #232323;
+
+            &:nth-child(1) {
+                transform: rotate(-45deg) translate(-.1875rem, 0.0625rem) scale(0.625, 1);
+            }
+            &:nth-child(2) {
+                opacity: 0;
+                transform: rotate(0deg) scale(0, 1);
+            }
+            &:nth-child(3) {
+                transform: rotate(45deg) translate(-0.1875rem, -0.0625rem) scale(0.625, 1);
+            }
+        }
+    }
+}
+
+#hamburger {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    z-index: 99;
+    padding-top: 5rem;
+
+    width: 20rem;
+    height: 100%;
+
+    display: flex;
+    background: white;
+    flex-direction: column;
+
+    transition: left 0.5s ease;
+
+    &.hamburger-show {
+        left: 0;
+    }
+
+    @media (max-width: $breakpoint-md) {
+        width: 100%;
+    }
+}
+
+#hamburger-footer {
+    width: 100%;
+    flex: 0;
+
+    a {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
+#hamburger-content {
+    overflow-y: auto;
+    flex: 1;
+}

@@ -1,0 +1,47 @@
+@import "variables";
+
+#toast-wrapper {
+    position: fixed;
+    right: 2rem;
+    top: 2rem;
+    z-index: 1000;
+}
+
+.toast {
+    min-width: 15rem;
+    line-height: 1.5rem;
+    .typcn {
+        font-size: 1.5rem;
+    }
+
+    &.bg-success {
+        background-color: rgba(lighten($success-color, 30), .98) !important;
+        .toast-header {
+            background-color: rgba($success-color, .75);
+                color: $light-color;
+                > * {
+                    color: $light-color;
+                }
+        }
+    }
+    &.bg-warning {
+        background-color: rgba(lighten($warning-color, 30), .98) !important;
+        .toast-header {
+            background-color: rgba(darken($warning-color, 10), .75);
+                color: $light-color;
+                > * {
+                    color: $light-color;
+                }
+        }
+    }
+    &.bg-danger {
+        background-color: rgba(lighten($danger-color, 30), .98) !important;
+        .toast-header {
+            background-color: rgba($danger-color, .75);
+                color: $light-color;
+                > * {
+                    color: $light-color;
+                }
+        }
+    }
+}
