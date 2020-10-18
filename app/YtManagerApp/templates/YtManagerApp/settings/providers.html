@@ -3,34 +3,48 @@
 
 {% block body %}
 
-    <div class="row">
+    {% if have_configured %}
+    <section>
+        <h3>Configured providers</h3>
+        <div class="row">
+            {% for provider in providers %}
+                {% if provider.is_configured %}
+                    <div class="provider-wrapper col-2">
+                        <button class="btn btn-light"
+                                data-modal="modal"
+                                data-modal-url="{% url 'modal_provider_config' provider.id %}">
+                            <img class="provider-logo"
+                                 src="{% static provider.image_src %}"
+                                 title="{{ provider.name }}">
+                            {% if provider.has_error %}
+                                <span class="typcn typcn-warning provider-status text-warning"></span>
+                            {% else %}
+                                <span class="typcn typcn-tick provider-status text-success"></span>
+                            {% endif %}
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 
-        {% for provider in providers %}
-            {% if provider.is_configured %}
-                <div class="provider-wrapper col-2">
-                    <button class="btn btn-light ">
-                        <img class="provider-logo"
-                             src="{% static provider.image_src %}"
-                             title="{{ provider.name }}">
-                    </button>
-                </div>
-            {% endif %}
-        {% endfor %}
-
-        {% if have_unconfigured %}
-            <div class="provider-wrapper col-2 dropdown">
-                <button id="btnAddProvider"
-                        class="btn btn-light"
-                        type="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                    <span class="provider-logo typcn typcn-plus"
-                      title="Add provider">
-                    </span>
-                </button>
-            </div>
-        {% endif %}
-
-    </div>
-
+    {% if have_unconfigured %}
+        <h3>Not configured</h3>
+        <div class="row">
+            {% for provider in providers %}
+                {% if not provider.is_configured %}
+                    <div class="provider-wrapper col-2">
+                        <button class="btn btn-light"
+                                data-modal="modal"
+                                data-modal-url="{% url 'modal_provider_config' provider.id %}">
+                            <img class="provider-logo"
+                                 src="{% static provider.image_src %}"
+                                 title="{{ provider.name }}">
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

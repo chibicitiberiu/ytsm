@@ -1,9 +1,16 @@
 from abc import abstractmethod, ABC
+from enum import Enum
 from typing import Dict, Iterable, List, Any
 
 from django.forms import Field
 
 from YtManagerApp.models import Subscription, Video
+
+
+class VideoProviderState(Enum):
+    NOT_CONFIGURED = 0
+    OK = 1
+    ERROR = 2
 
 
 class ProviderValidationError(ValueError):
@@ -44,12 +51,23 @@ class VideoProvider(ABC):
     """
     settings: Dict[str, Field] = {}
 
+    def __init__(self):
+        self.state = VideoProviderState.NOT_CONFIGURED
+
     @abstractmethod
     def configure(self, configuration: Dict[str, Any]) -> None:
         """
         Configures the video provider
         :param configuration: A dictionary containing key-value pairs based on the settings defined.
         :return: None
+        """
+        pass
+
+    @abstractmethod
+    def unconfigure(self) -> None:
+        """
+        Destroys video provider configuration
+        :return:
         """
         pass
 

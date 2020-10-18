@@ -18,6 +18,7 @@ from django.conf.urls import include
 from django.conf.urls.static import static
 from django.urls import path
 
+from YtManagerApp.views.settings.provider_config import ProviderConfigView
 from YtManagerApp.views.settings.providers_view import ProvidersView
 from .views import first_time
 from .views.actions import SyncNowView, DeleteVideoFilesView, DownloadVideoFilesView, MarkVideoWatchedView, \
@@ -60,6 +61,8 @@ urlpatterns = [
     path('modal/import_subscriptions/<int:parent_folder_id>/', ImportSubscriptionsModal.as_view(), name='modal_import_subscriptions'),
     path('modal/update_subscription/<int:pk>/', UpdateSubscriptionModal.as_view(), name='modal_update_subscription'),
     path('modal/delete_subscription/<int:pk>/', DeleteSubscriptionModal.as_view(), name='modal_delete_subscription'),
+
+    path('modal/provider_config/<str:provider_id>/', ProviderConfigView.as_view(), name='modal_provider_config'),
 
     # Pages
     path('', index, name='home'),

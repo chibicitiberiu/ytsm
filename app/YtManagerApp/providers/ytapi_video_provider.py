@@ -25,6 +25,10 @@ class YouTubeApiVideoProvider(VideoProvider):
         self.__api_key = configuration['api_key']
         self.__api = yt.YouTube(key=self.__api_key)
 
+    def unconfigure(self):
+        self.__api_key = None
+        self.__api = None
+
     def validate_configuration(self, configuration: Dict[str, Any]):
         # TODO: implement
         pass

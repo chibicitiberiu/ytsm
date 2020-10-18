@@ -1,0 +1,22 @@
+{% extends 'YtManagerApp/controls/modal.html' %}
+{% load crispy_forms_tags %}
+
+{% block modal_title %}
+    {{ provider.name }} configuration
+{% endblock modal_title %}
+
+{% block modal_content %}
+    <form action="{% url 'modal_provider_config' provider.id %}" method="post">
+        {% csrf_token %}
+        {{ block.super }}
+    </form>
+{% endblock %}
+
+{% block modal_body %}
+    {{ form | crispy }}
+{% endblock modal_body %}
+
+{% block modal_footer %}
+    <input class="btn btn-primary" type="submit" value="Save">
+    <input class="btn btn-secondary" type="button" value="Cancel" data-dismiss="modal" aria-label="Cancel">
+{% endblock modal_footer %}

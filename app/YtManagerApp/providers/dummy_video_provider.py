@@ -20,6 +20,9 @@ class DummyVideoProvider(VideoProvider):
     def configure(self, configuration: Dict[str, Any]) -> None:
         print(configuration)
 
+    def unconfigure(self):
+        pass
+
     def validate_configuration(self, configuration: Dict[str, Any]):
         print("Validating...")
         if configuration["number_of_something"] >= 10:
