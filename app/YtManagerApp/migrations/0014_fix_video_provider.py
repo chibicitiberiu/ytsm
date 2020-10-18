@@ -5,7 +5,12 @@ import json
 
 
 def fix_video_provider(apps, schema_editor):
-    globalPrefs = apps.get_model('dynamic_preferences', 'GlobalPreferenceModel')
+    try:
+        globalPrefs = apps.get_model('dynamic_preferences', 'GlobalPreferenceModel')
+    except LookupError as e:
+        print("Warning: could not get dynamic_preferences model.")
+        return
+
     api_key_entries = globalPrefs.objects.filter(name='youtube_api_key')
     if len(api_key_entries) < 1:
         return
